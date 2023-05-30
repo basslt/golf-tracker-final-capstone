@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.techelevator.dto.Authority;
 
 import java.util.HashSet;
 import java.util.Objects;
