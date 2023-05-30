@@ -8,7 +8,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
+
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,13 +18,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Repository
 public class JdbcTeeTimeDao implements TeeTimeDao {
-    private final JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public JdbcTeeTimeDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        this.jdbcTemplate =  jdbcTemplate;
     }
 
     @Override
