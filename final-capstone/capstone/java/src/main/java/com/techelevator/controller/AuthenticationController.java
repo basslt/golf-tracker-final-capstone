@@ -2,6 +2,9 @@ package com.techelevator.controller;
 
 import javax.validation.Valid;
 
+import com.techelevator.dto.LoginDto;
+import com.techelevator.dto.LoginResponseDto;
+import com.techelevator.dto.RegisterUserDto;
 import com.techelevator.model.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

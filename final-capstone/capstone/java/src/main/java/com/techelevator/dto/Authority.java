@@ -1,4 +1,4 @@
-package com.techelevator.model;
+package com.techelevator.dto;
 
 import java.util.Objects;
 
