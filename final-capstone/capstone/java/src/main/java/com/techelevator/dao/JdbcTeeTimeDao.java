@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class JdbcTeeTimeDAO implements TeeTimeDao {
+public class JdbcTeeTimeDao implements TeeTimeDao {
     private final Connection connection;
 
-    public JdbcTeeTimeDAO(Connection connection) {
+    public JdbcTeeTimeDao(Connection connection) {
         this.connection = connection;
     }
 
