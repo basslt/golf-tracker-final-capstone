@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.CourseDao;
 import com.techelevator.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class CourseController {
     }
 
     @GetMapping("/{courseId}")
-    public ResponseEntity<Course> getCourseById(@PathVariable int courseId) {
+    public ResponseEntity<Course> getCourseById(@PathVariable int courseId) throws ChangeSetPersister.NotFoundException {
         Course course = courseDao.findById(courseId);
         if (course != null) {
             return ResponseEntity.ok(course);
@@ -51,7 +52,7 @@ public class CourseController {
     }
 
     @PutMapping("/{courseId}")
-    public ResponseEntity<Course> updateCourse(@PathVariable int courseId, @RequestBody Course course) {
+    public ResponseEntity<Course> updateCourse(@PathVariable int courseId, @RequestBody Course course) throws ChangeSetPersister.NotFoundException {
         Course existingCourse = courseDao.findById(courseId);
         if (existingCourse != null) {
             course.setCourseId(courseId);
@@ -63,7 +64,7 @@ public class CourseController {
     }
 
     @DeleteMapping("/{courseId}")
-    public ResponseEntity<Void> deleteCourse(@PathVariable int courseId) {
+    public ResponseEntity<Void> deleteCourse(@PathVariable int courseId) throws ChangeSetPersister.NotFoundException {
         Course existingCourse = courseDao.findById(courseId);
         if (existingCourse != null) {
             courseDao.deleteCourse(courseId);

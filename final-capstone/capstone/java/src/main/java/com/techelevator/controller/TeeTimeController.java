@@ -3,12 +3,14 @@ package com.techelevator.controller;
 import com.techelevator.dao.TeeTimeDao;
 import com.techelevator.model.TeeTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 public class TeeTimeController {
     private final TeeTimeDao teeTimeDao;
 
@@ -18,7 +20,7 @@ public class TeeTimeController {
     }
 
     @GetMapping("/{teeTimeId}")
-    public ResponseEntity<TeeTime> getTeeTimeById(@PathVariable int teeTimeId) {
+    public ResponseEntity<TeeTime> getTeeTimeById(@PathVariable int teeTimeId) throws ChangeSetPersister.NotFoundException {
         TeeTime teeTime = teeTimeDao.findById(teeTimeId);
         if (teeTime != null) {
             return ResponseEntity.ok(teeTime);
@@ -49,7 +51,7 @@ public class TeeTimeController {
     }
 
     @PutMapping("/{teeTimeId}")
-    public ResponseEntity<TeeTime> updateTeeTime(@PathVariable int teeTimeId, @RequestBody TeeTime teeTime) {
+    public ResponseEntity<TeeTime> updateTeeTime(@PathVariable int teeTimeId, @RequestBody TeeTime teeTime) throws ChangeSetPersister.NotFoundException {
         TeeTime existingTeeTime = teeTimeDao.findById(teeTimeId);
         if (existingTeeTime != null) {
             teeTime.setTeeTimeId(teeTimeId);
@@ -61,7 +63,7 @@ public class TeeTimeController {
     }
 
     @DeleteMapping("/{teeTimeId}")
-    public ResponseEntity<Void> deleteTeeTime(@PathVariable int teeTimeId) {
+    public ResponseEntity<Void> deleteTeeTime(@PathVariable int teeTimeId) throws ChangeSetPersister.NotFoundException {
         TeeTime existingTeeTime = teeTimeDao.findById(teeTimeId);
         if (existingTeeTime != null) {
             teeTimeDao.deleteTeeTime(teeTimeId);
