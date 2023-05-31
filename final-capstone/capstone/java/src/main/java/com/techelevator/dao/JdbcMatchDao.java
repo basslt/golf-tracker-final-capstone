@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-@Repository
+@Component
 public class JdbcMatchDao implements MatchDao {
     private final JdbcTemplate jdbcTemplate;
 
