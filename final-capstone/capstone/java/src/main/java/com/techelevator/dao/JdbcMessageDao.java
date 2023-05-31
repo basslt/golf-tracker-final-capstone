@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Repository
+@Component
 public class JdbcMessageDao implements MessageDao {
     private final JdbcTemplate jdbcTemplate;
 

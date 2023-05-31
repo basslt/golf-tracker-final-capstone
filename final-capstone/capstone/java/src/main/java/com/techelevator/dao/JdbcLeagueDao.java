@@ -7,10 +7,13 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+@Component
 public class JdbcLeagueDao implements LeagueDao{
 
     private JdbcTemplate jdbcTemplate;
