@@ -1,11 +1,14 @@
 <template>
   <div class="home">
-    <div class = "header"> <h1>Golf Tracker</h1>
-    <img src="../assets/logo.png" alt="">
+    <div class = "header"> 
+      <img src="../assets/logo.png" alt="">
+       <router-link to="/create-league" class = "create-league-button"> Create League </router-link>
       <router-link to="/login" class="login-button">Login</router-link>
       <router-link to="/register" class="register-button">Register</router-link>
+      
     </div>
     <create-league />
+ 
     <league-list />
     </div>
 </template>
@@ -20,28 +23,31 @@ export default {
 };
 </script>
 <style scoped>
-.home {
-  padding: 20px;
-  min-height: 100vh;
-}
+
+
 .header {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.home.header h1 {
-  font-size: 24px;
-  font-weight: bold;
-  color: rgb(0, 255, 34);
-  margin-left: 10px;
-}
-
 .header img {
-  max-width: 100px;
+  max-width: 200px;
+  margin-right: 20px;
 }
 
+.header-buttons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
 
+.login-button,
+.register-button, .create-league {
+  margin-left: 10px;
+  color: black;
+  
+}
 
 
 </style>
