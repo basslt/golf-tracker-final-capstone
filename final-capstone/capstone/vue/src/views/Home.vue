@@ -4,7 +4,7 @@
       <img src="../assets/logo.png" alt="">
       <h2>golf leagues with friends</h2>
       <div class = "header-buttons">
-       <router-link to="/create-league" class = "create-league-button"> Create League </router-link>
+       <router-link v-bind:to="{ name: 'createLeague' }" class = "create-league-button" > Create League </router-link>
       <router-link to="/login" class="login-button">Login</router-link>
       <router-link to="/register" class="register-button">Register</router-link>
       

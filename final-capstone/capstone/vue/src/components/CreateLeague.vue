@@ -17,6 +17,7 @@ export default {
     return {
       league: {
       leagueName: '',
+      organizer_id: 1,
     
     }
       
