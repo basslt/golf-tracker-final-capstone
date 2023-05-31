@@ -30,11 +30,11 @@ body {
     display: grid;
     height: 100vh;
     width: 100vw;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr;
     grid-template-areas: 
-        "header header header"
-        "sidebar content content"
-        "footer footer footer";
+        "header header header header"
+        "sidebar content content content"
+        "footer footer footer footer";
 
 }
 
@@ -54,6 +54,7 @@ aside {
 
 main {
     grid-area: content;
+    align-items: center;
 }
 
 

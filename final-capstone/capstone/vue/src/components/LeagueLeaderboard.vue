@@ -15,9 +15,9 @@ export default {
 </script>
 
 <style>
-div.main {
+/* div.main {
     display: flex;
     align-items: center;
-}
+} */
 
 </style>
