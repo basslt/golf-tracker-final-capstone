@@ -12,8 +12,14 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/league")
 public class LeagueController {
 
-    @Autowired
+   //@Autowired
+    //private LeagueDao leagueDao;
+
     private LeagueDao leagueDao;
+
+    public LeagueController(LeagueDao leagueDao) {
+        this.leagueDao = leagueDao;
+    }
 
 
     @GetMapping("/{leagueId}")
@@ -57,12 +63,6 @@ public class LeagueController {
     public void deleteLeague(@PathVariable int leagueId) {
         leagueDao.deleteLeague(leagueId);
     }
-
-
-
-
-
-
 
 
 }

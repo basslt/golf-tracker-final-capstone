@@ -7,7 +7,6 @@ DROP TABLE IF EXISTS users,Course,TeeTime,League,LeagueMembership,MatchPlayer,Ma
 CREATE TABLE users (
 	user_id SERIAL,
 	username varchar(50) NOT NULL UNIQUE,
-	user_email varchar(255) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
