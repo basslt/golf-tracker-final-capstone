@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Leagues</h2>
+    <h2> Top Leagues</h2>
     <ul>
       <li v-for="league in leagues" :key="league.id">
         {{ league.name }}
