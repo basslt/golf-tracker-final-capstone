@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class = "create-league">
     <button @click="toggleForm">Create League</button>
     <league-form v-if="showForm" @create-league="handleCreateLeague"></league-form>
   </div>
@@ -30,3 +30,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.create-league {
+  
+}
+
+</style>
