@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 
-
 export default {
   getLeagues() {
     return axios.get(`/league`)
@@ -28,11 +27,7 @@ export default {
   },
 
   addLeague(league) {
-    return axios.post(`/league`, league)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.post(`/league`, league);
   },
 
   updateLeague(leagueId, league) {

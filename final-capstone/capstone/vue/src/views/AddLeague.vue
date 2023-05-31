@@ -10,17 +10,11 @@
 import CreateLeague from '../components/CreateLeague.vue'
 
 export default {
+  components: { 
+    CreateLeague 
+  }
 
-   data() {
-    return {
-      league: {
-        name: "",
-        organizer_id: ""
-      },
-    components: CreateLeague
-    };
-   },
-  
+   
 }
 </script>
 
