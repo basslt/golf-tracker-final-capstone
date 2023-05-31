@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
-//@PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 public class UserController {
 
     private UserDao userDao;
@@ -51,5 +51,15 @@ public class UserController {
     @GetMapping("/{username}/id")
     public int findIdByUsername(@PathVariable String username) {
         return userDao.findIdByUsername(username);
+    }
+
+    @GetMapping("/{userId}/username")
+    public ResponseEntity<String> getUsernameById(@PathVariable int userId) {
+        String username = userDao.findUsernameById(userId);
+        if (username != null) {
+            return ResponseEntity.ok(username);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

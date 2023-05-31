@@ -32,19 +32,11 @@ export default {
 }
 
 .header {
+  background-color: #004d33;
+  color: #ffffff;
+  padding: 20px;
   display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100px;
-    margin-bottom: 10px;
-}
-
-.header h2 {
-  margin-right: 1100px;
-  color: #004d33;
-  font-size: 15px;
-
-  
+  align-items: center;
 }
 
 .header img {
