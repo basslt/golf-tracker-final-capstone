@@ -1,52 +1,46 @@
-
 <template>
-  <div class = "create-league">
-    <button @click="toggleForm">Create League</button>
-    <league-form v-if="showForm" @create-league="handleCreateLeague"></league-form>
+  <div class="create-league">
+    <h2>Create a League</h2>
+    <form @submit.prevent="createLeague">
+      <label for="leagueName">League Name:</label>
+      <input type="text" id="leagueName" v-model="leagueName" required>
+      <button type="submit" v-on:click="createLeague()">Create League</button>
+    </form>
   </div>
 </template>
 
 <script>
-import LeagueForm from './LeagueForm.vue';
-import leagueService from '../services/LeagueService';
-import { mapState } from 'vuex';
+import leagueServices from '../services/LeagueService';
 
 export default {
-  components: {
-    LeagueForm
-  },
   data() {
     return {
-      showForm: false
+      league: {
+      leagueName: '',
+    
+    }
+      
     };
   },
-  computed: {
-    ...mapState(['activeUSer'])
-  },
   methods: {
-    toggleForm() {
-      this.showForm = !this.showForm;
-    },
-    createLeague(league) {
-      const user = this.activeUSer;
-      league.user = user;
-      leagueService.addLeague(league)
+    createLeague() {
+    
+      leagueServices.addLeague(this.league)
         .then(createdLeague => {
           console.log('League created:', createdLeague);
-          
-          this.showForm = false; // Reset form visibility
+          // Additional actions after successful league creation
         })
         .catch(error => {
-          console.error('Error creating league:', error);
-         
+          console.error('Failed to create league:', error);
+          // Handle the error condition
         });
+
+      this.leagueName = ''; // Reset the form input value
     }
   }
 }
 </script>
 
-<style scoped>
-
-
-
+<style>
+/* Your styles here */
 </style>
