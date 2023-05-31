@@ -1,11 +1,12 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.LeagueMembership;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class JdbcLeagueMembershipDao implements LeagueMembershipDao {
-    
+
     @Override
     public LeagueMembership findLeagueMembershipById(int leagueMembershipId) {
         return null;
