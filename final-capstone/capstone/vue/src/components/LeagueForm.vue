@@ -1,3 +1,4 @@
+
 <template>
   <div class = "league-form">
     <form @submit.prevent="submitForm">
