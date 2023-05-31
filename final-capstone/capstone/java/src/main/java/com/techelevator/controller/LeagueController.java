@@ -7,19 +7,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/league")
 public class LeagueController {
 
-   //@Autowired
-    //private LeagueDao leagueDao;
-
+   @Autowired
     private LeagueDao leagueDao;
 
-    public LeagueController(LeagueDao leagueDao) {
-        this.leagueDao = leagueDao;
-    }
+//    private LeagueDao leagueDao;
+//
+//    public LeagueController(LeagueDao leagueDao) {
+//        this.leagueDao = leagueDao;
+//    }
 
+
+    @GetMapping()
+    public List<League> getAllLeagues() {
+        return leagueDao.getAllLeagues();
+    }
 
     @GetMapping("/{leagueId}")
     public League getLeagueByLeagueId(@PathVariable int leagueId) {

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcLeagueDao implements LeagueDao{
@@ -19,6 +21,24 @@ public class JdbcLeagueDao implements LeagueDao{
 
     public JdbcLeagueDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public List<League> getAllLeagues() {
+        List<League> leagues = new ArrayList<>();
+        String sql = "SELECT * FROM League";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            while (results.next()) {
+                League league =  mapRowToLeague(results);
+                leagues.add(league);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return leagues;
     }
 
     @Override
