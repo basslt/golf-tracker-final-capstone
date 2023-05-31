@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class = "header"> <h1>Golf Tracker</h1>
-    <img src="../assets/logo.png" alt="">
+    <!-- <img src="../assets/logo.png" alt=""> -->
       <router-link to="/login" class="login-button">Login</router-link>
       <router-link to="/register" class="register-button">Register</router-link>
     </div>
