@@ -1,15 +1,26 @@
 <template>
-  <div>
-      <create-league />
+  <div>    
+    <create-league />
+    <router-link to="/createleague" class = "create-league-button"> Create League </router-link>
+      
   </div>
 </template>
 
 <script>
 import CreateLeague from '../components/CreateLeague.vue'
-export default {
-    name: "createLeague",
-  components: { CreateLeague },
 
+export default {
+
+   data() {
+    return {
+      league: {
+        name: "",
+        organizer_id: ""
+      },
+    components: CreateLeague
+    };
+   },
+  
 }
 </script>
 

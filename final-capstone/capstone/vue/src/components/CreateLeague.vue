@@ -3,7 +3,7 @@
     <h2>Create a League</h2>
     <form @submit.prevent="createLeague">
       <label for="leagueName">League Name:</label>
-      <input type="text" id="leagueName" v-model="leagueName" required>
+      <input type="text" id="leagueName" v-model="league.Name" required>
       <button type="submit" v-on:click="createLeague()">Create League</button>
     </form>
   </div>
@@ -16,10 +16,11 @@ export default {
   data() {
     return {
       league: {
-      leagueName: '',
+      Name: '',
+      organizer_id: ''
     
     }
-      
+    
     };
   },
   methods: {
@@ -35,12 +36,16 @@ export default {
           // Handle the error condition
         });
 
-      this.leagueName = ''; // Reset the form input value
+    
+    
     }
   }
 }
 </script>
 
 <style>
-/* Your styles here */
+
+
 </style>
+
+

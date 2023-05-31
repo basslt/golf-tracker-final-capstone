@@ -74,18 +74,20 @@ export default {
 
 <style scoped>
 
-.container {
+.container{
+  
   display: flex;
-  flex-direction: column;
+  flex-direction:column;
   align-items: center;
+  background-image: 100%;
   justify-content: center;
   background-image: url("../assets/loginbackground.jpg");
   background-size: cover;
   background-position:center;
   text-align: center;
   color: white;
-  
-
+  height: 99%;
+  width: 299%;
 }
 
 .logo {
