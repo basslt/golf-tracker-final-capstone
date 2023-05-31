@@ -1,5 +1,9 @@
 <template>
+<div class="background">
   <div class="container">
+     <div class="logo">
+      <img src="../assets/logo.png" alt="Logo" />
+    </div>
     <h1 class="welcome-heading">Welcome to Playing Through</h1>
     <h2>Your all-inclusive golf tracking app</h2>
     <p class="description">Find courses and set up matches with your friends</p>
@@ -28,6 +32,7 @@
       </form>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -68,24 +73,36 @@ export default {
 </script>
 
 <style scoped>
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-image: url("../assets/loginbackground.jpg");
   background-size: cover;
-  background-position: center;
+  background-position:center;
   text-align: center;
   color: white;
-  padding: 40px;
-  margin-top: 50px;
+  
+
 }
+
+.logo {
+  text-align: center;
+}
+
+.logo img {
+  width: 500px;
+  margin-top: -165px;
+}
+
 .welcome-heading {
   font-size: 36px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-top: -140px;
+  margin-bottom: -15px;
+
 }
 
 h1 {
@@ -112,7 +129,8 @@ h3 {
   font-size: 18px;
   text-align: center;
   color: white;
-  margin-bottom: 5px;
+  margin-bottom: -5px;
+  margin-top: -2px;
 }
 .description2 {
   font-size: 18px;
@@ -125,6 +143,7 @@ h3 {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 5px;
+  margin-bottom: 50px;
 }
 
 .form-input-group {
