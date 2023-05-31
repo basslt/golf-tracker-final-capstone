@@ -11,6 +11,7 @@
 
 <script>
 import LeagueInvitationButton from './LeagueInvitationButton.vue';
+import leagueService from '../services/LeagueService'
 
 export default {
   components: {
@@ -18,7 +19,7 @@ export default {
   },
   data() {
     return {
-      leagueId: '', // Initialize with an empty value
+      leagueId: '', 
       leagueName: ''
     };
   },
@@ -29,12 +30,7 @@ export default {
   },
   methods: {
     fetchLeagueData() {
-      // Fetch the league data from your data source or API
-      // Example: using a mock API response
-      const response = {
-        leagueId: '12345',
-        leagueName: 'My League'
-      };
+      leagueService.getLeagues(this.$store.state.a)
 
       // Assign the retrieved data to the data properties
       this.leagueId = response.leagueId;
