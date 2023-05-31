@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="main">
       <h2>Current Leaderboard</h2>
+      <img src="../assets/Empty_Leaderboard.jpg" alt="">
 
   </div>
 </template>
@@ -14,5 +15,9 @@ export default {
 </script>
 
 <style>
+div.main {
+    display: flex;
+    align-items: center;
+}
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
       <button>View All Members</button>
       <button>Invite Members</button>
       <button>Schedule Tee Time</button>
@@ -13,5 +13,9 @@ export default {
 </script>
 
 <style>
-
+    div.main {
+        display: flex;
+        flex-direction: column;
+        
+    }
 </style>
