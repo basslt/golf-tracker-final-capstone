@@ -1,16 +1,16 @@
 <template>
-  <div class="main">
-    <h2>Create a League</h2>
-<<<<<<< HEAD
+  <div class="add-league">
+    <h2>Add a New League</h2>
     <form @submit.prevent="createLeague">
-      <label for="leagueName">League Name:</label>
-      <input type="text" id="leagueName" v-model="league.Name" required>
-=======
-    <form @submit.prevent>
-      <label for="name">League Name:</label>
-      <input type="text" name="name" v-model="league.name" required>
->>>>>>> 9cf696ea543948ff5f3d1009466458dde5289e47
-      <button type="submit" v-on:click="createLeague()">Create League</button>
+      <div class="form-group">
+        <label for="leagueName">League Name:</label>
+        <input type="text" id="leagueName" v-model="leagueName" required>
+      </div>
+      <div class="form-group">
+        <label for="organizerId">Organizer ID:</label>
+        <input type="text" id="organizerId" v-model="organizerId" required>
+      </div>
+      <button type="submit">Create League</button>
     </form>
   </div>
 </template>
@@ -19,42 +19,55 @@
 import leagueService from '../services/LeagueService';
 
 export default {
-  name: "create-league",
   data() {
     return {
-      league: {
-        name: '',
-        organizer_id: ''
-    }
-    
+      leagueName: '',
+      organizerId: ''
     };
   },
   methods: {
     createLeague() {
-      leagueService.addLeague(this.league)
-        .then(createdLeague => {
-          console.log('League created:', createdLeague);
-          // Additional actions after successful league creation
+      const league = {
+        leagueName: this.leagueName,
+        organizerId: this.organizerId
+      };
+
+      leagueService.addLeague(league)
+        .then(() => {
+          
+          console.log('League created!');
+         
         })
         .catch(error => {
           console.error('Failed to create league:', error);
-          // Handle the error condition
+          
         });
-
-<<<<<<< HEAD
-    
-    
-=======
-      this.league = ''; // Reset the form input value
->>>>>>> 9cf696ea543948ff5f3d1009466458dde5289e47
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.form-group {
+  margin-bottom: 1rem;
+}
 
+label {
+  margin-right: 0.5rem;
+}
 
+input {
+  width: 100%;
+  height: 2rem;
+  padding: 0.25rem;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
 </style>
-
-
