@@ -52,4 +52,14 @@ public class UserController {
     public int findIdByUsername(@PathVariable String username) {
         return userDao.findIdByUsername(username);
     }
+
+    @GetMapping("/{userId}/username")
+    public ResponseEntity<String> getUsernameById(@PathVariable int userId) {
+        String username = userDao.findUsernameById(userId);
+        if (username != null) {
+            return ResponseEntity.ok(username);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
