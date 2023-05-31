@@ -17,7 +17,7 @@ export default {
   methods: {
     submitForm() {
       this.$emit('create-league', this.leagueName);
-      this.leagueName = ''; // Reset form field
+      this.leagueName = ''; 
     }
   }
 }
