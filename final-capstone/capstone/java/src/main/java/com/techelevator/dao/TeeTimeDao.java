@@ -1,11 +1,12 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.TeeTime;
+import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.List;
 
 public interface TeeTimeDao {
-    TeeTime findById(int teeTimeId);
+    TeeTime findById(int teeTimeId) throws ChangeSetPersister.NotFoundException;
 
     List<TeeTime> getAllTeeTimes();
 

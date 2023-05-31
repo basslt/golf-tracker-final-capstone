@@ -1,139 +1,118 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Course;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
+@Component
 public class JdbcCourseDao implements CourseDao {
-    private final Connection connection;
+    private final JdbcTemplate jdbcTemplate;
 
-    public JdbcCourseDao(Connection connection) {
-        this.connection = connection;
+    @Autowired
+    public JdbcCourseDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public Course findById(int courseId) {
-        String query = "SELECT * FROM Course WHERE course_id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, courseId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return createCourseFromResultSet(resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public Course findById(int courseId) throws ChangeSetPersister.NotFoundException {
+        try {
+            String query = "SELECT * FROM Course WHERE course_id = ?";
+            return jdbcTemplate.queryForObject(query, new CourseRowMapper(), courseId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ChangeSetPersister.NotFoundException();
         }
-        return null;
     }
 
     @Override
     public List<Course> getAllCourses() {
-        List<Course> courses = new ArrayList<>();
-        String query = "SELECT * FROM Course";
-        try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-            while (resultSet.next()) {
-                Course course = createCourseFromResultSet(resultSet);
-                courses.add(course);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try {
+            String query = "SELECT * FROM Course";
+            return jdbcTemplate.query(query, new CourseRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return Collections.emptyList();
         }
-        return courses;
     }
 
     @Override
     public List<Course> findByState(String state) {
-        List<Course> courses = new ArrayList<>();
-        String query = "SELECT * FROM Course WHERE state = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, state);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Course course = createCourseFromResultSet(resultSet);
-                courses.add(course);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try {
+            String query = "SELECT * FROM Course WHERE state = ?";
+            return jdbcTemplate.query(query, new CourseRowMapper(), state);
+        } catch (EmptyResultDataAccessException e) {
+            return Collections.emptyList();
         }
-        return courses;
     }
 
     @Override
     public List<Course> findByCity(String city) {
-        List<Course> courses = new ArrayList<>();
-        String query = "SELECT * FROM Course WHERE city = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, city);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Course course = createCourseFromResultSet(resultSet);
-                courses.add(course);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try {
+            String query = "SELECT * FROM Course WHERE city = ?";
+            return jdbcTemplate.query(query, new CourseRowMapper(), city);
+        } catch (EmptyResultDataAccessException e) {
+            return Collections.emptyList();
         }
-        return courses;
     }
 
     @Override
     public void saveCourse(Course course) {
-        String query = "INSERT INTO Course (name, address, city, state, zipcode, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, course.getName());
-            statement.setString(2, course.getAddress());
-            statement.setString(3, course.getCity());
-            statement.setString(4, course.getState());
-            statement.setInt(5, course.getZipCode());
-            statement.setFloat(6, course.getLatitude());
-            statement.setFloat(7, course.getLongitude());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try {
+            String query = "INSERT INTO Course (name, address, city, state, zipcode, latitude, longitude) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(query, course.getName(), course.getAddress(), course.getCity(), course.getState(),
+                    course.getZipCode(), course.getLatitude(), course.getLongitude());
+        } catch (DataAccessException e) {
+            throw new DataAccessException("Failed to save course: " + e.getMessage()) {
+            };
         }
     }
 
     @Override
     public void updateCourse(Course course) {
-        String query = "UPDATE Course SET name = ?, address = ?, city = ?, state = ?, zipcode = ?, latitude = ?, longitude = ? WHERE course_id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, course.getName());
-            statement.setString(2, course.getAddress());
-            statement.setString(3, course.getCity());
-            statement.setString(4, course.getState());
-            statement.setInt(5, course.getZipCode());
-            statement.setFloat(6, course.getLatitude());
-            statement.setFloat(7, course.getLongitude());
-            statement.setInt(8, course.getCourseId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try {
+            String query = "UPDATE Course SET name = ?, address = ?, city = ?, state = ?, zipcode = ?, " +
+                    "latitude = ?, longitude = ? WHERE course_id = ?";
+            jdbcTemplate.update(query, course.getName(), course.getAddress(), course.getCity(), course.getState(),
+                    course.getZipCode(), course.getLatitude(), course.getLongitude(), course.getCourseId());
+        } catch (DataAccessException e) {
+            throw new DataAccessException("Failed to update course: " + e.getMessage()) {
+            };
         }
     }
 
     @Override
     public void deleteCourse(int courseId) {
-        String query = "DELETE FROM Course WHERE course_id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, courseId);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try {
+            String query = "DELETE FROM Course WHERE course_id = ?";
+            jdbcTemplate.update(query, courseId);
+        } catch (DataAccessException e) {
+            throw new DataAccessException("Failed to delete course: " + e.getMessage()) {
+            };
         }
     }
 
-    private Course createCourseFromResultSet(ResultSet resultSet) throws SQLException {
-        int courseId = resultSet.getInt("course_id");
-        String name = resultSet.getString("name");
-        String address = resultSet.getString("address");
-        String city = resultSet.getString("city");
-        String state = resultSet.getString("state");
-        int zipcode = resultSet.getInt("zipcode");
-        float latitude = resultSet.getFloat("latitude");
-        float longitude = resultSet.getFloat("longitude");
-        return new Course(courseId, name, address, city, state, zipcode, latitude, longitude);
+    private static class CourseRowMapper implements RowMapper<Course> {
+        @Override
+        public Course mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+            int courseId = resultSet.getInt("course_id");
+            String name = resultSet.getString("name");
+            String address = resultSet.getString("address");
+            String city = resultSet.getString("city");
+            String state = resultSet.getString("state");
+            int zipCode = resultSet.getInt("zipcode");
+            float latitude = resultSet.getFloat("latitude");
+            float longitude = resultSet.getFloat("longitude");
+            return new Course(courseId, name, address, city, state, zipCode, latitude, longitude);
+        }
     }
-
 }
