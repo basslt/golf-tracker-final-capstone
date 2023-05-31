@@ -1,7 +1,7 @@
 <template>
   <div class="main">
       <button>View All Members</button>
-      <router-link v-bind:to="{name :  ">Invite Members</router-link>
+      <router-link v-bind:to="{name : 'adg'  }">Invite Members</router-link>
       <button>Schedule Tee Time</button>
   </div>
 </template>

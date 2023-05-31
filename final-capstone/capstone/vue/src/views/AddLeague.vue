@@ -6,9 +6,11 @@
 
 <script>
 import CreateLeague from '../components/CreateLeague.vue'
+
 export default {
-    name: "createLeague",
-  components: { CreateLeague },
+  components: { 
+    CreateLeague 
+  }
 
 }
 </script>

@@ -1,31 +1,31 @@
 <template>
-  <div class="create-league">
+  <div class="main">
     <h2>Create a League</h2>
-    <form @submit.prevent="createLeague">
-      <label for="leagueName">League Name:</label>
-      <input type="text" id="leagueName" v-model="leagueName" required>
+    <form @submit.prevent>
+      <label for="name">League Name:</label>
+      <input type="text" name="name" v-model="league.name" required>
       <button type="submit" v-on:click="createLeague()">Create League</button>
     </form>
   </div>
 </template>
 
 <script>
-import leagueServices from '../services/LeagueService';
+import leagueService from '../services/LeagueService';
 
 export default {
+  name: "create-league",
   data() {
     return {
       league: {
-      leagueName: '',
-    
+        name: '',
+        organizer_id: ''
     }
       
     };
   },
   methods: {
     createLeague() {
-    
-      leagueServices.addLeague(this.league)
+      leagueService.addLeague(this.league)
         .then(createdLeague => {
           console.log('League created:', createdLeague);
           // Additional actions after successful league creation
@@ -35,7 +35,7 @@ export default {
           // Handle the error condition
         });
 
-      this.leagueName = ''; // Reset the form input value
+      this.league = ''; // Reset the form input value
     }
   }
 }
