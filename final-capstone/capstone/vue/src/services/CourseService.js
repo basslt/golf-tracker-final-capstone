@@ -1,50 +1,56 @@
 import axios from 'axios';
 
-
-
 export default {
-  getLeagues() {
-    return axios.get(`/league`)
+  getCourse(courseId) {
+    return axios.get(`/courses/${courseId}`)
       .then(response => response.data)
       .catch(error => {
         throw error;
       });
   },
 
-  getLeagueById(leagueId) {
-    return axios.get(`/league/${leagueId}`)
+  getAllCourses() {
+    return axios.get(`/courses`)
       .then(response => response.data)
       .catch(error => {
         throw error;
       });
   },
 
-  getLeagueByName(name) {
-    return axios.get(`/league?name=${name}`)
+  getCoursesByState(state) {
+    return axios.get(`/courses?state=${state}`)
       .then(response => response.data)
       .catch(error => {
         throw error;
       });
   },
 
-  addLeague(league) {
-    return axios.post(`/league`, league)
+  getCoursesByCity(city) {
+    return axios.get(`/courses?city=${city}`)
       .then(response => response.data)
       .catch(error => {
         throw error;
       });
   },
 
-  updateLeague(leagueId, league) {
-    return axios.put(`/league/${leagueId}`, league)
+  addCourse(course) {
+    return axios.post(`/courses`, course)
       .then(response => response.data)
       .catch(error => {
         throw error;
       });
   },
 
-  deleteLeague(leagueId) {
-    return axios.delete(`/league/${leagueId}`)
+  updateCourse(courseId, course) {
+    return axios.put(`/courses/${courseId}`, course)
+      .then(response => response.data)
+      .catch(error => {
+        throw error;
+      });
+  },
+
+  deleteCourse(courseId) {
+    return axios.delete(`/courses/${courseId}`)
       .then(() => {})
       .catch(error => {
         throw error;
