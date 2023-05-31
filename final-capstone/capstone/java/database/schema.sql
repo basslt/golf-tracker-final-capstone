@@ -20,8 +20,8 @@ CREATE TABLE Course (
   city VARCHAR(255) NOT NULL,
   state VARCHAR(255) NOT NULL,
   zipcode VARCHAR(255) NOT NULL,
-  latitude FLOAT NOT NULL,
-  longitude FLOAT NOT NULL
+  latitude DECIMAL NOT NULL,
+  longitude DECIMAL NOT NULL
 );
 
 
