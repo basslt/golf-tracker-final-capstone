@@ -10,7 +10,9 @@
       
     </div>
     </div>
-    <div><league-list /></div>
+    <div class = "main">
+      <league-list />
+      </div>
     <!-- <create-league /> -->
     
     </div>
@@ -32,11 +34,13 @@ export default {
 }
 
 .header {
-  background-color: #004d33;
-  color: #ffffff;
-  padding: 20px;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  height: 100px;
+  justify-content: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .header img {
@@ -44,21 +48,37 @@ export default {
   margin-right: 10px;
 }
 
+.header h2 {
+  color: #004d33;
+  align-content: center;
+  margin-right: 1000px;
+  white-space: nowrap;
+  size: 10px;
+  
+}
+
 .header-buttons {
   margin-right: auto;
   display: flex;
-  align-items: right;
-  justify-content: right;
-   margin-left: 10px;
+  align-items: center;
+  justify-content: center;
+   margin-left: 20px;
+   white-space: nowrap;
 
 }
 
 .login-button,
 .register-button, .create-league-button {
-  margin-left: 10px;
+  margin-left: 20px;
   color: rgb(2, 2, 2);
-  justify-content: right;
+  justify-content: center;
   text-decoration: none;
+}
+.main{
+  background-color: rgb(180, 180, 180);
+  margin-top: 15px;
+  justify-content: right;
+  align-content: right;
 }
 
 
