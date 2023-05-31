@@ -3,18 +3,20 @@ package com.techelevator.dao;
 import com.techelevator.model.Leaderboard;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Component
 public class JdbcLeaderboardDao implements LeaderboardDao {
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    // Constructor
-    public JdbcLeaderboardDao(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+
+    public JdbcLeaderboardDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
