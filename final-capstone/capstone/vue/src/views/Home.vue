@@ -33,7 +33,7 @@ export default {
 * {
     font-family: Tahoma, Verdana, Segoe, sans-serif;
     box-sizing: border-box;
-    
+  
 }
 
 .header {
