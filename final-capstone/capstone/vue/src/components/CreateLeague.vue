@@ -1,6 +1,7 @@
 <template>
+
   <div class="add-league">
-    <h2>Add a New League</h2>
+    <!-- <h2>Add a New League</h2> -->
     <form v-on:submit.prevent>
       <div class="form-group">
         <label for="leagueName">League Name:</label>
@@ -51,26 +52,17 @@ export default {
 <style scoped>
 .add-league {
   display: flex;
-  flex-direction: column;
+   background-color: whitesmoke;
   align-items: center;
   justify-content: center;
-  background-image: url("../assets/createleague.jpg");
-  background-size: cover;
-  background-position: center;
-  text-align: center;
-  color: white;
-  height: 100vh;
-  width: 299%;
-}
-h2 {
-  font-size: 36px;
-  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   margin-bottom: 20px;
-  color: #004d33;
 }
 
+
 form{
-  margin-bottom: 1rem; 
+  
  background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 5px;
@@ -78,18 +70,29 @@ form{
 label {
   margin-right: 0.5rem;
   color:#004d33;
+  font-weight: bold;
+  padding-bottom: 10px;
 }
-input {
+ input {
   width: 100%;
   height: 2rem;
   padding: 0.25rem;
   font-size: 1rem;
 }
-button {
-  padding: 0.5rem 1rem;
-  background-color: green;
-  color: #fff;
+button{
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fdd430;
+  color: #ffffff;
+  border-radius: 25px;
   border: none;
-  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover{
+   background-color: #f7ecc2;
 }
 </style>
