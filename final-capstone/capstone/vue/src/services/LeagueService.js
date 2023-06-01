@@ -3,11 +3,7 @@ import axios from 'axios';
 
 export default {
   getLeagues() {
-    return axios.get(`/league`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.get(`/league`);
   },
 
   getLeagueById(leagueId) {
