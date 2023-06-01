@@ -1,7 +1,6 @@
 <template>
   <div>    
     <create-league />
-    <router-link to="/createleague" class = "create-league-button"> Create League </router-link>
       
   </div>
 </template>

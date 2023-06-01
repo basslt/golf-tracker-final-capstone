@@ -4,11 +4,7 @@
     <form @submit.prevent="createLeague">
       <div class="form-group">
         <label for="leagueName">League Name:</label>
-        <input type="text" id="leagueName" v-model="leagueName" required>
-      </div>
-      <div class="form-group">
-        <label for="organizerId">Organizer ID:</label>
-        <input type="text" id="organizerId" v-model="organizerId" required>
+        <input type="text" id="leagueName" v-model="league.leagueName" required>
       </div>
       <button type="submit">Create League</button>
     </form>
@@ -17,32 +13,33 @@
 
 <script>
 import leagueService from '../services/LeagueService';
+import userService from '../services/UserService';
 
 export default {
   data() {
     return {
-      leagueName: '',
-      organizerId: ''
+      league: {
+        leagueName: '',
+        organizerId: ''
+      }
     };
   },
   methods: {
     createLeague() {
-      const league = {
-        leagueName: this.leagueName,
-        organizerId: this.organizerId
-      };
-
-      leagueService.addLeague(league)
+      leagueService.addLeague(this.league)
         .then(() => {
-          
           console.log('League created!');
-         
         })
         .catch(error => {
           console.error('Failed to create league:', error);
           
         });
     }
+  },
+  created() {
+    userService.getUserByUsername(this.$store.state.loggedUser.username).then((response) => {
+      this.league.organizerId = response.data.id;
+    });
   }
 }
 </script>
