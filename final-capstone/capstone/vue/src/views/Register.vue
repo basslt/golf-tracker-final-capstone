@@ -98,7 +98,8 @@ label {
   background-position:center;
   text-align: center;
   color: white;
-  
+   height: 99%;
+  width: 299%;
 
 }
 

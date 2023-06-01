@@ -58,6 +58,7 @@ export default {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
             this.$router.push("/");
+            this.$store.commit("SET_LOGGED_USER_USERNAME", this.user.username);
           }
         })
         .catch(error => {
@@ -74,18 +75,20 @@ export default {
 
 <style scoped>
 
-.container {
+.container{
+  
   display: flex;
-  flex-direction: column;
+  flex-direction:column;
   align-items: center;
+  background-image: 100%;
   justify-content: center;
   background-image: url("../assets/loginbackground.jpg");
   background-size: cover;
   background-position:center;
   text-align: center;
   color: white;
-  
-
+  height: 99%;
+  width: 299%;
 }
 
 .logo {

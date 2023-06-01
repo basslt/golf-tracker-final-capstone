@@ -2,7 +2,7 @@
   <div class="main">
       <body>
         <main>
-            <league-leaderboard />
+            <league-leaderboard id="leaderboard"/>
         </main>
         <aside>
             <league-page-nav />
@@ -55,6 +55,10 @@ aside {
 main {
     grid-area: content;
     align-items: center;
+}
+
+#leaderboard {
+    
 }
 
 

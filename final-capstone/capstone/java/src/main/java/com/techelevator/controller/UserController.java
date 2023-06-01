@@ -24,14 +24,20 @@ public class UserController {
 
     }
 
+//    @GetMapping("/{username}")
+//    public ResponseEntity<User> findByUsername(@PathVariable String username) {
+//        try {
+//            User user = userDao.findByUsername(username);
+//            return ResponseEntity.ok(user);
+//        } catch (UsernameNotFoundException e) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
     @GetMapping("/{username}")
-    public ResponseEntity<User> findByUsername(@PathVariable String username) {
-        try {
-            User user = userDao.findByUsername(username);
-            return ResponseEntity.ok(user);
-        } catch (UsernameNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public User findByUsername(@PathVariable String username) {
+        User user = userDao.findByUsername(username);
+        return user;
     }
 
     @GetMapping("/findAll")

@@ -1,15 +1,19 @@
 <template>
-  <div>
-      <create-league />
+  <div>    
+    <create-league />
+      
   </div>
 </template>
 
 <script>
 import CreateLeague from '../components/CreateLeague.vue'
-export default {
-    name: "createLeague",
-  components: { CreateLeague },
 
+export default {
+  components: { 
+    CreateLeague 
+  }
+
+   
 }
 </script>
 
