@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import AddLeague from '../views/AddLeague.vue'
 import LeagueHome from '../views/LeagueHome.vue'
+import LeagueInvite from '../views/LeagueInvite.vue';
 
 Vue.use(Router)
 
@@ -67,6 +68,14 @@ const router = new Router({
       path: "/league",
       name: "League",
       component: LeagueHome,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/invite-to-league",
+      name: "LeagueInvite",
+      component: LeagueInvite,
       meta: {
         requiresAuth: true
       }

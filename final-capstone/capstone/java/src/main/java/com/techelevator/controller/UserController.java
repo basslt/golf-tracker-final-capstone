@@ -40,7 +40,7 @@ public class UserController {
         return user;
     }
 
-    @GetMapping("/findAll")
+    @GetMapping("")
     public List<User> findAll() {
         return userDao.findAll();
     }
