@@ -19,11 +19,13 @@ export default {
   },
 
   getLeagueByName(name) {
-    return axios.get(`/league?name=${name}`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.get(`/league?name=${name}`) .then(response => {
+      return response.data; // Return the response data
+    })
+    .catch(error => {
+      console.error('Failed to retrieve league by name:', error);
+      throw error; // Throw the error to be handled by the calling function
+    });
   },
 
   addLeague(league) {

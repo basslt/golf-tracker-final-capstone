@@ -22,12 +22,12 @@ export default {
         leagueName: '',
         organizerId: ''
       },
-      newLeagueId: '',
-      newLeague: {
-        leagueId: '',
-        leagueName: '',
-        organizerId: ''
-      }
+      // newLeagueId: '',
+      // newLeague: {
+      //   leagueId: '',
+      //   leagueName: '',
+      //   organizerId: ''
+      // }
     };
   },
   methods: {
@@ -35,10 +35,12 @@ export default {
       leagueService.addLeague(this.league)
         .then(() => {
           leagueService.getLeagueByName(this.league.leagueName).then(response => {
-            this.newLeagueId = response.data.leagueId;
+            this.$router.push({ name: 'League', params: { id: response.leagueId}})
+            //this.newLeague.leagueId = response.data.leagueId;
+            console.log(response.data.leagueId)
           })
           //this.newLeagueId = this.getLeagueId();
-          this.$router.push({ name: 'League', params: { id: this.newLeagueId}})
+          
           console.log('League created!');
         })
         .catch(error => {
