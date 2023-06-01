@@ -12,8 +12,10 @@
 </div>
 
 </template>
+
 <script>
 import CreateLeague from '../components/CreateLeague.vue'
+
 export default {
   components: {
     CreateLeague
@@ -36,9 +38,9 @@ export default {
   width: 299%;
 }
 
-.logo {
+/* .logo {
   margin-top: -450px;
-}
+} */
 
 h2 {
   font-size: 36px;
@@ -64,12 +66,12 @@ input {
   font-size: 1rem;
 }
 
-button {
+/* button {
   padding: 0.5rem 1rem;
   text-align: center;
   background-color: #004d33;
   color: #fff;
   border: none;
   cursor:grab;
-}
+} */
 </style>

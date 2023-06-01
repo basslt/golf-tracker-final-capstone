@@ -62,7 +62,7 @@ public class JdbcLeagueDao implements LeagueDao{
     @Override
     public League findLeagueByName(String leagueName) {
         League league = null;
-        String sql = "SELECT * FROM League WHERE name = ?;";
+        String sql = "SELECT * FROM League WHERE name ILIKE ?;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, leagueName);
             if (result.next()) {
