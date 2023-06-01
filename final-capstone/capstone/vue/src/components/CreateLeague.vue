@@ -23,21 +23,13 @@ export default {
         organizerId: ''
       },
       newLeagueId: '',
-      newLeague: {
-        leagueId: '',
-        leagueName: '',
-        organizerId: ''
-      }
     };
   },
   methods: {
     createLeague() {
       leagueService.addLeague(this.league)
-        .then(() => {
-          leagueService.getLeagueByName(this.league.leagueName).then(response => {
-            this.newLeagueId = response.data.leagueId;
-          })
-          //this.newLeagueId = this.getLeagueId();
+        .then( (response) => {
+          this.newLeagueId = response.data.leagueId;
           this.$router.push({ name: 'League', params: { id: this.newLeagueId}})
           console.log('League created!');
         })
@@ -45,11 +37,6 @@ export default {
           console.error('Failed to create league:', error);
         });
     },
-    // getLeagueId() {
-    //   leagueService.getLeagueByName(this.league.leagueName).then(response => {
-    //     this.newLeagueId = response.data.id;
-    //   })
-    // }
   },
   created() {
     userService.getUserByUsername(this.$store.state.loggedUser.username).then((response) => {
@@ -58,6 +45,9 @@ export default {
   }
 }
 </script>
+
+
+
 <style scoped>
 .add-league {
   display: flex;

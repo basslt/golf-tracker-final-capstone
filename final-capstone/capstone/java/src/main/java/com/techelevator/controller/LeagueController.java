@@ -51,8 +51,8 @@ public class LeagueController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void addLeague(@RequestBody League league) {
-        leagueDao.createLeague(league);
+    public League addLeague(@RequestBody League league) {
+        return leagueDao.createLeague(league);
     }
 
     @PutMapping("/{leagueId}")
