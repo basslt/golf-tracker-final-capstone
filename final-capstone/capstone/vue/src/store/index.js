@@ -1,35 +1,33 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-/*
- * The authorization header is set for axios when you login but what happens when you come back or
- * the page is refreshed. When that happens you need to check for the token in local storage and if it
- * exists you should set the header so that it will be attached to each request
- */
-const currentToken = localStorage.getItem('token')
+const currentToken = localStorage.getItem('token');
 const currentUser = JSON.parse(localStorage.getItem('user'));
 
-if(currentToken != null) {
+if (currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
 
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    loggedUser: {
+      username: ''
+    }
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     },
     SET_USER(state, user) {
       state.user = user;
-      localStorage.setItem('user',JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
     },
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -37,6 +35,31 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    SET_LOGGED_USER_USERNAME(state, username) {
+      state.loggedUser.username = username;
+    },
+    SET_LOGGED_USER_ID(state, id) {
+      state.loggedUser.id = id;
+    }
+  },
+  actions: {
+    getUserById({ commit }, userId) {
+      return axios
+        .get(`/users/${userId}`)
+        .then((response) => {
+          const user = response.data;
+          commit('SET_USER', user);
+          return user;
+        })
+        .catch((error) => {
+          throw new Error(`Failed to fetch user: ${error}`);
+        });
+    }
+  },
+  getters: {
+    getUser(state) {
+      return state.user;
     }
   }
-})
+});

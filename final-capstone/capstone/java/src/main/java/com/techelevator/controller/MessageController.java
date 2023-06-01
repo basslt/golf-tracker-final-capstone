@@ -15,12 +15,15 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class MessageController {
-    private final MessageDao messageDao;
+    //private final MessageDao messageDao;
+
+//    @Autowired
+//    public MessageController(MessageDao messageDao) {
+//        this.messageDao = messageDao;
+//    }
 
     @Autowired
-    public MessageController(MessageDao messageDao) {
-        this.messageDao = messageDao;
-    }
+    private MessageDao messageDao;
 
     @GetMapping("/messages/{id}")
     public ResponseEntity<Message> getMessageById(@PathVariable("id") int messageId) throws ChangeSetPersister.NotFoundException {
@@ -49,10 +52,10 @@ public class MessageController {
         return ResponseEntity.ok(messages);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/messages")
-    public ResponseEntity<Void> createMessage(@RequestBody Message message) {
+    public void createMessage(@RequestBody Message message) {
         messageDao.saveMessage(message);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/messages/{id}")

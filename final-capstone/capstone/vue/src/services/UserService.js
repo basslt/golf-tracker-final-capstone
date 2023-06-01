@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
   getUserIdByUsername(username) {
-    return axios.get(`/users/id/${username}`)
+    return axios.get(`/users/${username}/id`)
       .then(response => response.data)
       .catch(error => {
         if (error.response && error.response.status === 404) {
@@ -25,32 +25,19 @@ export default {
 
   getUserById(userId) {
     return axios.get(`/users/${userId}`)
-      .then(response => response.data)
-      .catch(error => {
-        if (error.response && error.response.status === 404) {
-          throw new Error('User not found');
-        }
-        throw new Error('Failed to fetch user');
-      });
+      
   },
 
   getAllUsers() {
     return axios.get('/users')
-      .then(response => response.data)
-      .catch(Error => {
-        throw new Error('Failed to fetch users');
-      });
+      // .then(response => response.data)
+      // .catch(Error => {
+      //   throw new Error('Failed to fetch users');
+      // });
   },
 
   getUserByUsername(username) {
-    return axios.get(`/users/username/${username}`)
-      .then(response => response.data)
-      .catch(error => {
-        if (error.response && error.response.status === 404) {
-          throw new Error('User not found');
-        }
-        throw new Error('Failed to fetch user');
-      });
+    return axios.get(`/users/${username}`);
   },
 
   createUser(username, password, role) {

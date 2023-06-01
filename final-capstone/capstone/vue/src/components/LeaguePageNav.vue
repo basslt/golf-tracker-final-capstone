@@ -1,7 +1,7 @@
 <template>
   <div class="main">
       <button>View All Members</button>
-      <button>Invite Members</button>
+      <router-link v-bind:to="{name : 'LeagueInvite' }">Invite Members</router-link>
       <button>Schedule Tee Time</button>
   </div>
 </template>
@@ -16,6 +16,9 @@ export default {
     div.main {
         display: flex;
         flex-direction: column;
-        
+    }
+
+    button {
+        margin-top: 15%;
     }
 </style>

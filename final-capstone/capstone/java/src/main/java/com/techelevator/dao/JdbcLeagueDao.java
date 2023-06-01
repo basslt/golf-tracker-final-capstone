@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.League;
 import jdk.jshell.spi.ExecutionControl;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -61,7 +62,7 @@ public class JdbcLeagueDao implements LeagueDao{
     @Override
     public League findLeagueByName(String leagueName) {
         League league = null;
-        String sql = "SELECT * FROM League WHERE name = ?;";
+        String sql = "SELECT * FROM League WHERE name ILIKE ?;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, leagueName);
             if (result.next()) {
@@ -76,21 +77,15 @@ public class JdbcLeagueDao implements LeagueDao{
     }
 
     @Override
-    public League createLeague(League league) {
-        League newLeague = null;
-        String sql = "INSERT INTO League (name, organizer_id) VALUES (?, ?) RETURNING league_id;";
+    public void createLeague(League league) {
+        String query = "INSERT INTO League (name, organizer_id) VALUES (?, ?)";
         try {
-            int newLeagueId = jdbcTemplate.queryForObject(sql, Integer.class, league.getLeagueName(), league.getOrganizerId());
-            newLeague = findLeagueById(newLeagueId);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new RuntimeException("Unable to connect to server or database", e);
-        } catch (BadSqlGrammarException e) {
-            throw new RuntimeException("SQL syntax error", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new RuntimeException("Data integrity violation", e);
+            jdbcTemplate.update(query, league.getLeagueName(), league.getOrganizerId());
+        } catch (DataAccessException e) {
+            e.printStackTrace();
         }
-        return newLeague;
     }
+
 
     @Override
     public League updateLeague(League league, int leagueId) {
