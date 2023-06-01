@@ -1,15 +1,17 @@
 <template>
-<div>
-  <div>
-    <create-league />
-  </div>
-    <div class="container">
-      <h1></h1>
-     <div class="logo">
+ <div class="container">
+   <div class = "heading">
+     <h2>Create a New League</h2>
+   </div>
+  <div class="logo">
       <img src="../assets/logo.png" alt="Logo" />
     </div>
+    <div class = "league-form">
+    <create-league />
+  </div>
+   
     </div>
-</div>
+
 
 </template>
 
@@ -25,27 +27,46 @@ export default {
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  background-color: whitesmoke;
+  grid-template-columns: 1fr; /* Single column */
+  grid-template-rows: auto auto auto; /* Three rows with auto height */
+  width: 100vw;
+  height: 100vh; 
   align-items: center;
   justify-content: center;
-  background-image: url("../assets/createleague.jpg");
-  background-size: cover;
-  background-position: center;
   text-align: center;
   color: white;
-  height: 100%;
-  width: 299%;
+   grid-row-gap: -50px;
 }
 
-/* .logo {
-  margin-top: -450px;
-} */
+.logo {
+  grid-row: 1;
+  justify-self: center;
+  height: 10px;
+  margin-top: -300px;
+  
+}
 
-h2 {
+.heading{
+  grid-row: 2;
+  justify-self: center;
+  align-items: center;
   font-size: 36px;
   font-weight: bold;
-  margin-bottom: 20px;
+  color: #004d33;
+  align-items: center;
+  position: inherit;
+  margin-top: 150px;
+}
+
+
+.league-form {
+   grid-row: 3; /* Shorthand for grid-row-start: 3; grid-row-end: 4; */
+  justify-self: center;
+  margin-bottom: 200px;
+  
+  
 }
 
 form {
@@ -59,19 +80,4 @@ label {
   color: #004d33;
 }
 
-input {
-  width: 100%;
-  height: 2rem;
-  padding: 0.25rem;
-  font-size: 1rem;
-}
-
-/* button {
-  padding: 0.5rem 1rem;
-  text-align: center;
-  background-color: #004d33;
-  color: #fff;
-  border: none;
-  cursor:grab;
-} */
 </style>

@@ -91,6 +91,25 @@ export default {
   /* justify-content: center;  */
   text-decoration: none; 
 }
+
+.create-league-button{
+  
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fdd430;
+  color: #fff;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.create-league-button:hover{
+   background-color: #f7ecc2;
+}
+
 .main{
   background-color: rgb(180, 180, 180);
   margin-top: 15px;
