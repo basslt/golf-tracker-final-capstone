@@ -1,26 +1,27 @@
 <template>
 <div class="container">
     <div class="logo">
-      <img src="../assets/logo.png" alt="Logo" />
+      <img src="../assets/logo-white.png" alt="Logo" />
     </div>
+    <div class = "heading">
     <h1 class="welcome-heading">Youre Gonna Be Glad You Joined Playing Through</h1>
     <h2>Your all-inclusive golf tracking app</h2>
-    
+    </div>
   <div id="register" class="text-center">
     <form @submit.prevent="register">
       <h3>Create Account</h3>
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <div class="form-input-group">
+      <div class="username-input">
         <label for="username">Username</label>
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
-      <div class="form-input-group">
+      <div class="password-input">
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
-      <div class="form-input-group">
+      <div class="confirm-password-input">
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
@@ -89,7 +90,7 @@ label {
   margin-right: 0.5rem;
 }
 .container {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -99,25 +100,39 @@ label {
   text-align: center;
   color: white;
    height: 99%;
-  width: 299%;
+  width: 299%; */
+   display: grid;
+   background-color: whitesmoke;
+    grid-auto-columns:  1fr;
+   grid-template-rows: repeat(3, 1fr);
+   width: 100vw;
+  height: 100vh;
+  background-color: #004d33;
+   min-height: 100%;
+    overflow-y: scroll;
 
 }
 
 .logo {
+  
+  size: 15px;
+  grid-row-start: 1;
+  grid-row-end: 2;
   text-align: center;
 }
 
 .logo img {
-  width: 500px;
-  margin-top: -165px;
+  width: 250px;
+ 
 }
 
-.welcome-heading {
+.heading {
   font-size: 36px;
   font-weight: bold;
-  margin-bottom: 20px;
-  margin-top: -140px;
-  margin-bottom: -15px;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  row-gap: -10px;
+  
 }
 
 h1 {
@@ -143,9 +158,13 @@ h3 {
 
 #register {
   background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 5px;
-  margin-bottom: 50px;
+  display: flex;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  text-align: center;
+  justify-content: center;
+  margin-top: -100px;
+  
 }
 
 .form-input-group {
@@ -163,6 +182,7 @@ label {
   padding: 10px;
   margin-bottom: 10px;
   font-size: 16px;
+
 }
 
 .login-form button {
@@ -182,12 +202,38 @@ label {
 .register-link a {
   color: white;
 }
-.sign-in-button,
-.register-button {
-  display: block;
-  margin: 0 auto;
-  width: 150px;
+
+.username-input{
+  margin-top: 15px;
 }
+
+.password-input{
+  margin-top: 15px;
+}
+
+.confirm-password-input{
+  margin-right: 55px;
+  margin-top: 15px;
+}
+
+button{
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fdd430;
+  color: #fff;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover{
+   background-color: #f7ecc2;
+}
+
+
 </style>
 
 
