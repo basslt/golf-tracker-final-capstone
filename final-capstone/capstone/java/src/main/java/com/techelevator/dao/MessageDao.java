@@ -8,13 +8,13 @@ import java.util.List;
 public interface MessageDao {
     Message findById(int messageId) throws ChangeSetPersister.NotFoundException;
 
-    List<Message> getAllMessages();
+    //List<Message> getAllMessages();
 
-    List<Message> findMessagesBySenderId(int senderId);
+    //List<Message> findMessagesBySenderId(int senderId);
 
-    List<Message> findMessagesByReceiverId(int receiverId);
+    //List<Message> findMessagesByReceiverId(int receiverId);
 
-    void saveMessage(Message message);
+    Message saveMessage(Message message);
 
     void updateMessage(Message message);
 

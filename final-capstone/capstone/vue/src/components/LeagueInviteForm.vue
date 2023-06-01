@@ -15,7 +15,7 @@
             {{ user.username }}
           </td>
           <td>
-            <button v-on:click="getCurrentUser(); sendInvite(user.id)">Send Invite</button>
+            <button v-on:click="sendInvite(user.id)">Send Invite</button>
           </td>
         </tr>
       </tbody>
@@ -39,9 +39,8 @@ export default {
       },
       users: [],
       filterText: "",
-      selectedUserId: ""
+      selectedUserId: "",
     }
-
   },
   created() {
     userService.getAllUsers().then(response => {
@@ -49,9 +48,6 @@ export default {
     }).catch(error => {
       console.error("Whoops", error);
     });
-    // userService.getUserByUsername(this.$store.state.loggedUser.username).then((response) => {
-    //   this.message.senderId = response.data.id;
-    // });
   },
 
   computed: {
@@ -63,17 +59,9 @@ export default {
   },
   methods: {
     sendInvite(id) {
-      // this.message = { 
-      //   senderId: this.getCurrentUser(),
-      //   receiverId: id,
-      //   content: 'Hey',
-      //   timestamp: Date.now()
-      // }
+      const user = this.$store.getters.getUser;
+      this.message.senderId = user.id;
       this.message.receiverId = id;
-      // this.message.senderId = this.getCurrentUser();
-      // this.message.content = 'Hey';
-      // this.message.timestamp = Date.now();
-
       messageService.createMessage(this.message).then( (response) => {
         if (response.status === 201) {
           console.log("Success");
@@ -87,15 +75,6 @@ export default {
           this.errorMsg = "Error submitting new message";
         }
       })
-     // const message = 'hey';
-
-      // Invitation logic here
-      // Perform actions like generating invitation link or opening a modal
-    },
-    getCurrentUser() {
-      userService.getUserByUsername(this.$store.state.loggedUser.username).then(response => {
-        this.message.senderId = response.data.id;
-      });
     }
   }
 }
