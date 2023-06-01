@@ -34,28 +34,28 @@ public class MessageController {
         return ResponseEntity.ok(message);
     }
 
-    @GetMapping("/messages")
-    public ResponseEntity<List<Message>> getAllMessages() {
-        List<Message> messages = messageDao.getAllMessages();
-        return ResponseEntity.ok(messages);
-    }
+//    @GetMapping("/messages")
+//    public ResponseEntity<List<Message>> getAllMessages() {
+//        List<Message> messages = messageDao.getAllMessages();
+//        return ResponseEntity.ok(messages);
+//    }
 
-    @GetMapping("/users/{userId}/sent-messages")
-    public ResponseEntity<List<Message>> getSentMessagesByUser(@PathVariable("userId") int userId) {
-        List<Message> messages = messageDao.findMessagesBySenderId(userId);
-        return ResponseEntity.ok(messages);
-    }
+//    @GetMapping("/users/{userId}/sent-messages")
+//    public ResponseEntity<List<Message>> getSentMessagesByUser(@PathVariable("userId") int userId) {
+//        List<Message> messages = messageDao.findMessagesBySenderId(userId);
+//        return ResponseEntity.ok(messages);
+//    }
 
-    @GetMapping("/users/{userId}/received-messages")
-    public ResponseEntity<List<Message>> getReceivedMessagesByUser(@PathVariable("userId") int userId) {
-        List<Message> messages = messageDao.findMessagesByReceiverId(userId);
-        return ResponseEntity.ok(messages);
-    }
+//    @GetMapping("/users/{userId}/received-messages")
+//    public ResponseEntity<List<Message>> getReceivedMessagesByUser(@PathVariable("userId") int userId) {
+//        List<Message> messages = messageDao.findMessagesByReceiverId(userId);
+//        return ResponseEntity.ok(messages);
+//    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/messages")
-    public void createMessage(@RequestBody Message message) {
-        messageDao.saveMessage(message);
+    public Message createMessage(@RequestBody Message message) {
+        return messageDao.saveMessage(message);
     }
 
     @PutMapping("/messages/{id}")

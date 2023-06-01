@@ -8,6 +8,7 @@
       </div>
       <button type="submit" v-on:click="createLeague()">Create League</button>
     </form>
+    <LeagueLeaderboard :leagueId="newLeagueId" />
   </div>
 </template>
 
@@ -34,7 +35,7 @@ export default {
           console.log('League created!');
         })
         .catch(error => {
-          console.error('Failed to create league:', error);
+          console.error('Failed to fetch league ID:', error);
         });
     },
   },

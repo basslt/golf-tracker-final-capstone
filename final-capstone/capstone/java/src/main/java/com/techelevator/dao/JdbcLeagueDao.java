@@ -84,7 +84,7 @@ public class JdbcLeagueDao implements LeagueDao{
             int newLeagueId = jdbcTemplate.queryForObject(query, int.class, league.getLeagueName(), league.getOrganizerId());
             newLeague = findLeagueById(newLeagueId);
         } catch (DataAccessException e) {
-            e.printStackTrace();
+
         }
         return newLeague;
     }
