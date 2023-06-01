@@ -18,7 +18,7 @@ import ScoreService from '../services/ScoreService';
 export default {
   props: {
     leagueId: {
-      type: String,
+      type: Number,
       required: true
     }
   },

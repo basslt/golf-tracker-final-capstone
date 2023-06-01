@@ -8,6 +8,7 @@
       </div>
       <button type="submit" v-on:click="createLeague()">Create League</button>
     </form>
+    <LeagueLeaderboard :leagueId="newLeagueId" />
   </div>
 </template>
 
@@ -31,20 +32,28 @@ export default {
     };
   },
   methods: {
-    createLeague() {
-      leagueService.addLeague(this.league)
-        .then(() => {
-          leagueService.getLeagueByName(this.league.leagueName).then(response => {
-            this.newLeagueId = response.data.leagueId;
-          })
-          //this.newLeagueId = this.getLeagueId();
-          this.$router.push({ name: 'League', params: { id: this.newLeagueId}})
-          console.log('League created!');
+ createLeague() {
+  leagueService.addLeague(this.league)
+    .then(() => {
+      leagueService.getLeagueByName(this.league.leagueName)
+        .then(response => {
+          const newLeagueId = response.data;
+          if (newLeagueId !== null) {
+            this.$router.push({ name: 'League', params: { id: newLeagueId }});
+            console.log('League created!');
+          } else {
+            console.error('Failed to retrieve league ID');
+          }
         })
         .catch(error => {
-          console.error('Failed to create league:', error);
+          console.error('Failed to fetch league ID:', error);
         });
-    },
+    })
+    .catch(error => {
+      console.error('Failed to create league:', error);
+    });
+}
+
     // getLeagueId() {
     //   leagueService.getLeagueByName(this.league.leagueName).then(response => {
     //     this.newLeagueId = response.data.id;
