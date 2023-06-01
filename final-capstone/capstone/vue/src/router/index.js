@@ -61,7 +61,7 @@ const router = new Router({
       name: "AddLeague",
       component: AddLeague,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
