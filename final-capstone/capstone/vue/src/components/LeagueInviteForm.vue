@@ -15,7 +15,7 @@
             {{ user.username }}
           </td>
           <td>
-            <button v-on:click="sendInvite()">Send Invite</button>
+            <button v-on:click="getCurrentUser(); sendInvite(user.id)">Send Invite</button>
           </td>
         </tr>
       </tbody>
@@ -25,17 +25,21 @@
 
 <script>
 import userService from '../services/UserService.js';
-//import messageService from '../services/MessageService';
+import messageService from '../services/MessageService';
 
 export default {
 
   data() {
     return {
-      invite: {
-        toUsername: ""
+      message: {
+        senderId: '',
+        receiverId: '',
+        content: 'hey',
+        timestamp: Date.now()
       },
       users: [],
-      filterText: ""
+      filterText: "",
+      selectedUserId: ""
     }
 
   },
@@ -44,8 +48,12 @@ export default {
       this.users = response.data;
     }).catch(error => {
       console.error("Whoops", error);
-    })
+    });
+    // userService.getUserByUsername(this.$store.state.loggedUser.username).then((response) => {
+    //   this.message.senderId = response.data.id;
+    // });
   },
+
   computed: {
     filteredUsers() {
       return this.users.filter( (user) => {
@@ -54,12 +62,40 @@ export default {
     }
   },
   methods: {
-    sendInvite() {
+    sendInvite(id) {
+      // this.message = { 
+      //   senderId: this.getCurrentUser(),
+      //   receiverId: id,
+      //   content: 'Hey',
+      //   timestamp: Date.now()
+      // }
+      this.message.receiverId = id;
+      // this.message.senderId = this.getCurrentUser();
+      // this.message.content = 'Hey';
+      // this.message.timestamp = Date.now();
+
+      messageService.createMessage(this.message).then( (response) => {
+        if (response.status === 201) {
+          console.log("Success");
+        }
+      }).catch((error) => {
+        if (error.response) {
+          this.errorMsg = "Error submitting new message";
+        } else if (error.request) {
+          this.errorMsg = "Error submitting new message. Server could not be reached";
+        } else {
+          this.errorMsg = "Error submitting new message";
+        }
+      })
      // const message = 'hey';
 
       // Invitation logic here
-      console.log(`Inviting to league with ID: ${this.leagueId}`);
       // Perform actions like generating invitation link or opening a modal
+    },
+    getCurrentUser() {
+      userService.getUserByUsername(this.$store.state.loggedUser.username).then(response => {
+        this.message.senderId = response.data.id;
+      });
     }
   }
 }

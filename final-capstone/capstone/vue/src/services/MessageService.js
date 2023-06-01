@@ -38,10 +38,10 @@ export default {
 
   createMessage(message) {
     return axios.post('/messages', message)
-      .then(() => {})
-      .catch(Error => {
-        throw new Error('Failed to create message');
-      });
+      // .then(() => {})
+      // .catch(Error => {
+      //   throw new Error('Failed to create message');
+      // });
   },
 
   updateMessage(messageId, message) {
