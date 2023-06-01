@@ -7,9 +7,8 @@
 </template>
 
 <script>
-import LeagueForm from './LeagueForm.vue';
 import leagueService from '../services/LeagueService';
-import { mapState } from 'vuex';
+
 
 export default {
   components: {
@@ -20,32 +19,36 @@ export default {
       showForm: false
     };
   },
-  computed: {
-    ...mapState(['activeUSer'])
-  },
   methods: {
-    toggleForm() {
-      this.showForm = !this.showForm;
-    },
-    createLeague(league) {
-      const user = this.activeUSer;
-      league.user = user;
-      leagueService.addLeague(league)
-        .then(createdLeague => {
-          console.log('League created:', createdLeague);
-          
-          this.showForm = false; // Reset form visibility
+  createLeague() {
+  leagueService.addLeague(this.league)
+    .then(() => {
+      leagueService.getLeagueByName(this.league.leagueName)
+        .then(response => {
+          const newLeagueId = response.data.leagueId;
+          if (newLeagueId !== undefined) {
+            this.$router.push({ name: 'League', params: { id: newLeagueId }});
+          } else {
+            console.error('Failed to retrieve league ID');
+          }
+          console.log('League created!');
         })
         .catch(error => {
-          console.error('Error creating league:', error);
-         
+          console.error('Failed to fetch league ID:', error);
         });
-    }
+    })
+    .catch(error => {
+      console.error('Failed to create league:', error);
+    });
+},
   }
-}
-</script>
+};
 
-<style scoped>
+
+
+
+
+<style >
 
 
 
