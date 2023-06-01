@@ -3,13 +3,6 @@ import axios from 'axios';
 export default {
   getUserIdByUsername(username) {
     return axios.get(`/users/id/${username}`)
-      .then(response => response.data)
-      .catch(error => {
-        if (error.response && error.response.status === 404) {
-          throw new Error('User not found');
-        }
-        throw new Error('Failed to fetch user ID');
-      });
   },
 
   getUsernameById(userId) {
@@ -25,13 +18,7 @@ export default {
 
   getUserById(userId) {
     return axios.get(`/users/${userId}`)
-      .then(response => response.data)
-      .catch(error => {
-        if (error.response && error.response.status === 404) {
-          throw new Error('User not found');
-        }
-        throw new Error('Failed to fetch user');
-      });
+      
   },
 
   getAllUsers() {

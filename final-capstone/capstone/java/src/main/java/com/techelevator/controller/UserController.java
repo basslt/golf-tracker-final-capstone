@@ -48,7 +48,7 @@ public class UserController {
         return userDao.create(username, password, role);
     }
 
-    @GetMapping("/{username}/id")
+    @GetMapping("/id/{username}")
     public int findIdByUsername(@PathVariable String username) {
         return userDao.findIdByUsername(username);
     }

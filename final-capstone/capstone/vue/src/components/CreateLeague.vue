@@ -6,44 +6,58 @@
         <label for="leagueName">League Name:</label>
         <input type="text" id="leagueName" v-model="leagueName" required>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="organizerId">Organizer ID:</label>
         <input type="text" id="organizerId" v-model="organizerId" required>
-      </div>
+      </div> -->
       <button type="submit">Create League</button>
     </form>
   </div>
 </template>
 
 <script>
-import leagueService from '../services/LeagueService';
+import leagueServices from '../services/LeagueService';
+// import userService from '../services/UserService'
+// import { mapGetters } from 'vuex';
+
 
 export default {
   data() {
     return {
-      leagueName: '',
-      organizerId: ''
+      leagueName: ''
     };
   },
-  methods: {
-    createLeague() {
-      const league = {
-        leagueName: this.leagueName,
-        organizerId: this.organizerId
-      };
-
-      leagueService.addLeague(league)
-        .then(() => {
-          
-          console.log('League created!');
-         
-        })
-        .catch(error => {
-          console.error('Failed to create league:', error);
-          
-        });
+  computed:{
+    user(){
+      return this.$store.getters.getUser;
     }
+  },
+  methods:{
+   createLeague() {
+    const leagueName = this.leagueName;
+    const organizerId = this.$store.state.user.id;
+    this.$store
+      .dispatch('getUserById', organizerId)
+      .then((user) => {
+        const league = {
+          name: leagueName,
+          organizerId: user.userid
+        };
+
+        leagueServices
+          .addLeague(league)
+          .then((createdLeague) => {
+            console.log('League created:', createdLeague);
+          })
+          .catch((error) => {
+            console.error('Failed to create league:', error);
+          });
+      })
+      .catch((error) => {
+        console.error('Failed to retrieve user:', error);
+      });
   }
+}
 }
 </script>
 
