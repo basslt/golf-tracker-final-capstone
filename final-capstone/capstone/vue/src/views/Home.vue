@@ -13,6 +13,8 @@
     <div class = "main">
       <league-list />
       </div>
+      <div class = "main2"></div>
+      <div class = "main3"></div>
     <!-- <create-league /> -->
     
     </div>
@@ -26,29 +28,38 @@ export default {
   components: {  
     LeagueList 
   },
-  name: "home"
+  name: "main"
 };
 </script>
 <style scoped>
-* {
+/* * {
     font-family: Tahoma, Verdana, Segoe, sans-serif;
     box-sizing: border-box;
     
-}
+} */
 
 .home{
+   display: grid;
+   background-color: whitesmoke;
+   grid-template-columns: 1fr, 1fr, 1fr;
+   grid-auto-rows: 100px;
+   width: 100vw;
    height: 100vh;
-  width: 100vw;
 }
 
 .header {
+
+
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  height: 100px;
   justify-content: center;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  height: 100px;
+  background-color: #ffffff;
+  padding: 0 20px;
 }
 
 .header img {
@@ -58,20 +69,18 @@ export default {
 
 .header h2 {
   color: #004d33;
-  align-content: center;
-  margin-right: 1000px;
   white-space: nowrap;
-  size: 10px;
+  size: 10px; 
   
 }
 
 .header-buttons {
-  margin-right: auto;
-  display: flex;
+   white-space: nowrap; 
+   display: flex;
   align-items: center;
-  justify-content: center;
-   margin-left: 20px;
-   white-space: nowrap;
+  justify-content: flex-end;
+  flex-grow: 1;
+  margin-right: 10px;
 
 }
 
@@ -79,14 +88,17 @@ export default {
 .register-button, .create-league-button {
   margin-left: 20px;
   color: rgb(2, 2, 2);
-  justify-content: center;
-  text-decoration: none;
+  /* justify-content: center;  */
+  text-decoration: none; 
 }
 .main{
   background-color: rgb(180, 180, 180);
   margin-top: 15px;
-  justify-content: right;
-  align-content: right;
+  /* justify-content: right;
+  align-content: right; */
+  grid-column-start: 2;
+  grid-row-start: 2;
+  grid-row-end: 4;
 }
 
 
