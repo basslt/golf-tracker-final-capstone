@@ -9,7 +9,7 @@ public interface LeagueDao {
     List<League> getAllLeagues();
     League findLeagueById(int leagueId);
     League findLeagueByName(String leagueName);
-    void createLeague(League league);
+    League createLeague(League league);
     League updateLeague(League league, int id);
     void deleteLeague(int leagueId);
 

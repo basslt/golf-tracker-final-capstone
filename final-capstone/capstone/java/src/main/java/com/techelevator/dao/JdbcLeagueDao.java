@@ -77,13 +77,16 @@ public class JdbcLeagueDao implements LeagueDao{
     }
 
     @Override
-    public void createLeague(League league) {
-        String query = "INSERT INTO League (name, organizer_id) VALUES (?, ?)";
+    public League createLeague(League league) {
+        League newLeague = null;
+        String query = "INSERT INTO League (name, organizer_id) VALUES (?, ?) RETURNING league_id";
         try {
-            jdbcTemplate.update(query, league.getLeagueName(), league.getOrganizerId());
+            int newLeagueId = jdbcTemplate.queryForObject(query, int.class, league.getLeagueName(), league.getOrganizerId());
+            newLeague = findLeagueById(newLeagueId);
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
+        return newLeague;
     }
 
 
