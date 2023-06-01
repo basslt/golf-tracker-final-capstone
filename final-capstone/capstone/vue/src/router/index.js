@@ -7,7 +7,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import AddLeague from '../views/AddLeague.vue'
 import LeagueHome from '../views/LeagueHome.vue'
-import LeagueInvite from '../views/LeagueInvite.vue';
+import LeagueInvite from '../views/LeagueInvite.vue'
 
 Vue.use(Router)
 

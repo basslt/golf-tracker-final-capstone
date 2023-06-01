@@ -1,6 +1,9 @@
 <template>
   <div class="main">
       <body>
+          <header>
+              <router-link v-bind:to="{ name: 'home'}">Return to Home</router-link>
+          </header>
         <main>
             <league-leaderboard id="leaderboard"/>
         </main>
