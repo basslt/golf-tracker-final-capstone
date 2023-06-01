@@ -2,15 +2,16 @@
   <div>
     <h2> Top Leagues</h2>
     <ul>
-      <li v-for="league in leagues" :key="league.id">
-        {{ league.name }}
+      <li v-for="league in leagues" :key="league.leagueId">
+        {{ league.leagueName }}
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+
+import leagueService from '../services/LeagueService'
 
 export default {
   data() {
@@ -23,13 +24,9 @@ export default {
   },
   methods: {
     fetchLeagues() {
-      axios.get('league')
-        .then(response => {
-          this.leagues = response.data;
-        })
-        .catch(error => {
-          console.error('Error fetching leagues:', error);
-        });
+     leagueService.getLeagues().then(response => {
+       this.leagues = response.data;
+     })
     }
   }
 };
