@@ -1,37 +1,42 @@
 <template>
   <div class="add-league">
     <h2>Add a New League</h2>
-    <form @submit.prevent="createLeague">
+    <form v-on:submit.prevent>
       <div class="form-group">
         <label for="leagueName">League Name:</label>
         <input type="text" id="leagueName" v-model="league.leagueName" required>
       </div>
-      <button type="submit">Create League</button>
+      <button type="submit" v-on:click="createLeague()">Create League</button>
     </form>
   </div>
 </template>
+
 <script>
 import leagueService from '../services/LeagueService';
 import userService from '../services/UserService';
+
 export default {
   data() {
     return {
       league: {
         leagueName: '',
         organizerId: ''
-      }
+      },
+      newLeagueId: '',
     };
   },
   methods: {
     createLeague() {
       leagueService.addLeague(this.league)
-        .then(() => {
+        .then( (response) => {
+          this.newLeagueId = response.data.leagueId;
+          this.$router.push({ name: 'League', params: { id: this.newLeagueId}})
           console.log('League created!');
         })
         .catch(error => {
           console.error('Failed to create league:', error);
         });
-    }
+    },
   },
   created() {
     userService.getUserByUsername(this.$store.state.loggedUser.username).then((response) => {
@@ -40,6 +45,9 @@ export default {
   }
 }
 </script>
+
+
+
 <style scoped>
 .add-league {
   display: flex;
