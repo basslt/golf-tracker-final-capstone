@@ -65,7 +65,7 @@ const router = new Router({
       }
     },
     {
-      path: "/league",
+      path: "/league/",
       name: "League",
       component: LeagueHome,
       meta: {
