@@ -86,7 +86,4 @@ export default {
 
 
 
-
-
-
 </style>
