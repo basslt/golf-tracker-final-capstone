@@ -22,36 +22,21 @@ export default {
         leagueName: '',
         organizerId: ''
       },
-      // newLeagueId: '',
-      // newLeague: {
-      //   leagueId: '',
-      //   leagueName: '',
-      //   organizerId: ''
-      // }
+      newLeagueId: '',
     };
   },
   methods: {
     createLeague() {
       leagueService.addLeague(this.league)
-        .then(() => {
-          leagueService.getLeagueByName(this.league.leagueName).then(response => {
-            this.$router.push({ name: 'League', params: { id: response.leagueId}})
-            //this.newLeague.leagueId = response.data.leagueId;
-            console.log(response.data.leagueId)
-          })
-          //this.newLeagueId = this.getLeagueId();
-          
+        .then( (response) => {
+          this.newLeagueId = response.data.leagueId;
+          this.$router.push({ name: 'League', params: { id: this.newLeagueId}})
           console.log('League created!');
         })
         .catch(error => {
           console.error('Failed to create league:', error);
         });
     },
-    // getLeagueId() {
-    //   leagueService.getLeagueByName(this.league.leagueName).then(response => {
-    //     this.newLeagueId = response.data.id;
-    //   })
-    // }
   },
   created() {
     userService.getUserByUsername(this.$store.state.loggedUser.username).then((response) => {
@@ -60,6 +45,9 @@ export default {
   }
 }
 </script>
+
+
+
 <style scoped>
 .add-league {
   display: flex;
