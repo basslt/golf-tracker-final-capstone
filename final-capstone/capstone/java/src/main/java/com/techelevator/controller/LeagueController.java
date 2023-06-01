@@ -39,8 +39,8 @@ public class LeagueController {
         }
     }
 
-    @GetMapping(params = "name")
-    public League getLeagueByLeagueName(@RequestParam String name) {
+    @GetMapping("/{name}")
+    public League getLeagueByLeagueName(@PathVariable String name) {
         League league = leagueDao.findLeagueByName(name);
         if (league == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "League not found.");
@@ -51,8 +51,8 @@ public class LeagueController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void addLeague(@RequestBody League league) {
-        leagueDao.createLeague(league);
+    public League addLeague(@RequestBody League league) {
+        return leagueDao.createLeague(league);
     }
 
     @PutMapping("/{leagueId}")
