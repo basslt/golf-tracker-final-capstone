@@ -34,6 +34,11 @@ export default {
     
 }
 
+.home{
+   height: 100vh;
+  width: 100vw;
+}
+
 .header {
   display: flex;
   flex-direction: row;
