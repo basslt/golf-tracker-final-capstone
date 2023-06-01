@@ -1,5 +1,9 @@
 <template>
+
   <div>
+      <header>
+              <router-link v-bind:to="{ name: 'home'}">Return to Home</router-link>
+        </header>
       <league-invite-form />
   </div>
 </template>
