@@ -4,61 +4,45 @@
     <form @submit.prevent="createLeague">
       <div class="form-group">
         <label for="leagueName">League Name:</label>
-        <input type="text" id="leagueName" v-model="leagueName" required>
+        <input type="text" id="leagueName" v-model="league.leagueName" required>
       </div>
-      <!-- <div class="form-group">
-        <label for="organizerId">Organizer ID:</label>
-        <input type="text" id="organizerId" v-model="organizerId" required>
-      </div> -->
       <button type="submit">Create League</button>
     </form>
   </div>
 </template>
 
 <script>
-import leagueServices from '../services/LeagueService';
-// import userService from '../services/UserService'
-// import { mapGetters } from 'vuex';
-
+import leagueService from '../services/LeagueService';
+import userService from '../services/UserService';
 
 export default {
   data() {
     return {
-      leagueName: ''
+      league: {
+        leagueName: '',
+        organizerId: ''
+      }
     };
   },
-  computed:{
-    user(){
-      return this.$store.getters.getUser;
+  methods: {
+    createLeague() {
+      leagueService.addLeague(this.league)
+        .then(() => {
+          console.log('League created!');
+        })
+        .catch(error => {
+          console.error('Failed to create league:', error);
+          
+        });
     }
   },
-  methods:{
-   createLeague() {
-    const leagueName = this.leagueName;
-    const organizerId = this.$store.state.user.id;
-    this.$store
-      .dispatch('getUserById', organizerId)
-      .then((user) => {
-        const league = {
-          name: leagueName,
-          organizerId: user.userid
-        };
-
-        leagueServices
-          .addLeague(league)
-          .then((createdLeague) => {
-            console.log('League created:', createdLeague);
-          })
-          .catch((error) => {
-            console.error('Failed to create league:', error);
-          });
-      })
-      .catch((error) => {
-        console.error('Failed to retrieve user:', error);
-      });
+  created() {
+    userService.getUserByUsername(this.$store.state.loggedUser.username).then((response) => {
+      this.league.organizerId = response.data.id;
+    });
   }
 }
-}
+
 </script>
 
 <style scoped>

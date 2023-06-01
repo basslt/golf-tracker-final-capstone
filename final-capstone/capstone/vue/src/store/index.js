@@ -14,7 +14,10 @@ if (currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    loggedUser: {
+      username: ''
+    }
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -32,6 +35,12 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    SET_LOGGED_USER_USERNAME(state, username) {
+      state.loggedUser.username = username;
+    },
+    SET_LOGGED_USER_ID(state, id) {
+      state.loggedUser.id = id;
     }
   },
   actions: {
