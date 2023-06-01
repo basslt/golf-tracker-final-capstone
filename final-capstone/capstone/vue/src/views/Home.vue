@@ -48,14 +48,8 @@ export default {
 }
 
 .header {
-  /* display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 100px;
-  justify-content: center;
-  padding-top: 25px;
-  padding-bottom: 25px; */
-  
+
+
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 1;
