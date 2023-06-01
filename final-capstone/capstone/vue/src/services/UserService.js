@@ -30,10 +30,10 @@ export default {
 
   getAllUsers() {
     return axios.get('/users')
-      .then(response => response.data)
-      .catch(Error => {
-        throw new Error('Failed to fetch users');
-      });
+      // .then(response => response.data)
+      // .catch(Error => {
+      //   throw new Error('Failed to fetch users');
+      // });
   },
 
   getUserByUsername(username) {
