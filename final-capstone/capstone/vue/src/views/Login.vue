@@ -1,13 +1,18 @@
 <template>
 <div class="background">
   <div class="container">
+    <body >
+      
+    </body>
      <div class="logo">
-      <img src="../assets/logo.png" alt="Logo" />
+      <img src="../assets/logo-white.png" alt="Logo" />
     </div>
+    <div class = "wording">
     <h1 class="welcome-heading">Welcome to Playing Through</h1>
     <h2>Your all-inclusive golf tracking app</h2>
     <p class="description">Find courses and set up matches with your friends</p>
     <p class= "description2">Keep track of leaderboards for ultimate bragging rights</p>
+    </div>
     <div id="login">
       <form @submit.prevent="login">
         <h3>Please Sign In</h3>
@@ -17,11 +22,11 @@
         <div role="alert" v-if="$route.query.registration">
           Thank you for registering, please sign in.
         </div>
-        <div class="form-input-group">
+        <div class="username-input">
           <label for="username">Username</label>
           <input type="text" id="username" v-model="user.username" required autofocus />
         </div>
-        <div class="form-input-group">
+        <div class="password-input">
           <label for="password">Password</label>
           <input type="password" id="password" v-model="user.password" required />
         </div>
@@ -74,10 +79,17 @@ export default {
 </script>
 
 <style scoped>
+.background {
+    min-height: 100%;
+    overflow-y: scroll;
+      width: 100vw;
+  height: 100vh;
+} 
+
 
 .container{
   
-  display: flex;
+  /* display: flex;
   flex-direction:column;
   align-items: center;
   background-image: 100%;
@@ -88,105 +100,90 @@ export default {
   text-align: center;
   color: white;
   height: 99%;
-  width: 299%;
+  width: 299%; */
+   display: grid;
+   background-color: whitesmoke;
+    grid-auto-columns: 1fr;
+   grid-template-rows: repeat(3, 1fr);
+   width: 100vw;
+  height: 100vh;
+  background-color: #004d33;
+   min-height: 100%;
+    overflow-y: scroll;
+
 }
+
+
+
+
 
 .logo {
+  
+  grid-row-start: 1;
+  grid-row-end: 2;
   text-align: center;
-}
+  
+ 
 
+}
+.wording{
+  grid-row-start: 2;
+  grid-row-end: 3;
+  text-align: center;
+  color: white;
+  
+}
 .logo img {
-  width: 500px;
-  margin-top: -165px;
-}
-
-.welcome-heading {
-  font-size: 36px;
-  font-weight: bold;
-  margin-top: -140px;
-  margin-bottom: -15px;
-
-}
-
-h1 {
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
-  color: white;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  color: white;
-}
-h3 {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  color: #004d33;
-}
-
-.description {
-  font-size: 18px;
-  text-align: center;
-  color: white;
-  margin-bottom: -5px;
-  margin-top: -2px;
-}
-.description2 {
-  font-size: 18px;
-  text-align: center;
-  color: white;
-  margin-bottom: 20px;
+  width: 300px; 
 }
 
 #login {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 5px;
-  margin-bottom: 50px;
-}
-
-.form-input-group {
-  margin-bottom: 1rem;
-  color: #004d33;
-}
-
-label {
-  margin-right: 0.5rem;
-}
-
-.login-form input {
-  width: 100%;
-  height: 40px;
-  padding: 10px;
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.login-form button {
-  width: 100%;
-  height: 40px;
-  background-color: #005400;
+  display: flex;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  text-align: center;
+  font-size: 20px;
+  justify-content: center;
+  /* margin-bottom: 200px; */
   color: white;
+  
+}
+
+h3 {
+  color: #ffde59;
+}
+
+.username-input {
+padding-bottom: 15px;
+}
+.username-input label{
+margin-right: 10px;
+
+}
+
+.password-input label{
+margin-right: 15px;
+}
+
+.register-button{
+  color: #ffffff;
+}
+.sign-in-button{
+   display: inline-block;
+  padding: 10px 20px;
+  background-color: #fdd430;
+  color: #fff;
+  border-radius: 25px;
   border: none;
   font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
-.register-link {
-  font-size: 14px;
-  margin-top: 20px;
+
+.sign-in-button:hover {
+  background-color: #f7ecc2;
 }
 
-.register-link a {
-  color: white;
-}
-.sign-in-button,
-.register-button {
-  display: block;
-  margin: 0 auto;
-  width: 150px;
-}
 </style>
