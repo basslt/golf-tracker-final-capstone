@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -50,19 +52,25 @@ public class JdbcUserDao implements UserDao {
 
 	@Override
 	public User getUserById(int userId) {
+        User user = null;
 		String sql = "SELECT * FROM users WHERE user_id = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-		if (results.next()) {
-			return mapRowToUser(results);
-		} else {
-			return null;
-		}
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+            if (results.next()) {
+                user = mapRowToUser(results);
+            }
+		} catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return user;
 	}
 
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "select * from users";
+        String sql = "SELECT * FROM users";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -75,14 +83,20 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User findByUsername(String username) {
-        if (username == null) throw new IllegalArgumentException("Username cannot be null");
-
-        for (User user : this.findAll()) {
-            if (user.getUsername().equalsIgnoreCase(username)) {
-                return user;
+        User user = null;
+        String sql = "SELECT * FROM users WHERE username ILIKE ?;";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
+            if (result.next()) {
+                user = mapRowToUser(result);
             }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
         }
-        throw new UsernameNotFoundException("User " + username + " was not found.");
+        return user;
+
     }
 
     @Override

@@ -5,12 +5,9 @@
      </header>
      <div class="main">
         <body>
-
-            <!-- <header>
-                <router-link v-bind:to="{ name: 'home'}">Return to Home</router-link>
-            </header> -->
             <main class="content">
                 <league-list />
+                <create-league />
             </main>
             <aside>
                 <league-page-nav />
@@ -22,17 +19,15 @@
 </template>
 
 <script>
-//import LeagueLeaderboard from "../components/LeagueLeaderboard.vue"
-//import LeaguePageNav from "../components/LeaguePageNav.vue"
 import MainNavigation from "../components/MainNavigation.vue"
 import LeagueList from "../components/LeagueList.vue"
+import CreateLeague from "../components/CreateLeague.vue"
 
 export default {
     components: {
-        //LeagueLeaderboard,
-        //LeaguePageNav,
         MainNavigation,
-        LeagueList
+        LeagueList,
+        CreateLeague
     }
 
 }

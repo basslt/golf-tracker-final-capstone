@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.List;
@@ -34,8 +34,18 @@ public class UserController {
 //        }
 //    }
 
-    @GetMapping("/{username}")
-    public User findByUsername(@PathVariable String username) {
+    @GetMapping("/{userId}")
+    public User findUserById(@PathVariable int userId) {
+        User user = userDao.getUserById(userId);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.");
+        } else {
+            return user;
+        }
+    }
+
+    @GetMapping("/")
+    public User findByUsername(@RequestParam String username) {
         User user = userDao.findByUsername(username);
         return user;
     }

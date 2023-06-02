@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-      <button>View All Members</button>
+      <router-link v-bind:to="{ name: 'LeagueMembers' }">View All Members</router-link>
       <router-link v-bind:to="{name : 'LeagueInvite' }">Invite Members</router-link>
       <button>Schedule Tee Time</button>
   </div>

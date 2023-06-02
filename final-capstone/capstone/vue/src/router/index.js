@@ -5,11 +5,11 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import AddLeague from '../views/AddLeague.vue'
 import LeagueHome from '../views/LeagueHome.vue'
 import LeagueInvite from '../views/LeagueInvite.vue'
 import LandingPage from '../views/LandingPage.vue'
 import SelectedLeague from '../views/SelectedLeague.vue'
+import LeagueMembers from '../views/LeagueMembers.vue';
 
 Vue.use(Router)
 
@@ -59,14 +59,6 @@ const router = new Router({
       }
     },
     {
-      path: "/add-league",
-      name: "AddLeague",
-      component: AddLeague,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: "/league/:id",
       name: "SelectedLeague",
       component: SelectedLeague,
@@ -86,6 +78,14 @@ const router = new Router({
       path: "/invite-to-league",
       name: "LeagueInvite",
       component: LeagueInvite,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/league/:id/members",
+      name: "LeagueMembers",
+      component: LeagueMembers,
       meta: {
         requiresAuth: true
       }

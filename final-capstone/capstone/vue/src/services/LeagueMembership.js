@@ -4,11 +4,7 @@ import axios from 'axios';
 
 export default {
   getAllLeagueMemberships() {
-    return axios.get(`/leaguemembership`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.get(`/leaguemembership`);
   },
 
   getLeagueMembershipById(leagueMembershipId) {
