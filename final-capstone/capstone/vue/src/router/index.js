@@ -8,6 +8,8 @@ import store from '../store/index'
 import AddLeague from '../views/AddLeague.vue'
 import LeagueHome from '../views/LeagueHome.vue'
 import LeagueInvite from '../views/LeagueInvite.vue'
+import LandingPage from '../views/LandingPage.vue'
+import SelectedLeague from '../views/SelectedLeague.vue'
 
 Vue.use(Router)
 
@@ -25,11 +27,11 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -66,7 +68,15 @@ const router = new Router({
     },
     {
       path: "/league/:id",
-      name: "League",
+      name: "SelectedLeague",
+      component: SelectedLeague,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/leagues",
+      name: "LeagueHome",
       component: LeagueHome,
       meta: {
         requiresAuth: true
@@ -78,6 +88,14 @@ const router = new Router({
       component: LeagueInvite,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: "/",
+      name: "LandingPage",
+      component: LandingPage,
+      metha: {
+        requiresAuth: false
       }
     }
   ]

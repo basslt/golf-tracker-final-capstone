@@ -1,8 +1,14 @@
 <template>
   <div>
     <form v-on:submit.prevent>
-      <label for="username">Search For User to Invite: </label>
-      <input type="text" name="username" v-model="filterText" />
+      <div class="form-group">
+        <label for="username">Search For User to Invite: </label>
+        <input type="text" name="username" v-model="filterText" />
+      </div>
+      <div class="form-group">
+        <label for="userlist"></label>
+        <textarea name="userlist" id="userlist" class="form-control" cols="30" rows="10"></textarea>
+      </div>
     </form>
     <table>
       <thead>

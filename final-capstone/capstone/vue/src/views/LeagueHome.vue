@@ -1,35 +1,54 @@
 <template>
-  <div class="main">
-      <body>
-          <header>
-              <router-link v-bind:to="{ name: 'home'}">Return to Home</router-link>
-          </header>
-        <main>
-            <league-leaderboard id="leaderboard"/>
-        </main>
-        <aside>
-            <league-page-nav />
-        </aside>
-      </body>
+  <div>
+     <header>
+        <main-navigation />
+     </header>
+     <div class="main">
+        <body>
+
+            <!-- <header>
+                <router-link v-bind:to="{ name: 'home'}">Return to Home</router-link>
+            </header> -->
+            <main class="content">
+                <league-list />
+            </main>
+            <aside>
+                <league-page-nav />
+            </aside>
+        </body>
+     </div>
       
   </div>
 </template>
 
 <script>
-import LeagueLeaderboard from "../components/LeagueLeaderboard.vue"
-import LeaguePageNav from "../components/LeaguePageNav.vue"
+//import LeagueLeaderboard from "../components/LeagueLeaderboard.vue"
+//import LeaguePageNav from "../components/LeaguePageNav.vue"
+import MainNavigation from "../components/MainNavigation.vue"
+import LeagueList from "../components/LeagueList.vue"
 
 export default {
     components: {
-        LeagueLeaderboard,
-        LeaguePageNav
+        //LeagueLeaderboard,
+        //LeaguePageNav,
+        MainNavigation,
+        LeagueList
     }
 
 }
 </script>
 
 <style>
-body {
+
+.main { 
+    display: flex;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+/* body {
     display: grid;
     height: 100vh;
     width: 100vw;
@@ -62,7 +81,7 @@ main {
 
 #leaderboard {
     
-}
+} */
 
 
 </style>

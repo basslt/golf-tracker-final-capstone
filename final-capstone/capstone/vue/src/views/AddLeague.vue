@@ -1,12 +1,12 @@
 <template>
  <div class="container">
-   <div class = "heading">
+   <div class="heading">
      <h2>Create a New League</h2>
    </div>
   <div class="logo">
       <img src="../assets/logo.png" alt="Logo" />
     </div>
-    <div class = "league-form">
+    <div class="league-form">
     <create-league />
   </div>
    

@@ -1,19 +1,24 @@
 <template>
-
   <div>
       <header>
-              <router-link v-bind:to="{ name: 'home'}">Return to Home</router-link>
-        </header>
-      <league-invite-form />
+        <main-navigation />
+      </header>
+      <div>
+      <body>
+        <league-invite-form />
+      </body>
+      </div>
   </div>
 </template>
 
 <script>
 import LeagueInviteForm from '../components/LeagueInviteForm.vue';
+import MainNavigation from '../components/MainNavigation.vue';
 
 export default {
     components: {
-        LeagueInviteForm
+        LeagueInviteForm,
+        MainNavigation
     }
 
 }

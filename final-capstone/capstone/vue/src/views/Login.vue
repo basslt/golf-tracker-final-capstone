@@ -63,7 +63,7 @@ export default {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
             this.$store.commit("SET_LOGGED_USER_USERNAME", this.user.username);
-            this.$router.push("/");
+            this.$router.push("/home");
           }
         })
         .catch(error => {
@@ -113,19 +113,13 @@ export default {
 
 }
 
-
-
-
-
 .logo {
   
   grid-row-start: 1;
   grid-row-end: 2;
   text-align: center;
-  
- 
-
 }
+
 .wording{
   grid-row-start: 2;
   grid-row-end: 3;
@@ -180,7 +174,6 @@ margin-right: 15px;
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
-
 
 .sign-in-button:hover {
   background-color: #f7ecc2;
