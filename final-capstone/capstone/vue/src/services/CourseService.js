@@ -56,4 +56,25 @@ export default {
         throw error;
       });
   },
+  getCoursesByFilter(name, state, city) {
+    const queryParams = new URLSearchParams();
+    if (name) {
+      queryParams.append('name', name);
+    }
+    if (state) {
+      queryParams.append('state', state);
+    }
+    if (city) {
+      queryParams.append('city', city);
+    }
+  
+    const url = `/courses?${queryParams.toString()}`;
+  
+    return axios
+      .get(url)
+      .then(response => response.data)
+      .catch(error => {
+        throw error;
+      });
+  }
 };

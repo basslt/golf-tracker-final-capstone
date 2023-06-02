@@ -32,7 +32,7 @@ import MainNavigation from '../components/MainNavigation.vue'
 export default {
   components: {  
     LeagueList,
-    MainNavigation
+    MainNavigation,
   },
   name: "main"
 };

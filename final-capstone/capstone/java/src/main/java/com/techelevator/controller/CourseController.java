@@ -76,5 +76,11 @@ public class CourseController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping(params = {"name", "state", "city"})
+    public List<Course> getCoursesByFilters(@RequestParam(required = false) String name,
+                                            @RequestParam(required = false) String state,
+                                            @RequestParam(required = false) String city) {
+        return courseDao.findCoursesByFilters(name, state, city);
+    }
 }
 

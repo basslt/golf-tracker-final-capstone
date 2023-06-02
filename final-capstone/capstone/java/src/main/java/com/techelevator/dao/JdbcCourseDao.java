@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -99,6 +100,30 @@ public class JdbcCourseDao implements CourseDao {
             throw new DataAccessException("Failed to delete course: " + e.getMessage()) {
             };
         }
+    }
+
+
+    @Override
+    public List<Course> findCoursesByFilters(String name, String state, String city) {
+        String sql = "SELECT * FROM course WHERE 1=1";
+        List<Object> params = new ArrayList<>(); // List to store the query parameters
+
+        if (name != null && !name.isEmpty()) {
+            sql += " AND name LIKE ?";
+            params.add("%" + name + "%"); // Add name parameter value
+        }
+
+        if (state != null && !state.isEmpty()) {
+            sql += " AND state = ?";
+            params.add(state); // Add state parameter value
+        }
+
+        if (city != null && !city.isEmpty()) {
+            sql += " AND city LIKE ?";
+            params.add("%" + city + "%"); // Add city parameter value
+        }
+
+        return jdbcTemplate.query(sql, params.toArray(), new CourseRowMapper());
     }
 
     private static class CourseRowMapper implements RowMapper<Course> {
