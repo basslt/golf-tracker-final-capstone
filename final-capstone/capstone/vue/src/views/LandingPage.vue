@@ -1,24 +1,23 @@
 <template>
   <div class="home">
-    <div class="logo"> 
+    <div class="logo">
       <img src="../assets/official-logo.png" alt="">
     </div>
     <div class = "main-content">
       <h1>Create and Manage Golf Leagues & Connect with Friends</h1>
       <h2>Schedule Tee Times, View Leaderboards, and Discover Courses - All in One Place!"</h2>
-      <button 
-      class = "login-button" @click="showLoginForm = true" > 
+      <button
+      class = "login-button" @click="showLoginForm = true" >
        <span>Login</span>
         </button>
     </div>
-
     <Login v-show="showLoginForm" @close="showLoginForm = false" />
-    
     </div>
 </template>
 
+
 <script>
-import Login from './Login.vue'; // Import the Login component
+import Login from '../views/Login.vue'; // Import the Login component
 
 export default {
   components: {
@@ -26,7 +25,7 @@ export default {
   },
   data() {
     return {
-      showLoginForm: false // Initially set to false to hide the login form overlay
+      showLoginForm: this.$route.query.showLoginForm === 'true' || false,
     };
   }
 };

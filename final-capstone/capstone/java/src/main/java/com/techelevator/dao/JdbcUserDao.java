@@ -83,21 +83,32 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User findByUsername(String username) {
-        User user = null;
-        String sql = "SELECT * FROM users WHERE username ILIKE ?;";
-        try {
-            SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
-            if (result.next()) {
-                user = mapRowToUser(result);
-            }
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new RuntimeException("Unable to connect to server or database", e);
-        } catch (BadSqlGrammarException e) {
-            throw new RuntimeException("SQL syntax error", e);
-        }
-        return user;
+        if (username == null) throw new IllegalArgumentException("Username cannot be null");
 
+        for (User user : this.findAll()) {
+            if (user.getUsername().equalsIgnoreCase(username)) {
+                return user;
+            }
+        }
+        throw new UsernameNotFoundException("User " + username + " was not found.");
     }
+
+//    @Override
+//    public User findByUsername(String username) {
+//        User user = null;
+//        String sql = "SELECT * FROM users WHERE username ILIKE ?;";
+//        try {
+//            SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
+//            if (result.next()) {
+//                user = mapRowToUser(result);
+//            }
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new RuntimeException("Unable to connect to server or database", e);
+//        } catch (BadSqlGrammarException e) {
+//            throw new RuntimeException("SQL syntax error", e);
+//        }
+//        return user;
+//    }
 
     @Override
     public boolean create(String username, String password, String role) {

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,6 +64,16 @@ public class JdbcCourseDao implements CourseDao {
             return Collections.emptyList();
         }
     }
+    @Override
+    public List<Course> findByName(String name) {
+        try {
+            String query = "SELECT * FROM Course WHERE name LIKE ?";
+            String likePattern = "%" + name + "%";
+            return jdbcTemplate.query(query, new CourseRowMapper(), likePattern);
+        } catch (EmptyResultDataAccessException e) {
+            return Collections.emptyList();
+        }
+    }
 
     @Override
     public void saveCourse(Course course) {
@@ -100,6 +111,31 @@ public class JdbcCourseDao implements CourseDao {
             };
         }
     }
+
+
+    @Override
+    public List<Course> findCoursesByFilters(String name, String state, String city) {
+        String sql = "SELECT * FROM course WHERE 1=1";
+        List<Object> params = new ArrayList<>(); // List to store the query parameters
+
+        if (name != null && !name.isEmpty()) {
+            sql += " AND LOWER(name) ILIKE LOWER(?)";
+            params.add("%" + name.toLowerCase() + "%"); // Add lowercase name parameter value
+        }
+
+        if (state != null && !state.isEmpty()) {
+            sql += " AND LOWER(state) = LOWER(?)";
+            params.add(state.toLowerCase()); // Add lowercase state parameter value
+        }
+
+        if (city != null && !city.isEmpty()) {
+            sql += " AND LOWER(city) ILIKE LOWER(?)";
+            params.add("%" + city.toLowerCase() + "%"); // Add lowercase city parameter value
+        }
+
+        return jdbcTemplate.query(sql, params.toArray(), new CourseRowMapper());
+    }
+
 
     private static class CourseRowMapper implements RowMapper<Course> {
         @Override

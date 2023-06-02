@@ -14,4 +14,6 @@ public interface CourseDao {
     void saveCourse(Course course);
     void updateCourse(Course course);
     void deleteCourse(int courseId);
+    List<Course> findCoursesByFilters(String name, String state, String city);
+    List<Course> findByName(String name);
 }
