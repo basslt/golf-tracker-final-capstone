@@ -1,21 +1,20 @@
 <template>
-
-  <div class="add-league">
-    <!-- <h2>Add a New League</h2> -->
+  <div class="add-league">    
     <form v-on:submit.prevent>
+      <div class="heading">
+        <h2>Create a New League</h2>
+      </div>
       <div class="form-group">
         <label for="leagueName">League Name:</label>
         <input type="text" id="leagueName" v-model="league.leagueName" required>
       </div>
       <button type="submit" v-on:click="createLeague()">Create League</button>
     </form>
-    <LeagueLeaderboard :leagueId="newLeagueId" />
   </div>
 </template>
 
 <script>
 import leagueService from '../services/LeagueService';
-import userService from '../services/UserService';
 
 export default {
   data() {
@@ -29,28 +28,24 @@ export default {
   },
   methods: {
     createLeague() {
+      const user = this.$store.getters.getUser;
+      this.league.organizerId = user.id;
       leagueService.addLeague(this.league)
         .then( (response) => {
           this.newLeagueId = response.data.leagueId;
-          this.$router.push({ name: 'League', params: { id: this.newLeagueId}})
+          this.$router.push({ name: 'SelectedLeague', params: { id: this.newLeagueId}})
           console.log('League created!');
         })
         .catch(error => {
           console.error('Failed to fetch league ID:', error);
         });
     },
-  },
-  created() {
-    userService.getUserByUsername(this.$store.state.loggedUser.username).then((response) => {
-      this.league.organizerId = response.data.id;
-    });
   }
 }
 </script>
 
-
-
 <style scoped>
+
 .add-league {
   display: flex;
    background-color: whitesmoke;
@@ -61,25 +56,26 @@ export default {
   margin-bottom: 20px;
 }
 
-
 form{
-  
  background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 5px;
 }
+
 label {
   margin-right: 0.5rem;
   color:#004d33;
   font-weight: bold;
   padding-bottom: 10px;
 }
+
  input {
   width: 100%;
   height: 2rem;
   padding: 0.25rem;
   font-size: 1rem;
 }
+
 button{
   display: inline-block;
   padding: 10px 20px;
@@ -96,4 +92,16 @@ button{
 button:hover{
    background-color: #f7ecc2;
 }
+
+.heading{
+  grid-row: 2;
+  justify-self: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #004d33;
+  align-items: center;
+  position: inherit;
+}
+
 </style>

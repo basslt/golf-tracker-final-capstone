@@ -9,8 +9,8 @@
           <router-link v-bind:to="{ name: 'home'}">Home</router-link> |
           <router-link v-bind:to="{ name: 'LeagueHome'}">Leagues</router-link> |
           <button>Courses</button>
+          <button>Messages</button>
           <button>Log Out</button>
-          <router-link v-bind:to="{ name: 'AddLeague' }" class="create-league-button">Create League</router-link>
         </div>
       </div>
   </div>

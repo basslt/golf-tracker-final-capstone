@@ -25,7 +25,6 @@ export default {
 
   getUserById(userId) {
     return axios.get(`/users/${userId}`)
-      
   },
 
   getAllUsers() {
