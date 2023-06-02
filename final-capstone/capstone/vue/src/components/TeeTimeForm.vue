@@ -40,11 +40,25 @@ export default {
   },
   methods: {
     submitFilters() {
+        const params = {};
+
+        if (this.name) {
+            params.name = this.name;
+        }
+
+        if (this.state) {
+            params.state = this.state;
+        }
+
+        if (this.city) {
+            params.city = this.city;
+  }
       // Call the getCoursesByFilter() helper method to fetch filtered courses
-      courseService.getCoursesByFilter(this.name, this.state, this.city)
+      courseService.getCoursesByFilter(params)
         .then(courses => {
           // Update the courses array with the response data
           this.courses = courses;
+          console.log(courses);
         })
         .catch(error => {
           console.error('Error:', error);
