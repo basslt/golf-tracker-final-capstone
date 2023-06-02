@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin
@@ -33,19 +34,40 @@ public class CourseController {
         }
     }
 
-    @GetMapping
-    public List<Course> getAllCourses() {
-        return courseDao.getAllCourses();
+
+@GetMapping
+    public List<Course> getCoursesByFilters(@RequestParam Map<String, String> filters) {
+        String name = filters.get("name");
+        String state = filters.get("state");
+        String city = filters.get("city");
+
+    // Convert filter values to lowercase
+    if (name != null) {
+        name = name.toLowerCase();
+    }
+    if (state != null) {
+        state = state.toLowerCase();
+    }
+    if (city != null) {
+        city = city.toLowerCase();
     }
 
-    @GetMapping(params = "state")
-    public List<Course> getCoursesByState(@RequestParam String state) {
+    return courseDao.findCoursesByFilters(name, state, city);
+}
+
+    @GetMapping("/state/{state}")
+    public List<Course> getCoursesByState(@PathVariable String state) {
         return courseDao.findByState(state);
     }
 
-    @GetMapping(params = "city")
-    public List<Course> getCoursesByCity(@RequestParam String city) {
+    @GetMapping("/city/{city}")
+    public List<Course> getCoursesByCity(@PathVariable String city) {
         return courseDao.findByCity(city);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<Course> getCoursesByName(@PathVariable String name) {
+        return courseDao.findByName(name);
     }
 
     @PostMapping
@@ -76,11 +98,4 @@ public class CourseController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping(params = {"name", "state", "city"})
-    public List<Course> getCoursesByFilters(@RequestParam(required = false) String name,
-                                            @RequestParam(required = false) String state,
-                                            @RequestParam(required = false) String city) {
-        return courseDao.findCoursesByFilters(name, state, city);
-    }
 }
-
