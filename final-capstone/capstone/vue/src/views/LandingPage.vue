@@ -1,84 +1,102 @@
 <template>
   <div class="home">
-    <div class="header"> 
-      <img src="../assets/logo.png" alt="">
-      <h2>golf leagues with friends</h2>
-      <div class = "header-buttons">
-        <router-link to="/login" class="login-button">Login</router-link>
-      </div>
+    <div class="logo"> 
+      <img src="../assets/official-logo.png" alt="">
     </div>
-    <div class="league-container">
-      <league-list />
+    <div class = "main-content">
+      <h1>Create and Manage Golf Leagues & Connect with Friends</h1>
+      <h2>Schedule Tee Times, View Leaderboards, and Discover Courses - All in One Place!"</h2>
+      <button 
+      class = "login-button" @click="showLoginForm = true" > 
+       <span>Login</span>
+        </button>
     </div>
+
+    <Login v-show="showLoginForm" @close="showLoginForm = false" />
+    
     </div>
 </template>
 
 <script>
-import LeagueList from '../components/LeagueList.vue';
+import Login from './Login.vue'; // Import the Login component
 
 export default {
-components: {  
-    LeagueList 
+  components: {
+    Login // Register the Login component
   },
-  name: "main"
+  data() {
+    return {
+      showLoginForm: false // Initially set to false to hide the login form overlay
+    };
+  }
 };
 </script>
 
 <style>
-
-.home{
-   display: grid;
-   background-color: whitesmoke;
-   grid-template-columns: 1fr, 1fr, 1fr;
-   grid-auto-rows: 100px;
-   width: 100vw;
-   height: 100vh;
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  margin: 0;
 }
 
-.header {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-  background-color: #ffffff;
-  padding: 0 20px;
-}
-
-.header img {
-  max-width: 300px;
-  margin-right: 10px;
-}
-
-.header h2 {
-  color: #004d33;
-  white-space: nowrap;
-  size: 10px; 
+.home {
+  background-color: #059262;
+  width: 100vw;
+  height: 100vh;
   
 }
 
-.header-buttons {
-   white-space: nowrap; 
-   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-grow: 1;
-  margin-right: 10px;
-
+.logo {
+  align-self: flex-start; /* Align the logo to the top left corner */
+  display: flex;
+  height: 100px;
+  
+  
 }
 
-.login-button {
-  margin-right: 10%;
-  color: rgb(2, 2, 2);
-  /* justify-content: center;  */
-  text-decoration: none; 
+img {
+  max-width: 300px; /* Limit the logo size if needed */
+  
 }
 
-.league-container{
-
+.main-content {
+  color: white;
+  text-align: center; /* Center the content horizontally */
+  margin-top: 200px;
 }
+
+.main-content h1 {
+  font-size: 50px;
+  margin-bottom: 50px;
+  
+}
+
+.main-content h2 {
+  font-size: 24px;
+  
+}
+
+.login-button{
+  margin-top: 100px;
+  display: inline-block;
+  padding: 20px 60px;
+  background-color: #ffde59;
+  color: white;
+  border: none;
+  border-radius: 15px; /* Adjust the value to control the roundness */
+  cursor: pointer;
+  
+  
+}
+.login-button span {
+  font-size: 30px; /* Adjust the font size for the login text */
+  font-weight: bold;
+}
+
+.login-button:hover {
+  background-color: #fce279;
+}
+
+
 
 </style>

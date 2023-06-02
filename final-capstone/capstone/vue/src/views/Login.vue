@@ -1,21 +1,9 @@
 <template>
-<div class="background">
+<div class="background" >
   <div class="container">
-    <body >
-      
-    </body>
-     <div class="logo">
-      <img src="../assets/logo-white.png" alt="Logo" />
-    </div>
-    <div class = "wording">
-    <h1 class="welcome-heading">Welcome to Playing Through</h1>
-    <h2>Your all-inclusive golf tracking app</h2>
-    <p class="description">Find courses and set up matches with your friends</p>
-    <p class= "description2">Keep track of leaderboards for ultimate bragging rights</p>
-    </div>
-    <div id="login">
+    <div id="login" v-show="showLoginForm" >
       <form @submit.prevent="login">
-        <h3>Please Sign In</h3>
+        <h3>Welcome Back!</h3>
         <div role="alert" v-if="invalidCredentials">
           Invalid username and password!
         </div>
@@ -23,14 +11,14 @@
           Thank you for registering, please sign in.
         </div>
         <div class="username-input">
-          <label for="username">Username</label>
+          <label for="username">Username:</label>
           <input type="text" id="username" v-model="user.username" required autofocus />
         </div>
         <div class="password-input">
-          <label for="password">Password</label>
+          <label for="password">Password:</label>
           <input type="password" id="password" v-model="user.password" required />
         </div>
-        <button class="sign-in-button" type="submit">Sign in</button>
+        <button class="login-button" type="submit"><span>Login</span></button>
         <p>
           <router-link class="register-button" :to="{ name: 'register' }">Not a user? Register here!</router-link>
         </p>
@@ -51,7 +39,8 @@ export default {
         username: "",
         password: ""
       },
-      invalidCredentials: false
+      invalidCredentials: false,
+      showLoginForm: false
     };
   },
   methods: {
@@ -73,110 +62,120 @@ export default {
             this.invalidCredentials = true;
           }
         });
-    }
+    },
+  
+  },
+    
+   mounted() {
+    this.showLoginForm = true; // Set showLoginForm to true to display the login form by default
   }
 };
 </script>
 
 <style scoped>
+
 .background {
-    min-height: 100%;
-    overflow-y: scroll;
-      width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
-} 
-
-
-.container{
-  
-  /* display: flex;
-  flex-direction:column;
-  align-items: center;
-  background-image: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value (0.5) to control the transparency */
+  display: flex;
   justify-content: center;
-  background-image: url("../assets/loginbackground.jpg");
-  background-size: cover;
-  background-position:center;
-  text-align: center;
-  color: white;
-  height: 99%;
-  width: 299%; */
-   display: grid;
-   background-color: whitesmoke;
-    grid-auto-columns: 1fr;
-   grid-template-rows: repeat(3, 1fr);
-   width: 100vw;
-  height: 100vh;
-  background-color: #004d33;
-   min-height: 100%;
-    overflow-y: scroll;
+  align-items: center;
+  
+}
 
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   max-width: 400px; /* Adjust the width as needed */
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
 }
 
 .logo {
-  
-  grid-row-start: 1;
-  grid-row-end: 2;
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.wording{
-  grid-row-start: 2;
-  grid-row-end: 3;
-  text-align: center;
-  color: white;
-  
-}
 .logo img {
-  width: 300px; 
+  max-width: 200px;
 }
 
-#login {
+form {
   display: flex;
-  grid-row-start: 3;
-  grid-row-end: 4;
-  text-align: center;
-  font-size: 20px;
-  justify-content: center;
-  /* margin-bottom: 200px; */
-  color: white;
-  
+  flex-direction: column;
+  align-items: center;
 }
 
 h3 {
-  color: #ffde59;
-}
-
-.username-input {
-padding-bottom: 15px;
-}
-.username-input label{
-margin-right: 10px;
-
-}
-
-.password-input label{
-margin-right: 15px;
-}
-
-.register-button{
-  color: #ffffff;
-}
-.sign-in-button{
-   display: inline-block;
-  padding: 10px 20px;
-  background-color: #fdd430;
-  color: #fff;
-  border-radius: 25px;
-  border: none;
-  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
 }
 
-.sign-in-button:hover {
-  background-color: #f7ecc2;
+.alert {
+  margin: 10px 0;
+  color: red;
 }
 
+.username-input,
+.password-input {
+  margin: 10px 0;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 5px;
+  width: 200px;
+}
+
+.login-button {
+ display: inline-block;
+  padding: 10px 40px;
+  background-color: #ffde59;
+  color: white;
+  border: none;
+  border-radius: 15px; /* Adjust the value to control the roundness */
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.login-button span {
+  font-size: 20px; /* Adjust the font size for the login text */
+  font-weight: bold;
+}
+
+.login-button:hover {
+  background-color: #fce279;
+}
+
+.register-button {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 10px;
+  margin-bottom: 10px;
+}
+
+
+/* Media query for responsive design */
+@media (max-width: 600px) {
+  .container {
+    max-width: 90%;
+  }
+}
 </style>
+

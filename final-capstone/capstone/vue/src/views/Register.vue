@@ -1,11 +1,8 @@
 <template>
+<div class= "background">
 <div class="container">
     <div class="logo">
-      <img src="../assets/logo-white.png" alt="Logo" />
-    </div>
-    <div class = "heading">
-    <h1 class="welcome-heading">Youre Gonna Be Glad You Joined Playing Through</h1>
-    <h2>Your all-inclusive golf tracking app</h2>
+      <img src="../assets/official-logo.png" alt="Logo" />
     </div>
   <div id="register" class="text-center">
     <form @submit.prevent="register">
@@ -28,6 +25,7 @@
       <button type="submit">Create Account</button>
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
+  </div>
   </div>
   </div>
 </template>
@@ -83,156 +81,91 @@ export default {
 </script>
 
 <style scoped>
-.form-input-group {
-  margin-bottom: 1rem;
+.background {
+  background-color: #059262;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-label {
-  margin-right: 0.5rem;
-}
+
 .container {
-  /* display: flex;
+  background-color: #6AD6B2;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-image: url("../assets/registrationbackground.jpg");
-  background-size: cover;
-  background-position:center;
   text-align: center;
-  color: white;
-   height: 99%;
-  width: 299%; */
-   display: grid;
-   background-color: whitesmoke;
-    grid-auto-columns:  1fr;
-   grid-template-rows: repeat(3, 1fr);
-   width: 100vw;
-  height: 100vh;
-  background-color: #004d33;
-   min-height: 100%;
-    overflow-y: scroll;
-
+   max-width: 700px; /* Adjust the width as needed */
+  width: 100%;
+  height: 600px;
 }
 
 .logo {
-  
-  size: 15px;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  text-align: center;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  align-content: center;
 }
 
 .logo img {
-  width: 250px;
- 
+  max-width: 300px;
 }
 
-.heading {
-  font-size: 36px;
-  font-weight: bold;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  row-gap: -10px;
-  
-}
-
-h1 {
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
-  color: White;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  color: White;
-}
-h3 {
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
-  color: #004d33;
-}
-
-
-#register {
-  background-color: rgba(255, 255, 255, 0.8);
+form {
   display: flex;
-  grid-row-start: 3;
-  grid-row-end: 4;
-  text-align: center;
-  justify-content: center;
-  margin-top: -100px;
-  
+  flex-direction: column;
+  align-items: center;
 }
 
-.form-input-group {
-  margin-bottom: 1rem;
-  color: #004d33;
+h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.alert {
+  margin: 10px 0;
+  color: red;
+}
+
+.username-input,
+.password-input,
+.confirm-password-input {
+  margin: 10px 0;
 }
 
 label {
-  margin-right: 0.5rem;
+  font-weight: bold;
+  margin-right: 10px;
 }
 
-.login-form input {
-  width: 100%;
-  height: 40px;
-  padding: 10px;
-  margin-bottom: 10px;
-  font-size: 16px;
-
+input[type="text"],
+input[type="password"] {
+  padding: 5px;
+  width: 200px;
 }
 
-.login-form button {
-  width: 100%;
-  height: 40px;
-  background-color: #005400;
-  color: white;
-  border: none;
-  font-size: 16px;
-}
-
-.register-link {
-  font-size: 14px;
-  margin-top: 20px;
-}
-
-.register-link a {
-  color: white;
-}
-
-.username-input{
-  margin-top: 15px;
-}
-
-.password-input{
-  margin-top: 15px;
-}
-
-.confirm-password-input{
-  margin-right: 55px;
-  margin-top: 15px;
-}
-
-button{
-  display: inline-block;
+button[type="submit"] {
   padding: 10px 20px;
-  background-color: #fdd430;
-  color: #fff;
-  border-radius: 25px;
+  background-color: #ffde59;
+  color: white;
   border: none;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-button:hover{
-   background-color: #f7ecc2;
+p {
+  margin: 10px;
 }
 
+router-link {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 10px;
+}
 
 </style>
 
