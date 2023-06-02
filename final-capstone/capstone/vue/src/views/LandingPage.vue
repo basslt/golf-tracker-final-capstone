@@ -25,7 +25,6 @@ export default {
   },
   data() {
     return {
-      //showLoginForm: false, // Initially set to false to hide the login form overlay
       showLoginForm: this.$route.query.showLoginForm === 'true' || false,
     };
   }
