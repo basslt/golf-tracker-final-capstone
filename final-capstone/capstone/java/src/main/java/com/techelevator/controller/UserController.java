@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 public class UserController {
 
     private UserDao userDao;
@@ -44,8 +44,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/")
-    public User findByUsername(@RequestParam String username) {
+    @GetMapping("/{username}")
+    public User findByUsername(@PathVariable String username) {
         User user = userDao.findByUsername(username);
         return user;
     }

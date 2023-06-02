@@ -58,8 +58,10 @@ export default {
           .then((response) => {
             if (response.status == 201) {
               this.$router.push({
-                path: '/login',
-                query: { registration: 'success' },
+                path: '/',
+                query: {showLoginForm: true}
+                // path: '/',
+                // query: { registration: 'success' },
               });
             }
           })
