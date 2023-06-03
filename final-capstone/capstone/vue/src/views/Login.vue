@@ -67,8 +67,8 @@ export default {
   },
     
    mounted() {
-    this.showLoginForm = true; // Set showLoginForm to true to display the login form by default
-  }
+     this.showLoginForm = true; // Set showLoginForm to true to display the login form by default
+   }
 };
 </script>
 
@@ -90,7 +90,7 @@ export default {
 .container {
   background-color: white;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
    max-width: 400px; /* Adjust the width as needed */
   width: 100%; 
@@ -136,10 +136,21 @@ label {
   margin-right: 10px;
 }
 
-input[type="text"],
+/* input[type="text"],
 input[type="password"] {
   padding: 5px;
   width: 200px;
+} */
+
+ input[type="text"],
+input[type="password"] {
+ padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #dddddd;
+  font-size: 16px;
+  color: #333;
+  transition: box-shadow 0.3s ease;
 }
 
 .login-button {

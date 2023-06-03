@@ -6,25 +6,25 @@
     </div>
   <div id="register" class="text-center">
     <form @submit.prevent="register">
-      <h3>Create Account</h3>
+      
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <div class="fields">
-        <div class="username-input">
-          <label for="username">Username</label>
-          <input type="text" id="username" v-model="user.username" required autofocus />
-        </div>
-        <div class="password-input">
-          <label for="password">Password</label>
-          <input type="password" id="password" v-model="user.password" required />
-        </div>
-        <div class="confirm-password-input">
-          <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
-        </div>
+      <div class = "form">
+      <div class="username-input">
+        <label for="username">Username</label>
+        <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
-      <button type="submit">Create Account</button>
+      <div class="password-input">
+        <label for="password">Password</label>
+        <input type="password" id="password" v-model="user.password" required />
+      </div>
+      <div class="confirm-password-input">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
+      </div>
+      </div>
+      <button type="submit"><span>Create Account</span></button>
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
   </div>
@@ -99,38 +99,43 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
    max-width: 700px; /* Adjust the width as needed */
   width: 100%;
   height: 600px;
 }
 
-.logo {
-  margin-bottom: 50px;
+.form{
   display: flex;
-  align-items: center;
-  align-content: center;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.logo {
+  margin-bottom: 80px;
+  display: flex;
+  margin-left: 190px;
+  
 }
 
 .logo img {
   max-width: 300px;
+  display: flex;
 }
 
 form {
   display: flex;
-  flex-direction: column;
+ flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
-.fields {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-}
+/* h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 25px;
+  
+} */
 
 .alert {
   margin: 10px 0;
@@ -140,28 +145,59 @@ h3 {
 .username-input,
 .password-input,
 .confirm-password-input {
+  display: flex;
+  text-align: right;
+  align-items: center;
   margin: 10px 0;
 }
 
 label {
   font-weight: bold;
   margin-right: 10px;
-
+  font-size: 25px;
+  
 }
+
+/* input[type="text"],
+input[type="password"]
+ {
+  padding: 5px;
+  width: 200px;
+
+} */
+
 
 input[type="text"],
 input[type="password"] {
-  padding: 5px;
-  width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+  color: #333;
+  transition: box-shadow 0.3s ease;
 }
 
 button[type="submit"] {
+ display: inline-block;
   padding: 10px 20px;
   background-color: #ffde59;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px; /* Adjust the value to control the roundness */
   cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+button span{
+  font-size: 20px; /* Adjust the font size for the login text */
+  font-weight: bold;
+}
+button[type="submit"]:hover{
+  background-color: #fce279;
 }
 
 p {
