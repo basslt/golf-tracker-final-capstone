@@ -33,6 +33,11 @@ public class LeagueMembershipController {
         }
     }
 
+//    @GetMapping("/league/{leagueId}/leaguemembership")
+//    public List<LeagueMembership> getLeagueMembershipByLeagueId(@PathVariable int leagueId) {
+//        return leagueMembershipDao.findLeagueMembershipByLeagueId(leagueId);
+//    }
+
     @GetMapping("/league/{leagueId}/leaguemembership")
     public List<LeagueMembership> getLeagueMembershipByLeagueId(@PathVariable int leagueId) {
         return leagueMembershipDao.findLeagueMembershipByLeagueId(leagueId);

@@ -2,15 +2,15 @@
   <div>
     <form v-on:submit.prevent>
       <div class="form-group">
-        <label for="username">Search For User to Invite: </label>
+        <label for="username">Search Users: </label>
         <input type="text" name="username" v-model="filterText" />
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="userlist"></label>
         <textarea name="userlist" id="userlist" class="form-control" cols="30" rows="10"></textarea>
-      </div>
+      </div> -->
     </form>
-    <table>
+    <table class="table">
       <thead>
         <th>User</th>
         <th></th>
@@ -20,7 +20,7 @@
           <td>
             {{ user.username }}
           </td>
-          <td>
+          <td class="button">
             <button v-on:click="sendInvite(user.id)">Send Invite</button>
           </td>
         </tr>
@@ -32,8 +32,13 @@
 <script>
 import userService from '../services/UserService.js';
 import messageService from '../services/MessageService';
+import leagueMembership from '../services/LeagueMembership'
+//import LeagueMemberList from '../components/LeagueMemberList.vue'
 
 export default {
+  // components: {
+  //   LeagueMemberList
+  // },
 
   data() {
     return {
@@ -45,7 +50,9 @@ export default {
       },
       users: [],
       filterText: "",
-      selectedUserId: "",
+      leagueUserMemberships: [],
+      activeLeagueId: 0,
+      leagueUsers: []
     }
   },
   created() {
@@ -54,12 +61,24 @@ export default {
     }).catch(error => {
       console.error("Whoops", error);
     });
+
+    this.activeLeagueId = this.$store.state.activeLeagueId;
+    leagueMembership.getLeagueMembershipByLeagueId(this.activeLeagueId).then( (response) => {
+      this.leagueUserMemberships = response.data;
+    });
+    this.leagueUserMemberships.forEach( (membership) => {
+      userService.getUserById(membership.userId).then( (response) => {
+        this.leagueUsers.push(response.data);
+      })
+    });
   },
 
   computed: {
     filteredUsers() {
-      return this.users.filter( (user) => {
-        return user.username.includes(this.filterText);
+      return this.leagueUsers.filter( (user) => {
+        if (user.userId != this.activeLeagueId) {
+          return user.username.includes(this.filterText)
+        }
       })
     }
   },
@@ -85,3 +104,22 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.form-group {
+  display: block;
+}
+
+table {
+  margin-top: 5%;
+  table-layout: auto;
+  width: 50%;
+}
+
+td {
+  vertical-align: bottom;
+}
+
+
+</style>

@@ -11,65 +11,66 @@
 </template>
 
 <script>
-import LeagueMembershipService from '../services/LeagueMembership';
-import UserService from '../services/UserService';
-import ScoreService from '../services/ScoreService';
+//import LeagueMembershipService from '../services/LeagueMembership';
+//import UserService from '../services/UserService';
+//import ScoreService from '../services/ScoreService';
 
 export default {
-  props: {
-    leagueId: {
-      type: Number,
-      required: true
-    }
-  },
+  // props: {
+  //   leagueId: {
+  //     type: Number,
+  //     required: true
+  //   }
+  // },
   data() {
     return {
       leaderboardMembers: []
     };
   },
-  mounted() {
-    this.fetchLeaderboardMembers();
-  },
+  // mounted() {
+  //   this.fetchLeaderboardMembers();
+  //},
   methods: {
-    fetchLeaderboardMembers() {
-      LeagueMembershipService.getLeagueMembershipByLeagueId(this.leagueId)
-        .then(memberships => {
-          const memberIds = memberships.map(membership => membership.userId);
-           UserService.getUsersByIds(memberIds)
-            .then(users => {
-              this.leaderboardMembers = users.map(user => ({
-                id: user.id,
-                name: user.name,
-                score: 0 
-              }));
+    // fetchLeaderboardMembers() {
+    //   LeagueMembershipService.getLeagueMembershipByLeagueId(this.leagueId)
+    //     .then(memberships => {
+    //       const memberIds = memberships.map(membership => membership.userId);
+    //        UserService.getUsersByIds(memberIds)
+    //         .then(users => {
+    //           this.leaderboardMembers = users.map(user => ({
+    //             id: user.id,
+    //             name: user.name,
+    //             score: 0 
+    //           }));
 
               
-              this.fetchScoresForMember();
-            })
-            .catch(error => {
-              console.error('Failed to fetch user details:', error);
-            });
-        })
-        .catch(error => {
-          console.error('Failed to fetch leaderboard members:', error);
-        });
-    },
-    fetchScoresForMember() {
+    //           this.fetchScoresForMember();
+    //         })
+    //         .catch(error => {
+    //           console.error('Failed to fetch user details:', error);
+    //         });
+    //     })
+    //     .catch(error => {
+    //       console.error('Failed to fetch leaderboard members:', error);
+    //     });
+    //},
+    // fetchScoresForMember() {
      
-      this.leaderboardMembers.forEach(member => {
-        ScoreService.getScoresByPlayer(member.id)
-          .then(scores => {
+    //   this.leaderboardMembers.forEach(member => {
+    //     ScoreService.getScoresByPlayer(member.id)
+    //       .then(scores => {
            
-            const totalScore = scores.reduce((sum, score) => sum + score.value, 0);
-            member.score = totalScore;
-          })
-          .catch(error => {
-            console.error('Failed to fetch scores:', error);
-          });
-      });
-    }
+    //         const totalScore = scores.reduce((sum, score) => sum + score.value, 0);
+    //         member.score = totalScore;
+    //       })
+    //       .catch(error => {
+    //         console.error('Failed to fetch scores:', error);
+    //       });
+    //   });
+    // }
   }
-};
+}
+
 </script>
 
 <style>

@@ -6,11 +6,11 @@
       </div>
       <div class="links">
         <div class="links-container">
-          <router-link v-bind:to="{ name: 'home'}">Home</router-link> |
-          <router-link v-bind:to="{ name: 'LeagueHome'}">Leagues</router-link> |
+          <router-link v-bind:to="{ name: 'home' }">Home</router-link> |
+          <router-link v-bind:to="{ name: 'LeagueHome' }">Leagues</router-link> |
           <button>Courses</button>
           <button>Messages</button>
-          <button>Log Out</button>
+          <router-link v-bind:to="{ name: 'LandingPage' }" v-on:click="logOut">Log Out</router-link> |
         </div>
       </div>
   </div>
@@ -18,6 +18,12 @@
 
 <script>
 export default {
+  methods: {
+    logOut() {
+      this.$store.commit("LOGOUT");
+      this.$router.push("/");
+    }
+  }
 
 }
 </script>

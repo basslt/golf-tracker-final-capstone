@@ -15,13 +15,14 @@ export default {
       });
   },
 
+  // getLeagueMembershipByLeagueId(leagueId) {
+  //   return axios.get(`/league/${leagueId}/leaguemembership`)
+  // },
+
   getLeagueMembershipByLeagueId(leagueId) {
-    return axios.get(`/league/${leagueId}/leaguemembership`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.get(`league/${leagueId}/leaguemembership`)
   },
+
 
   getLeagueMembershipByUserId(userId) {
     return axios.get(`/users/${userId}/leaguemembership`)

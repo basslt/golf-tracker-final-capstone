@@ -48,8 +48,6 @@ public class JdbcUserDao implements UserDao {
         }
     }
 
-
-
 	@Override
 	public User getUserById(int userId) {
         User user = null;
@@ -94,7 +92,7 @@ public class JdbcUserDao implements UserDao {
     }
 
 //    @Override
-//    public User findByUsername(String username) {
+//    public User getUserByUsername(String username) {
 //        User user = null;
 //        String sql = "SELECT * FROM users WHERE username ILIKE ?;";
 //        try {

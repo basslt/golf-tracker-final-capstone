@@ -10,17 +10,19 @@
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <div class="username-input">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
-      </div>
-      <div class="password-input">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
-      </div>
-      <div class="confirm-password-input">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
+      <div class="fields">
+        <div class="username-input">
+          <label for="username">Username</label>
+          <input type="text" id="username" v-model="user.username" required autofocus />
+        </div>
+        <div class="password-input">
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model="user.password" required />
+        </div>
+        <div class="confirm-password-input">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
+        </div>
       </div>
       <button type="submit">Create Account</button>
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
@@ -60,8 +62,6 @@ export default {
               this.$router.push({
                 path: '/',
                 query: {showLoginForm: true}
-                // path: '/',
-                // query: { registration: 'success' },
               });
             }
           })
@@ -119,7 +119,12 @@ export default {
 form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 h3 {
@@ -141,6 +146,7 @@ h3 {
 label {
   font-weight: bold;
   margin-right: 10px;
+
 }
 
 input[type="text"],
