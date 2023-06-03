@@ -20,6 +20,7 @@
         <div class="foot">
           <p>footer - fill in</p>
           <tee-time-form />
+          
         </div>
       </body>
     </div>
@@ -29,15 +30,18 @@
 <script>
 import LeagueList from '../components/LeagueList.vue';
 import MainNavigation from '../components/MainNavigation.vue'
-import TeeTimeForm from '../components/TeeTimeForm.vue';
+import TeeTimeForm from '../components/TeeTime.vue';
+
+
 
 export default {
   components: {  
     LeagueList,
     MainNavigation,
-    TeeTimeForm,
+     TeeTimeForm,
   },
-  name: "main"
+  name: "main",
+   
 };
 </script>
 <style scoped>
