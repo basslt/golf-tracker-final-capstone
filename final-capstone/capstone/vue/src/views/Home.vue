@@ -6,7 +6,7 @@
      <div class="main">
         <body>
             <main class="content">
-                <league-list />
+                <my-leagues />
             </main>
         </body>
      </div>
@@ -15,17 +15,13 @@
 
 <script>
 import HamburgerMenu from '../components/HamburgerMenu.vue';
-
-
-import LeagueList from '../components/LeagueList.vue';
+import MyLeagues from '../components/MyLeagues.vue';
 
 export default {
   components: {  
     HamburgerMenu,
-   
-    LeagueList,
+    MyLeagues,
     
-   
   },
   name: "main",
 };

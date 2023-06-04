@@ -7,11 +7,19 @@
         <span></span>
       </div>
       <ul class="menu-items" :class="{ open: isOpen }">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Leagues</a></li>
+        <router-link v-bind:to="{ name: 'home' }">
+          <li><a href="#">Home</a></li>
+        </router-link>
+        <router-link v-bind:to="{ name: 'LeagueHome' }">
+          <li><a href="#">Leagues</a></li>
+        </router-link>
         <li @click=" showCreateForm = true"><a href="#">Create a League</a></li>
-        <li><a href="#">Messages</a></li>
-        <li><a href="#">Log Out</a></li>
+        <router-link v-bind:to="{ name: 'Messages' }">
+          <li><a href="#">Messages</a></li>
+        </router-link>
+        <router-link v-bind:to="{ name: 'LandingPage' }" v-on:click="logOut">
+          <li><a href="#">Log Out</a></li>
+        </router-link>
       </ul>
     </div>
     <div class="logo">
@@ -29,6 +37,7 @@
 
 <script>
 import CreateLeague from '../components/CreateLeague.vue';
+
 export default {
   components: {
     CreateLeague
@@ -38,31 +47,32 @@ export default {
       isOpen: false,
       showCreateForm: false
     };
-   
   },
   methods: {
     toggleMenu() {
       this.isOpen = !this.isOpen;
-     
     },
-   
+    logOut() {
+      this.$store.commit("LOGOUT");
+      this.$router.push("/");
+    },
   }
 };
 </script>
 
 <style scoped>
+
 .container .logo {
     display: flex;
     flex-grow: 1;
     justify-content: center;
-   
 }
 
 .container .logo img {
   width: auto;
   height: 275px;
-  
 }
+
 .main{
   display: absolute;
   top: 0; 
@@ -71,9 +81,6 @@ export default {
   height: 100%; 
   justify-content: center;
   align-items: center;
-  
-
- 
 }
 
 .container {
@@ -81,9 +88,7 @@ export default {
     align-items: center;
     flex-grow: 1;    
     background-color: #059262;
-    
 }
-
 
 /* .hamburger-menu {
   display: flex;
@@ -144,7 +149,6 @@ export default {
 
 .menu-items li {
   padding: 10px;
-  
 }
 
 .menu-items a {
@@ -155,8 +159,7 @@ export default {
 }
 
 .menu-items :hover {
-  
   font-weight: bold;
-
 }
+
 </style>
