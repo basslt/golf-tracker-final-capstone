@@ -1,14 +1,16 @@
 <template>
     <div class="container">
-        <div class="message-list">
+        <div class="message-list" v-on:click="showMessageDetails = true">
             <message-card v-for="message in $store.state.messages" v-bind:key="message.id" v-bind:message="message" />
         </div>
+        <message-details v-show="showMessageDetails" @close="showMessageDetails = false" />
     </div>
 </template>
 
 <script>
 import messageService from '../services/MessageService'
 import MessageCard from '../components/MessageCard.vue'
+import MessageDetails from '../components/MessageDetails.vue'
 
 export default {
     name: "message-list",
@@ -16,7 +18,14 @@ export default {
         message: Object
     },
     components: {
-        MessageCard
+        MessageCard,
+        MessageDetails
+    },
+    data() {
+        return {
+            //showMessageDetails: this.$route.query.showMessageDetails === 'true' || false,
+            showMessageDetails: false
+        }
     },
     methods: {
         getMessages() {
