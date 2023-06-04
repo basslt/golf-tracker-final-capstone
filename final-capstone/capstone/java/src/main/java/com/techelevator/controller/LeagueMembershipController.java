@@ -23,25 +23,30 @@ public class LeagueMembershipController {
         return leagueMembershipDao.getAllLeagueMemberships();
     }
 
-    @GetMapping("/leaguemembership/{id}")
-    public LeagueMembership getLeagueMembershipByLeagueMembershipId(@PathVariable int leagueMembershipId) {
-        LeagueMembership leagueMembership = leagueMembershipDao.findLeagueMembershipById(leagueMembershipId);
-        if (leagueMembership == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "LeagueMembership not found.");
-        } else {
-            return leagueMembership;
-        }
+//    @GetMapping("/leaguemembership/{id}")
+//    public LeagueMembership getLeagueMembershipByLeagueMembershipId(@PathVariable int leagueMembershipId) {
+//        LeagueMembership leagueMembership = leagueMembershipDao.findLeagueMembershipById(leagueMembershipId);
+//        if (leagueMembership == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "LeagueMembership not found.");
+//        } else {
+//            return leagueMembership;
+//        }
+//    }
+
+    @GetMapping("/league/{leagueId}/leaguemembership")
+    public List<LeagueMembership> getLeagueMembershipByLeagueId(@PathVariable("leagueId") int leagueId) {
+        return leagueMembershipDao.findLeagueMembershipByLeagueId(leagueId);
     }
 
-//    @GetMapping("/league/{leagueId}/leaguemembership")
+//    @GetMapping("/leaguemembership/{leagueId}")
 //    public List<LeagueMembership> getLeagueMembershipByLeagueId(@PathVariable int leagueId) {
 //        return leagueMembershipDao.findLeagueMembershipByLeagueId(leagueId);
 //    }
 
-    @GetMapping("/league/{leagueId}/leaguemembership")
-    public List<LeagueMembership> getLeagueMembershipByLeagueId(@PathVariable int leagueId) {
-        return leagueMembershipDao.findLeagueMembershipByLeagueId(leagueId);
-    }
+//    @GetMapping("/leaguemembership/league/{leagueId}")
+//    public List<LeagueMembership> getLeagueMembershipByLeagueId(@PathVariable int leagueId) {
+//        return leagueMembershipDao.findLeagueMembershipByLeagueId(leagueId);
+//    }
 
     @GetMapping("/users/{userId}/leaguemembership")
     public List<LeagueMembership> getLeagueMembershipByUserId(@PathVariable int userId) {

@@ -32,13 +32,8 @@
 <script>
 import userService from '../services/UserService.js';
 import messageService from '../services/MessageService';
-import leagueMembership from '../services/LeagueMembership'
-//import LeagueMemberList from '../components/LeagueMemberList.vue'
 
 export default {
-  // components: {
-  //   LeagueMemberList
-  // },
 
   data() {
     return {
@@ -48,38 +43,27 @@ export default {
         content: 'hey',
         timestamp: Date.now()
       },
+      memberships: [],
+      usersNotInLeague: [],
       users: [],
+
       filterText: "",
-      leagueUserMemberships: [],
-      activeLeagueId: 0,
-      leagueUsers: []
+      activeLeagueId: "",
     }
   },
   created() {
-    userService.getAllUsers().then(response => {
-      this.users = response.data;
-    }).catch(error => {
-      console.error("Whoops", error);
-    });
 
-    this.activeLeagueId = this.$store.state.activeLeagueId;
-    leagueMembership.getLeagueMembershipByLeagueId(this.activeLeagueId).then( (response) => {
-      this.leagueUserMemberships = response.data;
-    });
-    this.leagueUserMemberships.forEach( (membership) => {
-      userService.getUserById(membership.userId).then( (response) => {
-        this.leagueUsers.push(response.data);
-      })
-    });
+     const activeLeagueId = this.$route.params.id;
+     userService.findUsersNotInLeague(activeLeagueId).then( (response) => {
+       this.usersNotInLeague = response.data;
+     })
   },
 
   computed: {
     filteredUsers() {
-      return this.leagueUsers.filter( (user) => {
-        if (user.userId != this.activeLeagueId) {
+      return this.usersNotInLeague.filter( (user) => {
           return user.username.includes(this.filterText)
-        }
-      })
+        })
     }
   },
   methods: {
@@ -100,10 +84,11 @@ export default {
           this.errorMsg = "Error submitting new message";
         }
       })
-    }
-  }
+    },
+  },
 }
 </script>
+
 
 <style scoped>
 
@@ -120,6 +105,5 @@ table {
 td {
   vertical-align: bottom;
 }
-
 
 </style>

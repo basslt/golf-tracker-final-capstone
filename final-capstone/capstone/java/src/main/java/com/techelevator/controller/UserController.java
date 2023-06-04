@@ -44,6 +44,12 @@ public class UserController {
         return userDao.findAll();
     }
 
+    @GetMapping("/leaguemembership/league/{leagueId}")
+    public List<User> findUsersNotInLeague(@PathVariable int leagueId) {
+        return userDao.findUsersNotInLeague(leagueId);
+    }
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public boolean createUser(@RequestParam String username, @RequestParam String password, @RequestParam String role) {

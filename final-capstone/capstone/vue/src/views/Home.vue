@@ -40,9 +40,9 @@ export default {
   name: "main"
 };
 </script>
+
+
 <style scoped>
-
-
 
 body{
    display: grid;

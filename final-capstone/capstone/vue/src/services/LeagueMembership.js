@@ -7,7 +7,7 @@ export default {
     return axios.get(`/leaguemembership`);
   },
 
-  getLeagueMembershipById(leagueMembershipId) {
+  getLeagueMembershipByLeagueMembershipId(leagueMembershipId) {
     return axios.get(`/leaguemembership/${leagueMembershipId}`)
       .then(response => response.data)
       .catch(error => {
@@ -15,13 +15,21 @@ export default {
       });
   },
 
+  getLeagueMembersByLeagueId(leagueId) {
+    return axios.get(`/league/${leagueId}/leaguemembership`)
+  },
+
   // getLeagueMembershipByLeagueId(leagueId) {
   //   return axios.get(`/league/${leagueId}/leaguemembership`)
   // },
 
-  getLeagueMembershipByLeagueId(leagueId) {
-    return axios.get(`league/${leagueId}/leaguemembership`)
-  },
+  // getLeagueMembershipByLeagueId(leagueId) {
+  //   return axios.get(`/leaguemembership/${leagueId}`)
+  // },
+
+  // getLeagueMembershipByLeagueId(leagueId) {
+  //   return axios.get(`/leaguemembership/league/${leagueId}`)
+  // },
 
 
   getLeagueMembershipByUserId(userId) {
