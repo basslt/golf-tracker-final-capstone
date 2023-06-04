@@ -46,6 +46,7 @@ public class JdbcLeagueDao implements LeagueDao{
     public League findLeagueById(int leagueId) {
         League league = null;
         String sql = "SELECT * FROM League WHERE league_id = ?;";
+
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, leagueId);
             if (result.next()) {
@@ -80,11 +81,18 @@ public class JdbcLeagueDao implements LeagueDao{
     public League createLeague(League league) {
         League newLeague = null;
         String query = "INSERT INTO League (name, organizer_id) VALUES (?, ?) RETURNING league_id";
+        String sql2 = "INSERT INTO LeagueMembership (league_id, user_id) " +
+                "VALUES (?, ?);";
         try {
             int newLeagueId = jdbcTemplate.queryForObject(query, int.class, league.getLeagueName(), league.getOrganizerId());
             newLeague = findLeagueById(newLeagueId);
-        } catch (DataAccessException e) {
-
+            jdbcTemplate.update(sql2, newLeagueId, league.getOrganizerId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Data integrity violation", e);
         }
         return newLeague;
     }

@@ -9,7 +9,7 @@
           <router-link v-bind:to="{ name: 'home' }">Home</router-link> |
           <router-link v-bind:to="{ name: 'LeagueHome' }">Leagues</router-link> |
           <button>Courses</button>
-          <button>Messages</button>
+          <router-link v-bind:to="{ name: 'Messages' }">Messages</router-link> |
           <router-link v-bind:to="{ name: 'LandingPage' }" v-on:click="logOut">Log Out</router-link> |
         </div>
       </div>

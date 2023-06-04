@@ -34,6 +34,11 @@ public class MessageController {
         return ResponseEntity.ok(message);
     }
 
+    @GetMapping("/messages")
+    public List<Message> getAllMessages() {
+        return messageDao.getAllMessages();
+    }
+
 //    @GetMapping("/messages")
 //    public ResponseEntity<List<Message>> getAllMessages() {
 //        List<Message> messages = messageDao.getAllMessages();

@@ -10,6 +10,7 @@ import LeagueInvite from '../views/LeagueInvite.vue'
 import LandingPage from '../views/LandingPage.vue'
 import SelectedLeague from '../views/SelectedLeague.vue'
 import LeagueMembers from '../views/LeagueMembers.vue';
+import Messages from '../views/Messages.vue';
 
 Vue.use(Router)
 
@@ -96,6 +97,14 @@ const router = new Router({
       component: LandingPage,
       metha: {
         requiresAuth: false
+      }
+    },
+    {
+      path: "/messages",
+      name: "Messages",
+      component: Messages,
+      meta: {
+        requiresAuth: true
       }
     }
   ]
