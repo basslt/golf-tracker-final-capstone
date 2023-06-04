@@ -29,10 +29,7 @@
     <CreateLeague v-show="showCreateForm" v-closew="showCreateForm = false"/>
     </div>
   </div>
-      
-      
-  
-        
+    
 </template>
 
 <script>
