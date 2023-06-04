@@ -1,6 +1,9 @@
 <template>
 <div class= "background">
 <div class="container">
+   <router-link to="/" class="back-button">
+        <span>&lt; Back</span>
+      </router-link>
     <div class="logo">
       <img src="../assets/official-logo.png" alt="Logo" />
     </div>
@@ -12,20 +15,20 @@
       </div>
       <div class = "form">
       <div class="username-input">
-        <label for="username">Username</label>
+        <label for="username">Username:</label>
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
       <div class="password-input">
-        <label for="password">Password</label>
+        <label for="password">Password:</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
       <div class="confirm-password-input">
-        <label for="confirmPassword">Confirm Password</label>
+        <label for="confirmPassword">Confirm Password:</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
       </div>
       <button type="submit"><span>Create Account</span></button>
-      <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
+      <p><router-link class = "account" :to="{ name: 'LandingPage' }">Already have an account? Log in.</router-link></p>
     </form>
   </div>
   </div>
@@ -98,55 +101,43 @@ export default {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-   max-width: 700px; /* Adjust the width as needed */
+  /* align-items: center; */
+  max-width: 700px;
   width: 100%;
   height: 600px;
 }
 
-.form{
+.form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
+  align-items: flex-end;
+  margin-right: 100px;
+  margin-bottom: 20px;
 }
 
 .logo {
-  margin-bottom: 80px;
+  margin-bottom: 10px;
+  margin-left: 200px;
   display: flex;
-  margin-left: 190px;
-  
+  justify-content: center;
 }
 
 .logo img {
   max-width: 300px;
-  display: flex;
 }
 
 form {
   display: flex;
- flex-direction: column;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 40px;
-}
-
-/* h3 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-size: 25px;
   
-} */
-
-.alert {
-  margin: 10px 0;
-  color: red;
 }
 
 .username-input,
 .password-input,
 .confirm-password-input {
   display: flex;
-  text-align: right;
   align-items: center;
   margin: 10px 0;
 }
@@ -155,22 +146,11 @@ label {
   font-weight: bold;
   margin-right: 10px;
   font-size: 25px;
-  
 }
-
-/* input[type="text"],
-input[type="password"]
- {
-  padding: 5px;
-  width: 200px;
-
-} */
-
 
 input[type="text"],
 input[type="password"] {
-  display: flex;
-  flex-direction: column;
+
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -178,25 +158,28 @@ input[type="password"] {
   font-size: 16px;
   color: #333;
   transition: box-shadow 0.3s ease;
+  
 }
 
+
 button[type="submit"] {
- display: inline-block;
+  display: inline-block;
   padding: 10px 20px;
   background-color: #ffde59;
   color: white;
   border: none;
-  border-radius: 15px; /* Adjust the value to control the roundness */
+  border-radius: 15px;
   cursor: pointer;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-button span{
-  font-size: 20px; /* Adjust the font size for the login text */
+button span {
+  font-size: 20px;
   font-weight: bold;
 }
-button[type="submit"]:hover{
+
+button[type="submit"]:hover {
   background-color: #fce279;
 }
 
@@ -204,13 +187,25 @@ p {
   margin: 10px;
 }
 
-router-link {
+.account {
   color: black;
   text-decoration: underline;
   cursor: pointer;
   margin-top: 10px;
 }
+.back-button {
+  margin-right: 600px;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+  color: white;
 
+
+}
+
+.back-button span {
+  font-size: 18px;
+}
 </style>
 
 

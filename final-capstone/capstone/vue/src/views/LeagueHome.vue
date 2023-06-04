@@ -1,7 +1,7 @@
 <template>
   <div>
      <header>
-        <main-navigation />
+        <hamburger-menu />
      </header>
      <div class="main">
         <body>
@@ -9,9 +9,6 @@
                 <league-list />
                 <create-league />
             </main>
-            <aside>
-                <league-page-nav />
-            </aside>
         </body>
      </div>
       
@@ -19,15 +16,17 @@
 </template>
 
 <script>
-import MainNavigation from "../components/MainNavigation.vue"
+// import MainNavigation from "../components/MainNavigation.vue"
 import LeagueList from "../components/LeagueList.vue"
 import CreateLeague from "../components/CreateLeague.vue"
+import HamburgerMenu from '../components/HamburgerMenu.vue'
 
 export default {
     components: {
-        MainNavigation,
+        // MainNavigation,
         LeagueList,
-        CreateLeague
+        CreateLeague,
+        HamburgerMenu
     }
 
 }
