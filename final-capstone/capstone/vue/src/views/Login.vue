@@ -2,8 +2,10 @@
 <div class="background" >
   <div class="container">
     <div id="login" v-show="showLoginForm" >
-      <form @submit.prevent="login">
-        <h3>Welcome Back!</h3>
+     
+      <form @submit.prevent="login">  <div class="close-button" @click="closeForm">x</div>
+        <h3>Welcome Back!</h3> 
+      
         <div role="alert" v-if="invalidCredentials">
           Invalid username and password!
         </div>
@@ -63,6 +65,10 @@ export default {
           }
         });
     },
+      closeForm() {
+     
+      this.$emit("close"); // Emit the "close" event to the parent component
+    }
   
   },
     
@@ -179,6 +185,16 @@ input[type="password"] {
   cursor: pointer;
   margin: 10px;
   margin-bottom: 10px;
+}
+.close-button {
+ 
+  cursor: pointer;
+  font-size: 20px;
+  margin-left: 350px;
+  font-weight: bold;
+  
+  
+
 }
 
 

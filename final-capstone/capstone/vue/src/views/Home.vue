@@ -1,129 +1,80 @@
 <template>
-  <div>
-    <header>
-      <main-navigation />
-    </header>
-    <div class="main">
-      <body>
-        
-        <!-- <div class="header"> 
-          <img src="../assets/logo.png" alt="">
-          <h2>golf leagues with friends</h2>
-          <div class="header-buttons">
-            <router-link v-bind:to="{ name: 'AddLeague' }" class="create-league-button"> Create League </router-link>
-            <router-link v-bind:to="{ name: 'LandingPage'}" class="log-out-button">Log Out</router-link>
-          </div>
-        </div> -->
-        <div class="main">
-          <league-list />
-        </div>
-        <div class="foot">
-          <p>footer - fill in</p>
-          <tee-time-form />
-        </div>
-      </body>
-    </div>
-  </div>
+   <div>
+     <header>
+        <hamburger-menu />
+     </header>
+     <div class="main">
+        <body>
+            <main class="content">
+                <league-list />
+            </main>
+        </body>
+     </div>
+     </div>
 </template>
 
 <script>
+import HamburgerMenu from '../components/HamburgerMenu.vue';
+
+
 import LeagueList from '../components/LeagueList.vue';
-import MainNavigation from '../components/MainNavigation.vue'
-import TeeTimeForm from '../components/TeeTimeForm.vue';
 
 export default {
   components: {  
+    HamburgerMenu,
+   
     LeagueList,
-    MainNavigation,
-    TeeTimeForm,
+    
+   
   },
-  name: "main"
+  name: "main",
 };
 </script>
+
 <style scoped>
+.main {
+    display: grid;
+    /* height: 100vh; */
+    width: 100vw; 
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+        "header header header header"
+        "content content content content"
+        "footer footer footer footer";
 
-
-
-body{
-   display: grid;
-   background-color: whitesmoke;
-   width: 100vw;
-   height: 100vh;
-   grid-template-columns: 1fr, 1fr, 1fr;
-   grid-template-rows: 15%, 75%, 10%;
-   grid-template-areas: 
-    "header header header"
-    "main main main"
-    "foot foot foot";
 }
 
 .header {
+    width: 100vw;
+    
+}
 
-  grid-area: header;
+.content{
+  grid-area: content;
+}
+
+
+
+
+/* .hamburger-menu {
+   grid-row-start: 1;
+   grid-row-end: 1;
+  grid-column-start: 1; 
+  grid-column-end:  4;
+  background-color: black;
+  width: 1000px;
+}  */
+/* 
+.logo {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-  background-color: #ffffff;
-  padding: 0 20px;
-}
-
-.header img {
-  max-width: 300px;
-  margin-right: 10px;
-}
-
-.header h2 {
-  color: #004d33;
-  white-space: nowrap;
-  size: 10px; 
-  
-}
-
-.header-buttons {
-   white-space: nowrap; 
-   display: flex;
-  align-items: center;
   justify-content: flex-end;
-  flex-grow: 1;
-  margin-right: 10px;
-
 }
 
-.log-out-button, .create-league-button {
-  margin-right: 10%;
-  color: rgb(2, 2, 2);
-  /* justify-content: center;  */
-  text-decoration: none; 
-}
-
-.create-league-button{
-  
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #fdd430;
-  color: #fff;
-  border-radius: 25px;
-  border: none;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.create-league-button:hover{
-   background-color: #f7ecc2;
-}
-
-.main{
-  grid-area: main;
-}
-
-.foot {
-  grid-area: foot;
-  display: inline-block;
-}
-
-
-
+.main {
+  grid-row: 2 / span 2;
+  grid-column: 1 / span 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
 </style>

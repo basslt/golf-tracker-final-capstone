@@ -1,5 +1,5 @@
 <template>
-  <div class="add-league">    
+  <div class="add-league" v-show="showCreateForm">    
     <form v-on:submit.prevent>
       <div class="heading">
         <h2>Create a New League</h2>
@@ -24,6 +24,7 @@ export default {
         organizerId: ''
       },
       newLeagueId: '',
+      showCreateForm: false
     };
   },
   methods: {

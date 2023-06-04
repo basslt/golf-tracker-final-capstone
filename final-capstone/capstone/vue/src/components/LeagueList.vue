@@ -16,13 +16,11 @@
           </router-link>
         </tr>
       </tbody>
-    <!-- <ul >
-      <router-link v-bind:to="{ name: 'SelectedLeague', params: { id: league.leagueId }}">
-        <li> {{ league.leagueName }} </li>
-      </router-link>
-    </ul> -->
+ 
     </table>
   </div>
+
+
 </template>
 
 <script>
