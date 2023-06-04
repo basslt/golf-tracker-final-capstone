@@ -8,6 +8,12 @@ import store from '../store/index'
 import AddLeague from '../views/AddLeague.vue'
 import LeagueHome from '../views/LeagueHome.vue'
 import LeagueInvite from '../views/LeagueInvite.vue'
+import AllMessagesView from '../views/AllMessagesView.vue'
+
+import MessageView from '../views/MessageView.vue';
+import ComposeMessage from '../components/ComposeMessage.vue';
+import SentMessagesView from '../views/SentMessagesView.vue';
+import ReceivedMessagesView from '../views/RecievedMessagesView.vue';
 
 Vue.use(Router)
 
@@ -79,8 +85,33 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
-    }
-  ]
+    },
+   {
+      path: '/messages',
+      component: AllMessagesView,
+    },
+    {
+      path: '/messages/:id',
+      component: MessageView,
+      props: true,
+    },
+    {
+      path: '/compose',
+      component: ComposeMessage,
+    },
+    {
+      path: '/sent',
+      component: SentMessagesView,
+    },
+    {
+      path: '/received',
+      component: ReceivedMessagesView,
+    },
+    {
+      path: '*',
+      redirect: '/messages',
+    },
+  ],
 })
 
 router.beforeEach((to, from, next) => {
