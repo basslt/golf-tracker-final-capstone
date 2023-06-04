@@ -10,7 +10,7 @@
         <th>League Name</th>
       </thead>
       <tbody class="league-list">
-        <tr  class="row" v-for="league in filteredLeagues" :key="league.leagueId">
+        <tr  class="row" v-for="league in filteredLeagues" :key="league.leagueId" >
           <router-link v-bind:to="{ name: 'SelectedLeague', params: { id: league.leagueId }}">
            <td>{{ league.leagueName }}</td>
           </router-link>
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       leagues: [],
-      filterText: ""
+      filterText: "",
     };
   },
   created() {
@@ -49,7 +49,7 @@ export default {
      leagueService.getLeagues().then(response => {
        this.leagues = response.data;
      })
-    }
+    },
   }
 };
 </script>

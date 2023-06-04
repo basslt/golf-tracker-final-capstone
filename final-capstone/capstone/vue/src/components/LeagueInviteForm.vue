@@ -2,15 +2,15 @@
   <div>
     <form v-on:submit.prevent>
       <div class="form-group">
-        <label for="username">Search For User to Invite: </label>
+        <label for="username">Search Users: </label>
         <input type="text" name="username" v-model="filterText" />
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="userlist"></label>
         <textarea name="userlist" id="userlist" class="form-control" cols="30" rows="10"></textarea>
-      </div>
+      </div> -->
     </form>
-    <table>
+    <table class="table">
       <thead>
         <th>User</th>
         <th></th>
@@ -20,7 +20,7 @@
           <td>
             {{ user.username }}
           </td>
-          <td>
+          <td class="button">
             <button v-on:click="sendInvite(user.id)">Send Invite</button>
           </td>
         </tr>
@@ -43,24 +43,27 @@ export default {
         content: 'hey',
         timestamp: Date.now()
       },
+      memberships: [],
+      usersNotInLeague: [],
       users: [],
+
       filterText: "",
-      selectedUserId: "",
+      activeLeagueId: "",
     }
   },
   created() {
-    userService.getAllUsers().then(response => {
-      this.users = response.data;
-    }).catch(error => {
-      console.error("Whoops", error);
-    });
+
+     const activeLeagueId = this.$route.params.id;
+     userService.findUsersNotInLeague(activeLeagueId).then( (response) => {
+       this.usersNotInLeague = response.data;
+     })
   },
 
   computed: {
     filteredUsers() {
-      return this.users.filter( (user) => {
-        return user.username.includes(this.filterText);
-      })
+      return this.usersNotInLeague.filter( (user) => {
+          return user.username.includes(this.filterText)
+        })
     }
   },
   methods: {
@@ -81,7 +84,26 @@ export default {
           this.errorMsg = "Error submitting new message";
         }
       })
-    }
-  }
+    },
+  },
 }
 </script>
+
+
+<style scoped>
+
+.form-group {
+  display: block;
+}
+
+table {
+  margin-top: 5%;
+  table-layout: auto;
+  width: 50%;
+}
+
+td {
+  vertical-align: bottom;
+}
+
+</style>

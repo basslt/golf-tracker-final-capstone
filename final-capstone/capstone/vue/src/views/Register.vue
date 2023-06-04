@@ -65,8 +65,6 @@ export default {
               this.$router.push({
                 path: '/',
                 query: {showLoginForm: true}
-                // path: '/',
-                // query: { registration: 'success' },
               });
             }
           })

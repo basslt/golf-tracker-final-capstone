@@ -48,8 +48,6 @@ public class JdbcUserDao implements UserDao {
         }
     }
 
-
-
 	@Override
 	public User getUserById(int userId) {
         User user = null;
@@ -93,8 +91,28 @@ public class JdbcUserDao implements UserDao {
         throw new UsernameNotFoundException("User " + username + " was not found.");
     }
 
+    @Override
+    public List<User> findUsersNotInLeague(int leagueId) {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users LEFT JOIN LeagueMembership ON " +
+                "users.user_id = LeagueMembership.user_id AND LeagueMembership.league_id = ? " +
+                "WHERE LeagueMembership.user_id IS NULL;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, leagueId);
+            while (results.next()) {
+                User user = mapRowToUser(results);
+                users.add(user);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return users;
+    }
+
 //    @Override
-//    public User findByUsername(String username) {
+//    public User getUserByUsername(String username) {
 //        User user = null;
 //        String sql = "SELECT * FROM users WHERE username ILIKE ?;";
 //        try {

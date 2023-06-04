@@ -18,7 +18,7 @@ export default new Vuex.Store({
     loggedUser: {
       username: ''
     },
-    
+    messages: []
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -42,6 +42,12 @@ export default new Vuex.Store({
     },
     SET_LOGGED_USER_ID(state, id) {
       state.loggedUser.id = id;
+    },
+    SET_ACTIVE_LEAGUE(state, id) {
+      state.activeLeague = id;
+    },
+    SET_MESSAGES(state, data) {
+      state.messages = data;
     }
   },
   actions: {

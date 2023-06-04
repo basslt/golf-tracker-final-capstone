@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -44,38 +46,59 @@ public class JdbcMessageDao implements MessageDao {
     }
 
 
-//    @Override
-//    public List<Message> getAllMessages() {
-//        String query = "SELECT * FROM Message";
-//        try {
-//            return jdbcTemplate.query(query, new MessageRowMapper());
-//        } catch (DataAccessException e) {
-//            throw new DataAccessException("Failed to retrieve all messages", e) {
-//            };
-//        }
-//    }
+    @Override
+    public List<Message> getAllMessages() {
+        List<Message> messages = new ArrayList<>();
+        String query = "SELECT * FROM Message";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(query);
+            while (results.next()) {
+                Message message = mapRowToMessage(results);
+                messages.add(message);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return messages;
+    }
 
-//    @Override
-//    public List<Message> findMessagesBySenderId(int senderId) {
-//        String query = "SELECT * FROM Message WHERE sender_id = ?";
-//        try {
-//            return jdbcTemplate.query(query, new MessageRowMapper(), senderId);
-//        } catch (DataAccessException e) {
-//            throw new DataAccessException("Failed to retrieve messages by sender ID: " + senderId, e) {
-//            };
-//        }
-//    }
+    @Override
+    public List<Message> findMessagesBySenderId(int senderId) {
+        List<Message> messages = new ArrayList<>();
+        String query = "SELECT * FROM Message WHERE sender_id = ?";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(query, senderId);
+            while (results.next()) {
+                Message message = mapRowToMessage(results);
+                messages.add(message);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return messages;
+    }
 
-//    @Override
-//    public List<Message> findMessagesByReceiverId(int receiverId) {
-//        String query = "SELECT * FROM Message WHERE receiver_id = ?";
-//        try {
-//            return jdbcTemplate.query(query, new MessageRowMapper(), receiverId);
-//        } catch (DataAccessException e) {
-//            throw new DataAccessException("Failed to retrieve messages by receiver ID: " + receiverId, e) {
-//            };
-//        }
-//    }
+    @Override
+    public List<Message> findMessagesByReceiverId(int receiverId) {
+        List<Message> messages = new ArrayList<>();
+        String query = "SELECT * FROM Message WHERE receiver_id = ?;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(query, receiverId);
+            while (results.next()) {
+                Message message = mapRowToMessage(results);
+                messages.add(message);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return messages;
+    }
 
     @Override
     public Message saveMessage(Message message) {
@@ -86,8 +109,12 @@ public class JdbcMessageDao implements MessageDao {
             int newMessageId = jdbcTemplate.queryForObject(query, int.class, message.getSenderId(), message.getReceiverId(),
                     message.getContent(), message.getTimestamp());
             newMessage = findById(newMessageId);
-        } catch (DataAccessException e) {
-             e.printStackTrace();
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Data integrity violation", e);
         }
         return newMessage;
     }
