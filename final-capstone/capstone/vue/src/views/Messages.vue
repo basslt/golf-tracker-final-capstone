@@ -1,20 +1,24 @@
 <template>
-  <div class="main">
-      <div class="content">
-        <message-list />
-        <message-card />
-      </div>
+  <div>
+    <header>
+      <main-navigation />
+    </header>
+    <body class="main">
+        <div class="content">
+            <message-list />
+        </div>
+    </body>
   </div>
 </template>
 
 <script>
-import MessageCard from '../components/MessageCard.vue'
 import MessageList from '../components/MessageList.vue'
+import MainNavigation from '../components/MainNavigation.vue'
 
 export default {
     components: {
-        MessageCard,
-        MessageList
+        MessageList,
+        MainNavigation
     }
 
 }

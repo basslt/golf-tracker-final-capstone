@@ -16,6 +16,7 @@
         </div> -->
         <div class="main">
           <league-list />
+          <my-leagues />
         </div>
         <div class="foot">
           <p>footer - fill in</p>
@@ -29,6 +30,7 @@
 <script>
 import LeagueList from '../components/LeagueList.vue';
 import MainNavigation from '../components/MainNavigation.vue'
+import MyLeagues from '../components/MyLeagues.vue'
 
 
 
@@ -36,6 +38,7 @@ export default {
   components: {  
     LeagueList,
     MainNavigation,
+    MyLeagues
     
   },
   name: "main",

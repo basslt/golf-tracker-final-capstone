@@ -78,6 +78,26 @@ public class JdbcLeagueDao implements LeagueDao{
     }
 
     @Override
+    public List<League> findLeaguesByUserId(int userId) {
+        List<League> leagues = new ArrayList<>();
+        String sql = "SELECT * FROM League JOIN LeagueMembership USING (league_id) "
+                + "JOIN users USING (user_id) WHERE user_id = ?;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+            while (results.next()) {
+                League league =  mapRowToLeague(results);
+                leagues.add(league);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return leagues;
+    }
+
+
+    @Override
     public League createLeague(League league) {
         League newLeague = null;
         String query = "INSERT INTO League (name, organizer_id) VALUES (?, ?) RETURNING league_id";
