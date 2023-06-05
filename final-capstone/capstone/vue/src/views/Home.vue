@@ -45,7 +45,6 @@ export default {
         "header header header header"
         "content content content content"
         "footer footer footer footer";
-
 }
 
 .header {

@@ -7,23 +7,21 @@
         <body>
             <main class="content">
                 <league-list />
-                <create-league />
+                 <create-league v-if="this.$store.state.showCreateForm"/>
             </main>
         </body>
      </div>
-      
+     
   </div>
 </template>
 
 <script>
-// import MainNavigation from "../components/MainNavigation.vue"
 import LeagueList from "../components/LeagueList.vue"
 import CreateLeague from "../components/CreateLeague.vue"
 import HamburgerMenu from '../components/HamburgerMenu.vue'
 
 export default {
     components: {
-        // MainNavigation,
         LeagueList,
         CreateLeague,
         HamburgerMenu

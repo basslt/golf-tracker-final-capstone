@@ -37,17 +37,14 @@
 </template>
 
 <script>
-//import CreateLeague from '../components/CreateLeague.vue';
 
 export default {
   components: {
-    //CreateLeague
+
   },
   data() {
     return {
       isOpen: false,
-      //showCreateForm: false
-      //showCreateForm: this.$route.query.showCreateForm === 'false' || true,
     };
   },
   methods: {
