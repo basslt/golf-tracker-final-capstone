@@ -17,6 +17,9 @@ export default {
   getLeaguesByUserId(userId) {
     return axios.get(`/league/leaguemembership/${userId}`);
   },
+  getLeaguesByOrganizerId(userId){
+    return axios.get(`/league/leaguelist/${userId}`)
+  },
 
   addLeague(league) {
     return axios.post(`/league`, league);

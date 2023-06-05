@@ -7,7 +7,7 @@
       <div class="links">
         <div class="links-container">
           <router-link v-bind:to="{ name: 'home' }">Home</router-link> |
-          <router-link v-bind:to="{ name: 'LeagueHome' }">Leagues</router-link> |
+          <router-link >Leagues</router-link> |
           <button>Courses</button>
           <router-link v-bind:to="{ name: 'Messages' }">Messages</router-link> |
           <router-link v-bind:to="{ name: 'LandingPage' }" v-on:click="logOut">Log Out</router-link> |
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .logo {
     display: flex;

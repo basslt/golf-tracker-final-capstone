@@ -6,29 +6,33 @@
      <div class="main">
         <body>
             <main class="content">
-                <league-list />
-                <my-leagues/>
+                <my-leagues />
+                <create-league v-if="this.$store.state.showCreateForm"/>
             </main>
         </body>
      </div>
+ 
      </div>
 </template>
 
 <script>
 import HamburgerMenu from '../components/HamburgerMenu.vue';
-import MyLeagues from '../components/MyLeagues.vue'
+import MyLeagues from '../components/MyLeagues.vue';
+import CreateLeague from '../components/CreateLeague.vue';
 
-import LeagueList from '../components/LeagueList.vue';
 
 export default {
   components: {  
     HamburgerMenu,
     MyLeagues,
-    LeagueList,
-    
-   
+    CreateLeague
   },
   name: "main",
+  data() {
+    return {
+      showForm: '',
+    }
+  },
 };
 </script>
 

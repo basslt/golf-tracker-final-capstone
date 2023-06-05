@@ -49,6 +49,11 @@ public class UserController {
         return userDao.findUsersNotInLeague(leagueId);
     }
 
+    @GetMapping("/username")
+    public List<String> getAllUsernames() {
+        return userDao.getAllUsernames();
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -59,9 +64,14 @@ public class UserController {
         return userDao.create(username, password, role);
     }
 
-    @GetMapping("/id/{username}")
-    public int findIdByUsername(@PathVariable String username) {
-        return userDao.findIdByUsername(username);
+//    @GetMapping("/id/{username}")
+//    public int getUserIdByUsername(@PathVariable String username) {
+//        return userDao.findIdByUsername(username);
+//    }
+
+    @GetMapping("/{username}/id")
+    public int getUserIdByUsername(@PathVariable String username) {
+        return userDao.getUserIdByUsername(username);
     }
 
     @GetMapping("/{userId}/username")

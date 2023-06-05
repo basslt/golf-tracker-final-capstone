@@ -45,9 +45,11 @@ export default {
             const user = this.$store.getters.getUser;
             leagueService.getLeaguesByUserId(user.id).then( (response) => {
                 this.leagues = response.data;
+          
             })
         },
-     }
+     },
+     
 };
 
 </script>

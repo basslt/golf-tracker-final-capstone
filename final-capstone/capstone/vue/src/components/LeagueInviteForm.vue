@@ -52,7 +52,6 @@ export default {
     }
   },
   created() {
-
      const activeLeagueId = this.$route.params.id;
      userService.findUsersNotInLeague(activeLeagueId).then( (response) => {
        this.usersNotInLeague = response.data;

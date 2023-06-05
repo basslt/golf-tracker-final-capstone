@@ -1,9 +1,13 @@
 <template>
   <div>
     <header>
-      <main-navigation />
+      <hamburger-menu />
     </header>
     <body class="main">
+        <div class="new-message">
+            <button class="new-message-button" @click="showNewMessageForm=true">Send a Message</button>
+            <new-message-form v-show="showNewMessageForm" @close="showNewMessageForm = false" />
+        </div>
         <div class="content">
             <message-list />
         </div>
@@ -13,14 +17,20 @@
 
 <script>
 import MessageList from '../components/MessageList.vue'
-import MainNavigation from '../components/MainNavigation.vue'
+import HamburgerMenu from '../components/HamburgerMenu.vue'
+import NewMessageForm from '../components/NewMessageForm.vue'
 
 export default {
     components: {
         MessageList,
-        MainNavigation
+        NewMessageForm,
+        HamburgerMenu
+    },
+    data() {
+      return {
+        showNewMessageForm: false
+      }
     }
-
 }
 </script>
 
@@ -38,5 +48,6 @@ export default {
 .content {
     
 }
+
 
 </style>

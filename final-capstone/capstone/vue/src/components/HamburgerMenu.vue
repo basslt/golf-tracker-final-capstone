@@ -7,62 +7,74 @@
         <span></span>
       </div>
       <ul class="menu-items" :class="{ open: isOpen }">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Leagues</a></li>
-        <li @click=" showCreateForm = true"><a href="#">Create a League</a></li>
-        <li><a href="#">Messages</a></li>
-        <li><a href="#">Log Out</a></li>
+        <router-link v-bind:to="{ name: 'home' }">
+          <li><a href="#">Home</a></li>
+        </router-link>
+        <router-link v-bind:to="{ name: 'LeagueHome' }">
+          <li><a href="#">Leagues</a></li>
+        </router-link>
+          <li @click="showCreateForm"><a href="#">Create a League</a></li>
+        <router-link v-bind:to="{ name: 'Messages' }">
+          <li><a href="#">Messages</a></li>
+        </router-link>
+        <router-link v-bind:to="{ name: 'LandingPage' }" v-on:click="logOut">
+          <li><a href="#">Log Out</a></li>
+        </router-link>
       </ul>
     </div>
     <div class="logo">
       <img src="../assets/official-logo.png" alt="">
     </div>
     <div class = "main" >
-    <CreateLeague v-show="showCreateForm" v-closew="showCreateForm = false"/>
+    <!-- <CreateLeague v-show="showCreateForm" v-close="showCreateForm = false"/> hey 
+    <CreateLeague v-close="showCreateForm = false"/> hey -->
     </div>
   </div>
-      
-      
-  
-        
+    
 </template>
 
 <script>
-import CreateLeague from '../components/CreateLeague.vue';
+//import CreateLeague from '../components/CreateLeague.vue';
+
 export default {
   components: {
-    CreateLeague
+    //CreateLeague
   },
   data() {
     return {
       isOpen: false,
-      showCreateForm: false
+      //showCreateForm: false
+      //showCreateForm: this.$route.query.showCreateForm === 'false' || true,
     };
-   
   },
   methods: {
     toggleMenu() {
       this.isOpen = !this.isOpen;
-     
     },
-   
+    logOut() {
+      this.$store.commit("LOGOUT");
+      this.$router.push("/");
+    },
+    showCreateForm() {
+      this.$store.commit("SET_SHOW_CREATE_FORM_STATUS", true);
+    }
   }
 };
 </script>
 
 <style scoped>
+
 .container .logo {
     display: flex;
     flex-grow: 1;
     justify-content: center;
-   
 }
 
 .container .logo img {
   width: auto;
   height: 275px;
-  
 }
+
 .main{
   display: absolute;
   top: 0; 
@@ -71,9 +83,6 @@ export default {
   height: 100%; 
   justify-content: center;
   align-items: center;
-  
-
- 
 }
 
 .container {
@@ -81,9 +90,7 @@ export default {
     align-items: center;
     flex-grow: 1;    
     background-color: #059262;
-    
 }
-
 
 /* .hamburger-menu {
   display: flex;
@@ -144,7 +151,6 @@ export default {
 
 .menu-items li {
   padding: 10px;
-  
 }
 
 .menu-items a {
@@ -155,8 +161,7 @@ export default {
 }
 
 .menu-items :hover {
-  
   font-weight: bold;
-
 }
+
 </style>

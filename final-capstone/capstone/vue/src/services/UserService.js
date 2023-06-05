@@ -1,6 +1,10 @@
 import axios from 'axios';
 
 export default {
+  // getUserIdByUsername(username) {
+  //   return axios.get(`/users/${username}/id`);
+  // },
+
   getUserIdByUsername(username) {
     return axios.get(`/users/${username}/id`);
   },
@@ -11,6 +15,10 @@ export default {
 
   getUserById(userId) {
     return axios.get(`/users/${userId}`);
+  },
+
+  getAllUsernames() {
+    return axios.get(`/users/username`);
   },
 
   getAllUsers() {

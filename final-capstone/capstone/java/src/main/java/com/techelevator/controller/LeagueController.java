@@ -38,6 +38,10 @@ public class LeagueController {
         return leagueDao.findLeaguesByUserId(userId);
     }
 
+    @GetMapping("leaguelist/{userId}")
+    public List<League> getLeaguesByOrganizerId(@PathVariable int userId){
+        return leagueDao.findLeaguesByOrganizerId(userId);
+    }
 
     @GetMapping("/{name}")
     public League getLeagueByLeagueName(@PathVariable String name) {

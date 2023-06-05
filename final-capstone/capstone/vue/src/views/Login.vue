@@ -3,7 +3,8 @@
   <div class="container">
     <div id="login" v-show="showLoginForm" >
      
-      <form @submit.prevent="login">  <div class="close-button" @click="closeForm">x</div>
+      <form @submit.prevent="login">  
+        <div class="close-button" @click="closeForm">x</div>
         <h3>Welcome Back!</h3> 
       
         <div role="alert" v-if="invalidCredentials">
@@ -90,7 +91,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .container {

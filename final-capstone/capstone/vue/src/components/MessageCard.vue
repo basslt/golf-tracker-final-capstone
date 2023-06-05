@@ -27,15 +27,6 @@ export default {
         })
     }
 
-    // data() {
-    //     return {
-    //         messages: []
-    //     }
-    // },
-    // created() {
-    //     this.messages = this.$store.state.messages;
-    // }
-
 }
 </script>
 

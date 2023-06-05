@@ -66,6 +66,41 @@ public class JdbcUserDao implements UserDao {
 	}
 
     @Override
+    public List<String> getAllUsernames() {
+        List<String> usernames = new ArrayList<>();
+        String sql = "SELECT username FROM users;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            while (results.next()) {
+                String username = results.getString("username");
+                usernames.add(username);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return usernames;
+    }
+
+    @Override
+    public int getUserIdByUsername(String username) {
+        int userId = 0;
+        String sql = "SELECT user_id FROM users WHERE username = ?;";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, username);
+            if (result.next()) {
+                userId = result.getInt("user_id");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return userId;
+    }
+
+    @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM users";
