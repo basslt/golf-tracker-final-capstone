@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,53 +16,52 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class MessageController {
-    //private final MessageDao messageDao;
-
-//    @Autowired
-//    public MessageController(MessageDao messageDao) {
-//        this.messageDao = messageDao;
-//    }
 
     @Autowired
     private MessageDao messageDao;
 
     @GetMapping("/messages/{id}")
-    public ResponseEntity<Message> getMessageById(@PathVariable("id") int messageId) throws ChangeSetPersister.NotFoundException {
+    public Message getMessageById(@PathVariable("id") int messageId) {
         Message message = messageDao.findById(messageId);
         if (message == null) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Message not found.");
+        } else {
+            return message;
         }
-        return ResponseEntity.ok(message);
     }
 
     @GetMapping("/messages")
-    public ResponseEntity<List<Message>> getAllMessages() {
-        List<Message> messages = messageDao.getAllMessages();
-        return ResponseEntity.ok(messages);
+    public List<Message> getAllMessages() {
+        return messageDao.getAllMessages();
     }
 
-    @GetMapping("/users/{userId}/sent-messages")
-    public ResponseEntity<List<Message>> getSentMessagesByUser(@PathVariable("userId") int userId) {
-        List<Message> messages = messageDao.findMessagesBySenderId(userId);
-        return ResponseEntity.ok(messages);
-    }
+//    @GetMapping("/messages")
+//    public ResponseEntity<List<Message>> getAllMessages() {
+//        List<Message> messages = messageDao.getAllMessages();
+//        return ResponseEntity.ok(messages);
+//    }
 
-    @GetMapping("/users/{userId}/received-messages")
-    public ResponseEntity<List<Message>> getReceivedMessagesByUser(@PathVariable("userId") int userId) {
-        List<Message> messages = messageDao.findMessagesByReceiverId(userId);
-        return ResponseEntity.ok(messages);
-    }
+//    @GetMapping("/users/{userId}/sent-messages")
+//    public ResponseEntity<List<Message>> getSentMessagesByUser(@PathVariable("userId") int userId) {
+//        List<Message> messages = messageDao.findMessagesBySenderId(userId);
+//        return ResponseEntity.ok(messages);
+//    }
+
+//    @GetMapping("/users/{userId}/received-messages")
+//    public ResponseEntity<List<Message>> getReceivedMessagesByUser(@PathVariable("userId") int userId) {
+//        List<Message> messages = messageDao.findMessagesByReceiverId(userId);
+//        return ResponseEntity.ok(messages);
+//    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/messages")
-    public void createMessage(@RequestBody Message message) {
-        messageDao.saveMessage(message);
+    public Message createMessage(@RequestBody Message message) {
+        return messageDao.saveMessage(message);
     }
 
     @PutMapping("/messages/{id}")
     public ResponseEntity<Void> updateMessage(@PathVariable("id") int messageId, @RequestBody Message message) {
-        message.setMessageId(messageId);
-        messageDao.updateMessage(message);
+        messageDao.updateMessage(message, message.getMessageId());
         return ResponseEntity.ok().build();
     }
 

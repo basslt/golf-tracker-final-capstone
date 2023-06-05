@@ -11,6 +11,10 @@ export default {
         throw new Error('Failed to fetch match');
       });
   },
+  logScore(matchId, playerId, score) {
+    return axios.post(`/matches/${matchId}/scores`, playerId, score)
+     
+    },
 
   getAllMatches() {
     return axios.get('/matches')

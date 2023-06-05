@@ -4,58 +4,44 @@ import axios from 'axios';
 
 export default {
   getAllLeagueMemberships() {
-    return axios.get(`/leaguemembership`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.get(`/leaguemembership`);
   },
 
-  getLeagueMembershipById(leagueMembershipId) {
-    return axios.get(`/leaguemembership/${leagueMembershipId}`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+  getLeagueMembershipByLeagueMembershipId(leagueMembershipId) {
+    return axios.get(`/leaguemembership/${leagueMembershipId}`);
   },
 
-  getLeagueMembershipByLeagueId(leagueId) {
+  getLeagueMembersByLeagueId(leagueId) {
     return axios.get(`/league/${leagueId}/leaguemembership`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
   },
+
+  // getLeagueMembershipByLeagueId(leagueId) {
+  //   return axios.get(`/league/${leagueId}/leaguemembership`)
+  // },
+
+  // getLeagueMembershipByLeagueId(leagueId) {
+  //   return axios.get(`/leaguemembership/${leagueId}`)
+  // },
+
+  // getLeagueMembershipByLeagueId(leagueId) {
+  //   return axios.get(`/leaguemembership/league/${leagueId}`)
+  // },
+
 
   getLeagueMembershipByUserId(userId) {
-    return axios.get(`/users/${userId}/leaguemembership`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.get(`/users/${userId}/leaguemembership`);
   },
 
   addLeagueMembership(leagueMembership) {
-    return axios.post(`/leaguemembership`, leagueMembership)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.post(`/leaguemembership`, leagueMembership);
   },
 
   updateLeagueMembership(leagueMembershipId, leagueMembership) {
-    return axios.put(`/leaguemembership/${leagueMembershipId}`, leagueMembership)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.put(`/leaguemembership/${leagueMembershipId}`, leagueMembership);
   },
 
   deleteLeagueMembership(leagueMembershipId) {
-    return axios.delete(`/leaguemembership/${leagueMembershipId}`)
-      .then(() => {})
-      .catch(error => {
-        throw error;
-      });
+    return axios.delete(`/leaguemembership/${leagueMembershipId}`);
   },
+  
 };

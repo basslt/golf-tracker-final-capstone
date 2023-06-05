@@ -9,10 +9,17 @@ public interface UserDao {
     List<User> findAll();
 
     User getUserById(int userId);
+    List<String> getAllUsernames();
+    int getUserIdByUsername(String username);
 
     User findByUsername(String username);
 
+    List<User> findUsersNotInLeague(int leagueId);
+
     int findIdByUsername(String username);
     String findUsernameById(int userId);
+
+    List<User> findUsersInLeague(int leagueId);
+
     boolean create(String username, String password, String role);
 }

@@ -1,39 +1,36 @@
 import axios from 'axios';
 
 export default {
+  // getUserIdByUsername(username) {
+  //   return axios.get(`/users/${username}/id`);
+  // },
+
   getUserIdByUsername(username) {
-    return axios.get(`/users/${username}/id`)
-      .then(response => response.data)
-      .catch(error => {
-        if (error.response && error.response.status === 404) {
-          throw new Error('User not found');
-        }
-        throw new Error('Failed to fetch user ID');
-      });
+    return axios.get(`/users/${username}/id`);
   },
 
   getUsernameById(userId) {
-    return axios.get(`/users/username/${userId}`)
-      .then(response => response.data)
-      .catch(error => {
-        if (error.response && error.response.status === 404) {
-          throw new Error('User not found');
-        }
-        throw new Error('Failed to fetch username');
-      });
+    return axios.get(`/users/username/${userId}`);
   },
 
   getUserById(userId) {
-    return axios.get(`/users/${userId}`)
-      
+    return axios.get(`/users/${userId}`);
+  },
+
+  getAllUsernames() {
+    return axios.get(`/users/username`);
   },
 
   getAllUsers() {
-    return axios.get('/users')
-      // .then(response => response.data)
-      // .catch(Error => {
-      //   throw new Error('Failed to fetch users');
-      // });
+    return axios.get('/users');
+  },
+
+  findUsersNotInLeague(leagueId) {
+    return axios.get(`/users/leaguemembership/not-in-league/${leagueId}`);
+  },
+
+  findUsersInLeague(leagueId) {
+    return axios.get(`users/leaguemembership/league/${leagueId}`);
   },
 
   getUserByUsername(username) {

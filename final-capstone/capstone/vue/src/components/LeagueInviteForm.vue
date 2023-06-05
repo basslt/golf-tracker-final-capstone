@@ -1,10 +1,16 @@
 <template>
   <div>
     <form v-on:submit.prevent>
-      <label for="username">Search For User to Invite: </label>
-      <input type="text" name="username" v-model="filterText" />
+      <div class="form-group">
+        <label for="username">Search Users: </label>
+        <input type="text" name="username" v-model="filterText" />
+      </div>
+      <!-- <div class="form-group">
+        <label for="userlist"></label>
+        <textarea name="userlist" id="userlist" class="form-control" cols="30" rows="10"></textarea>
+      </div> -->
     </form>
-    <table>
+    <table class="table">
       <thead>
         <th>User</th>
         <th></th>
@@ -14,8 +20,8 @@
           <td>
             {{ user.username }}
           </td>
-          <td>
-            <button v-on:click="getCurrentUser(); sendInvite(user.id)">Send Invite</button>
+          <td class="button">
+            <button v-on:click="sendInvite(user.id)">Send Invite</button>
           </td>
         </tr>
       </tbody>
@@ -25,56 +31,56 @@
 
 <script>
 import userService from '../services/UserService.js';
-import messageService from '../services/MessageService';
+//import messageService from '../services/MessageService';
+import inviteService from '../services/InviteService';
 
 export default {
-
+  props: {
+    leagueId: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
-      message: {
+      invite: {
         senderId: '',
         receiverId: '',
-        content: 'hey',
+        leagueId: '',
+        content: 'Hey, join my league!',
+        status: 'Not Accepted',
         timestamp: Date.now()
       },
+      memberships: [],
+      usersNotInLeague: [],
       users: [],
-      filterText: "",
-      selectedUserId: ""
-    }
 
+      filterText: "",
+      activeLeagueId: "",
+    }
   },
   created() {
-    userService.getAllUsers().then(response => {
-      this.users = response.data;
-    }).catch(error => {
-      console.error("Whoops", error);
-    });
-    // userService.getUserByUsername(this.$store.state.loggedUser.username).then((response) => {
-    //   this.message.senderId = response.data.id;
-    // });
+     const activeLeagueId = this.$route.params.id;
+     userService.findUsersNotInLeague(activeLeagueId).then( (response) => {
+       this.usersNotInLeague = response.data;
+     })
+
   },
 
   computed: {
     filteredUsers() {
-      return this.users.filter( (user) => {
-        return user.username.includes(this.filterText);
-      })
+      return this.usersNotInLeague.filter( (user) => {
+          return user.username.includes(this.filterText)
+        })
     }
   },
   methods: {
     sendInvite(id) {
-      // this.message = { 
-      //   senderId: this.getCurrentUser(),
-      //   receiverId: id,
-      //   content: 'Hey',
-      //   timestamp: Date.now()
-      // }
-      this.message.receiverId = id;
-      // this.message.senderId = this.getCurrentUser();
-      // this.message.content = 'Hey';
-      // this.message.timestamp = Date.now();
-
-      messageService.createMessage(this.message).then( (response) => {
+      const user = this.$store.getters.getUser;
+      this.invite.senderId = user.id;
+      this.invite.receiverId = id;
+      this.invite.leagueId = this.leagueId;
+      inviteService.createInvite(this.invite).then( (response) => {
         if (response.status === 201) {
           console.log("Success");
         }
@@ -87,16 +93,26 @@ export default {
           this.errorMsg = "Error submitting new message";
         }
       })
-     // const message = 'hey';
-
-      // Invitation logic here
-      // Perform actions like generating invitation link or opening a modal
     },
-    getCurrentUser() {
-      userService.getUserByUsername(this.$store.state.loggedUser.username).then(response => {
-        this.message.senderId = response.data.id;
-      });
-    }
-  }
+  },
 }
 </script>
+
+
+<style scoped>
+
+.form-group {
+  display: block;
+}
+
+table {
+  margin-top: 5%;
+  table-layout: auto;
+  width: 50%;
+}
+
+td {
+  vertical-align: bottom;
+}
+
+</style>

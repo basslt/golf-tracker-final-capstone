@@ -1,32 +1,36 @@
 <template>
+<div class= "background">
 <div class="container">
+   <router-link to="/" class="back-button">
+        <span>&lt; Back</span>
+      </router-link>
     <div class="logo">
-      <img src="../assets/logo.png" alt="Logo" />
+      <img src="../assets/official-logo.png" alt="Logo" />
     </div>
-    <h1 class="welcome-heading">Youre Gonna Be Glad You Joined Playing Through</h1>
-    <h2>Your all-inclusive golf tracking app</h2>
-    
   <div id="register" class="text-center">
     <form @submit.prevent="register">
-      <h3>Create Account</h3>
+      
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
+      <div class = "form">
+      <div class="username-input">
+        <label for="username">Username:</label>
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
+      <div class="password-input">
+        <label for="password">Password:</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
-      <div class="form-input-group">
-        <label for="confirmPassword">Confirm Password</label>
+      <div class="confirm-password-input">
+        <label for="confirmPassword">Confirm Password:</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
-      <button type="submit">Create Account</button>
-      <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
+      </div>
+      <button type="submit"><span>Create Account</span></button>
+      <p><router-link class = "account" :to="{ name: 'LandingPage' }">Already have an account? Log in.</router-link></p>
     </form>
+  </div>
   </div>
   </div>
 </template>
@@ -59,8 +63,8 @@ export default {
           .then((response) => {
             if (response.status == 201) {
               this.$router.push({
-                path: '/login',
-                query: { registration: 'success' },
+                path: '/',
+                query: {showLoginForm: true}
               });
             }
           })
@@ -82,111 +86,127 @@ export default {
 </script>
 
 <style scoped>
-.form-input-group {
-  margin-bottom: 1rem;
+.background {
+  background-color: #059262;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-label {
-  margin-right: 0.5rem;
-}
+
 .container {
+  background-color: #6AD6B2;
+  padding: 20px;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-image: url("../assets/registrationbackground.jpg");
-  background-size: cover;
-  background-position:center;
-  text-align: center;
-  color: white;
-   height: 99%;
-  width: 299%;
+  max-width: 700px;
+  width: 100%;
+  height: 600px;
+  
+}
 
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* margin-right: 100px; */
+  
 }
 
 .logo {
-  text-align: center;
+  
+  
+  display: flex;
+  justify-content: center;
 }
 
 .logo img {
-  width: 500px;
-  margin-top: -165px;
+  max-width: 200px;
 }
 
-.welcome-heading {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  margin-top: -140px;
-  margin-bottom: -15px;
+form {
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: center;
+  /* margin-bottom: 40px; */
+  
 }
 
-h1 {
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
-  color: White;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  color: White;
-}
-h3 {
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
-  color: #004d33;
-}
-
-
-#register {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 5px;
-  margin-bottom: 50px;
-}
-
-.form-input-group {
-  margin-bottom: 1rem;
-  color: #004d33;
+.username-input,
+.password-input,
+.confirm-password-input {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
 }
 
 label {
-  margin-right: 0.5rem;
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 25px;
 }
 
-.login-form input {
-  width: 100%;
-  height: 40px;
+input[type="text"],
+input[type="password"] {
+
   padding: 10px;
-  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
   font-size: 16px;
+  color: #333;
+  transition: box-shadow 0.3s ease;
+  
 }
 
-.login-form button {
-  width: 100%;
-  height: 40px;
-  background-color: #005400;
+
+button[type="submit"] {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ffde59;
   color: white;
   border: none;
-  font-size: 16px;
-}
-
-.register-link {
-  font-size: 14px;
+  border-radius: 15px;
+  cursor: pointer;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.register-link a {
-  color: white;
+button span {
+  font-size: 20px;
+  font-weight: bold;
 }
-.sign-in-button,
-.register-button {
-  display: block;
-  margin: 0 auto;
-  width: 150px;
+
+button[type="submit"]:hover {
+  background-color: #fce279;
+}
+
+p {
+  margin: 10px;
+}
+
+.account {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.back-button {
+  margin-right: 600px;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+  color: white;
+
+
+}
+
+.back-button span {
+  font-size: 18px;
 }
 </style>
 

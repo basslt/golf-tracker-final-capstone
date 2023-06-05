@@ -17,13 +17,7 @@ public class LeagueController {
    @Autowired
     private LeagueDao leagueDao;
 
-//    private LeagueDao leagueDao;
-//
-//    public LeagueController(LeagueDao leagueDao) {
-//        this.leagueDao = leagueDao;
-//    }
-
-
+   
     @GetMapping()
     public List<League> getAllLeagues() {
         return leagueDao.getAllLeagues();
@@ -37,6 +31,16 @@ public class LeagueController {
         } else {
             return league;
         }
+    }
+
+    @GetMapping("/leaguemembership/{userId}")
+    public List<League> getLeaguesByUserID(@PathVariable int userId) {
+        return leagueDao.findLeaguesByUserId(userId);
+    }
+
+    @GetMapping("leaguelist/{userId}")
+    public List<League> getLeaguesByOrganizerId(@PathVariable int userId){
+        return leagueDao.findLeaguesByOrganizerId(userId);
     }
 
     @GetMapping("/{name}")

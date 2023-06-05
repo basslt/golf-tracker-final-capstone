@@ -6,7 +6,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import java.util.List;
 
 public interface MessageDao {
-    Message findById(int messageId) throws ChangeSetPersister.NotFoundException;
+    Message findById(int messageId);
 
     List<Message> getAllMessages();
 
@@ -14,9 +14,9 @@ public interface MessageDao {
 
     List<Message> findMessagesByReceiverId(int receiverId);
 
-    void saveMessage(Message message);
+    Message saveMessage(Message message);
 
-    void updateMessage(Message message);
+    void updateMessage(Message message, int messageId);
 
     void deleteMessage(int messageId);
 }

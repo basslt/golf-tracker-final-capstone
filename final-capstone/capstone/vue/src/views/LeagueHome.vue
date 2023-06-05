@@ -1,32 +1,48 @@
 <template>
-  <div class="main">
-      <body>
-        <main>
-            <league-leaderboard id="leaderboard"/>
-        </main>
-        <aside>
-            <league-page-nav />
-        </aside>
-      </body>
-      
+  <div>
+     <header>
+        <hamburger-menu />
+     </header>
+     <div class="main">
+        <body>
+            <main class="content">
+                <league-list />
+                 <create-league v-if="this.$store.state.showCreateForm"/>
+            </main>
+        </body>
+     </div>
+     
   </div>
 </template>
 
 <script>
-import LeagueLeaderboard from "../components/LeagueLeaderboard.vue"
-import LeaguePageNav from "../components/LeaguePageNav.vue"
+import LeagueList from "../components/LeagueList.vue"
+import CreateLeague from "../components/CreateLeague.vue"
+import HamburgerMenu from '../components/HamburgerMenu.vue'
 
 export default {
     components: {
-        LeagueLeaderboard,
-        LeaguePageNav
+        LeagueList,
+        CreateLeague,
+        HamburgerMenu
     }
 
 }
 </script>
 
-<style>
-body {
+<style scoped>
+
+.main { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+/* body {
     display: grid;
     height: 100vh;
     width: 100vw;
@@ -59,7 +75,7 @@ main {
 
 #leaderboard {
     
-}
+} */
 
 
 </style>

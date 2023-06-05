@@ -5,9 +5,9 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import AddLeague from '../views/AddLeague.vue'
 import LeagueHome from '../views/LeagueHome.vue'
 import LeagueInvite from '../views/LeagueInvite.vue'
+<<<<<<< HEAD
 import AllMessagesView from '../views/AllMessagesView.vue'
 
 import MessageView from '../views/MessageView.vue';
@@ -15,6 +15,12 @@ import ComposeMessage from '../components/ComposeMessage.vue';
 import SentMessagesView from '../views/SentMessagesView.vue';
 import ReceivedMessagesView from '../views/RecievedMessagesView.vue';
 
+=======
+import LandingPage from '../views/LandingPage.vue'
+import SelectedLeague from '../views/SelectedLeague.vue'
+import Messages from '../views/Messages.vue';
+import Match from '../views/MatchView.vue';
+>>>>>>> cdd24ad11c06bdc7234783d554d09b0eadcee21b
 Vue.use(Router)
 
 /**
@@ -31,11 +37,11 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -63,16 +69,16 @@ const router = new Router({
       }
     },
     {
-      path: "/add-league",
-      name: "AddLeague",
-      component: AddLeague,
+      path: "/league/:id",
+      name: "SelectedLeague",
+      component: SelectedLeague,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: "/league/:id",
-      name: "League",
+      path: "/leagues",
+      name: "LeagueHome",
       component: LeagueHome,
       meta: {
         requiresAuth: true
@@ -86,45 +92,3 @@ const router = new Router({
         requiresAuth: true
       }
     },
-   {
-      path: '/messages',
-      component: AllMessagesView,
-    },
-    {
-      path: '/messages/:id',
-      component: MessageView,
-      props: true,
-    },
-    {
-      path: '/compose',
-      component: ComposeMessage,
-    },
-    {
-      path: '/sent',
-      component: SentMessagesView,
-    },
-    {
-      path: '/received',
-      component: ReceivedMessagesView,
-    },
-    {
-      path: '*',
-      redirect: '/messages',
-    },
-  ],
-})
-
-router.beforeEach((to, from, next) => {
-  // Determine if the route requires Authentication
-  const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
-
-  // If it does and they are not logged in, send the user to "/login"
-  if (requiresAuth && store.state.token === '') {
-    next("/login");
-  } else {
-    // Else let them go to their next destination
-    next();
-  }
-});
-
-export default router;

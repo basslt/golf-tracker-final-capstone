@@ -1,40 +1,53 @@
 <template>
-  <div>
-    <h2>All Messages</h2>
-    <ul>
-      <li v-for="message in messages" :key="message.id">
-        <MessageItem :message="message" />
-      </li>
-    </ul>
-  </div>
+    <div class="container">
+        <div class="message-list">
+            <message-card v-for="message in $store.state.messages" :key="message.id" :message="message" v-on:click="showMessage(message)"/>
+        </div>
+    </div>
 </template>
 
 <script>
-import MessageItem from './MessageItem.vue';
-import MessageService from '../services/MessageService';
+import messageService from '../services/MessageService'
+import MessageCard from '../components/MessageCard.vue'
 
 export default {
-  data() {
-    return {
-      messages: [],
-    };
-  },
-  mounted() {
-    this.fetchMessages();
-  },
-  methods: {
-    fetchMessages() {
-      MessageService.getAllMessages()
-        .then((messages) => {
-          this.messages = messages;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    name: "message-list",
+    components: {
+        MessageCard,
     },
-  },
-  components: {
-    MessageItem,
-  },
-};
+    data() {
+        return {
+        }
+    },
+    methods: {
+        getMessages() {
+            messageService.getAllMessages().then( (response) => {
+                this.$store.commit("SET_MESSAGES", response.data);
+            });
+        },
+
+        showMessage(message) {
+            this.$emit('message-clicked', message);
+        },
+
+    },
+    created() {
+        this.getMessages();
+    }
+
+}
+
 </script>
+
+<style scoped>
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-list {
+    width: 50%;
+}
+
+</style>

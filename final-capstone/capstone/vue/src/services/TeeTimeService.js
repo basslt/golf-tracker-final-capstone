@@ -1,70 +1,54 @@
 import axios from 'axios';
 
+const BASE_URL = '/teetimes';
+
 export default {
   getTeeTimeById(teeTimeId) {
-    return axios.get(`/${teeTimeId}`)
+    return axios.get(`${BASE_URL}/${teeTimeId}`)
       .then(response => response.data)
       .catch(error => {
-        if (error.response && error.response.status === 404) {
-          throw new Error('Tee time not found');
-        }
-        throw new Error('Failed to fetch tee time');
+        throw new error('Failed to fetch TeeTime by ID');
       });
   },
 
   getAllTeeTimes() {
-    return axios.get('/')
+    return axios.get(BASE_URL)
       .then(response => response.data)
-      .catch(Error => {
-        throw new Error('Failed to fetch tee times');
-      });
-  },
-
-  getTeeTimesByCourse(courseId) {
-    return axios.get('/', {
-        params: {
-          courseId: courseId
-        }
-      })
-      .then(response => response.data)
-      .catch(Error => {
-        throw new Error('Failed to fetch tee times by course');
-      });
-  },
-
-  getTeeTimesByPlayer(playerId) {
-    return axios.get('/', {
-        params: {
-          playerId: playerId
-        }
-      })
-      .then(response => response.data)
-      .catch(Error => {
-        throw new Error('Failed to fetch tee times by player');
+      .catch(error => {
+        throw new error('Failed to fetch all TeeTimes');
       });
   },
 
   createTeeTime(teeTime) {
-    return axios.post('/', teeTime)
+    return axios.post(BASE_URL, teeTime)
       .then(() => {})
-      .catch(Error => {
-        throw new Error('Failed to create tee time');
+      .catch(error => {
+        throw new error('Failed to create TeeTime');
       });
   },
 
   updateTeeTime(teeTimeId, teeTime) {
-    return axios.put(`/${teeTimeId}`, teeTime)
+    return axios.put(`${BASE_URL}/${teeTimeId}`, teeTime)
       .then(() => {})
-      .catch(Error => {
-        throw new Error('Failed to update tee time');
+      .catch(error => {
+        throw new error('Failed to update TeeTime');
       });
   },
 
   deleteTeeTime(teeTimeId) {
-    return axios.delete(`/${teeTimeId}`)
+    return axios.delete(`${BASE_URL}/${teeTimeId}`)
       .then(() => {})
-      .catch(Error => {
-        throw new Error('Failed to delete tee time');
+      .catch(error => {
+        throw new error('Failed to delete TeeTime');
+      });
+  },
+
+  getTeeTimesByCourse(courseId) {
+    return axios.get(`${BASE_URL}/course/${courseId}`)
+      .then(response => response.data)
+      .catch(error => {
+        throw new error('Failed to fetch TeeTimes by Course');
       });
   }
 };
+

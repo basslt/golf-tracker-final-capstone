@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.List;
@@ -14,36 +14,51 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 public class UserController {
 
     private UserDao userDao;
 
     public UserController(UserDao userDao) {
         this.userDao = userDao;
+    }
 
+    @GetMapping("/{userId}")
+    public User findUserById(@PathVariable int userId) {
+        User user = userDao.getUserById(userId);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.");
+        } else {
+            return user;
+        }
     }
 
 //    @GetMapping("/{username}")
-//    public ResponseEntity<User> findByUsername(@PathVariable String username) {
-//        try {
-//            User user = userDao.findByUsername(username);
-//            return ResponseEntity.ok(user);
-//        } catch (UsernameNotFoundException e) {
-//            return ResponseEntity.notFound().build();
-//        }
+//    public User findByUsername(@PathVariable String username) {
+//        User user = userDao.findByUsername(username);
+//        return user;
 //    }
-
-    @GetMapping("/{username}")
-    public User findByUsername(@PathVariable String username) {
-        User user = userDao.findByUsername(username);
-        return user;
-    }
 
     @GetMapping("")
     public List<User> findAll() {
         return userDao.findAll();
     }
+
+    @GetMapping("/leaguemembership/not-in-league/{leagueId}")
+    public List<User> findUsersNotInLeague(@PathVariable("leagueId") int leagueId) {
+        return userDao.findUsersNotInLeague(leagueId);
+    }
+
+    @GetMapping("/leaguemembership/league/{leagueId}")
+    public List<User> findUsersInLeague(@PathVariable("leagueId") int leagueId) {
+        return userDao.findUsersInLeague(leagueId);
+    }
+
+    @GetMapping("/username")
+    public List<String> getAllUsernames() {
+        return userDao.getAllUsernames();
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -54,9 +69,14 @@ public class UserController {
         return userDao.create(username, password, role);
     }
 
-    @GetMapping("/id/{username}")
-    public int findIdByUsername(@PathVariable String username) {
-        return userDao.findIdByUsername(username);
+//    @GetMapping("/id/{username}")
+//    public int getUserIdByUsername(@PathVariable String username) {
+//        return userDao.findIdByUsername(username);
+//    }
+
+    @GetMapping("/{username}/id")
+    public int getUserIdByUsername(@PathVariable String username) {
+        return userDao.getUserIdByUsername(username);
     }
 
     @GetMapping("/{userId}/username")
@@ -68,4 +88,5 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }

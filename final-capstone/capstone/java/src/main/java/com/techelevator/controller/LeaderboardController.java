@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Component
 @RestController
 @RequestMapping("/leaderboards")
+@CrossOrigin
 public class LeaderboardController {
     private LeaderboardDao leaderboardDao;
 
