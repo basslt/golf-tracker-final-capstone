@@ -4,12 +4,10 @@
         <hamburger-menu />
      </header>
      <div class="main">
-        <body>
-            <main class="content">
-                <my-leagues />
-                <create-league v-if="this.$store.state.showCreateForm"/>
-            </main>
-        </body>
+                <my-leagues  class="my-leagues" />
+                <create-league v-if="this.$store.state.showCreateForm" />
+           
+        
      </div>
  
      </div>
@@ -25,7 +23,8 @@ export default {
   components: {  
     HamburgerMenu,
     MyLeagues,
-    CreateLeague
+    CreateLeague,
+    
   },
   name: "main",
   data() {
@@ -37,12 +36,24 @@ export default {
 </script>
 
 <style scoped>
-
-.content{
+.main {
   display: flex;
-  justify-content: flex-start;
+  /* flex-direction: column; */
+  /* align-items: center; */
+  
 }
 
+.content {
+  display: flex;
+  /* flex-direction: column; */
+  /* align-items: flex-start; */
+}
 
+.my-leagues {
+  align-self: flex-start;
+ margin: 100px;
+ margin-left: 300px;
 
+ 
+}
 </style>

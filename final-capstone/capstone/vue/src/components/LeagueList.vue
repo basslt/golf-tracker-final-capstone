@@ -60,7 +60,7 @@ export default {
 <style scoped>
 
   .league-list{
-    display: inline-block;
+    /* display: inline-block; */
     flex-direction: column;
     justify-content: space-evenly;
     background-color: rgb(180, 180, 180);

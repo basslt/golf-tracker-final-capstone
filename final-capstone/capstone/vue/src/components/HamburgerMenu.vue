@@ -50,40 +50,69 @@ export default {
     },
     showCreateForm() {
       this.$store.commit("SET_SHOW_CREATE_FORM_STATUS", true);
+      this.isOpen = false;
     }
   }
 };
 </script>
 
 <style scoped>
-
-.container .logo {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-    align-items: center;
-}
-
-.container .logo img {
-  width: auto;
-  height: 275px;
-}
-
 .container {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;    
-    background-color: #059262;
-    height: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  background-color: #059262;
+  height: 100px;
 }
 
+.hamburger-menu {
+
+  z-index: 2;
+    display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  margin-left: 20px;
+  
+}
+
+.menu-items {
+  /* Initial state */
+  display: none;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  position: fixed;
+  top: 0;
+  padding-left: 20px;
+  padding-top: 100px;
+  border-radius: 15px;
+  background: #059262;
+  width: 200px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-items.open {
+  /* Open state */
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
 
 
 .menu-icon {
-  display: block;
+  
+ 
   width: 40px;
   height: 25px;
-  position: relative;
+  
   cursor: pointer;
   z-index: 2;
 }
@@ -91,11 +120,12 @@ export default {
 .menu-icon span {
   display: block;
   position: absolute;
+  align-self: center;
   height: 3px;
   width: 100%;
   background: rgb(255, 255, 255);
   transition: transform 0.3s ease-in-out;
-  margin-left: 20px;
+  margin-left: 50px;
 }
 
 .menu-icon span:nth-child(1) {
@@ -111,29 +141,14 @@ export default {
   bottom: 0;
 }
 
-.menu-items {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  position: fixed;
-  top: 0;
-  left: -200px;
-  background: #059262;
-  width: 200px;
-  height: 100vh;
-  /* border: 1px solid #333; */
-  z-index: 1;
-  transition: left 0.3s ease-in-out;
-  margin-top: 95px;
-}
 
-.menu-items.open {
-  left: 0;
-}
 
-.menu-items li {
+.menu-items li  {
   padding: 10px;
 }
+
+
+
 
 .menu-items a {
   color: rgb(255, 255, 255);
@@ -142,8 +157,19 @@ export default {
   font-size: 20px;
 }
 
-.menu-items :hover {
+.menu-items a:hover {
   font-weight: bold;
 }
 
+.container .logo {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .logo img {
+  width: auto;
+  height: 275px;
+}
 </style>
