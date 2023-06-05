@@ -11,7 +11,6 @@ import LandingPage from '../views/LandingPage.vue'
 import SelectedLeague from '../views/SelectedLeague.vue'
 import Messages from '../views/Messages.vue';
 import Match from '../views/MatchView.vue';
-import MatchPlayerService from '../services/MatchPlayerService'
 Vue.use(Router)
 
 /**
@@ -106,17 +105,10 @@ const router = new Router({
     meta: {
       requiresAuth: true
     }
-    },
-    {
-      path: "/matchplayers",
-      name: "Matchplayers",
-      component: MatchPlayerService,
-      meta: {
-        requiresAuth: true
-      }
-      }
+    }
+    
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication
