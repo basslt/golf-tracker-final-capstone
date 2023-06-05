@@ -4,8 +4,8 @@
       <img src="../assets/official-logo.png" alt="">
     </div>
     <div class = "main-content">
-      <h1>Create and Manage Golf Leagues & Connect with Friends</h1>
-      <h2>Schedule Tee Times, View Leaderboards, and Discover Courses - All in One Place!"</h2>
+      <h1>Create Golf Leagues & Connect with Friends</h1>
+      <h2>"Schedule Tee Times, View Leaderboards, and Discover Courses - All in One Place!"</h2>
       <button
       class = "login-button" @click="showLoginForm = true" >
        <span>Login</span>
@@ -31,7 +31,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
 * {
   font-family: sans-serif;
   box-sizing: border-box;
@@ -39,6 +40,8 @@ export default {
 }
 
 .home {
+  display: flex;
+  flex-direction: column;
   background-color: #059262;
   width: 100vw;
   height: 100vh;
@@ -46,22 +49,23 @@ export default {
 }
 
 .logo {
-  align-self: flex-start; /* Align the logo to the top left corner */
+  justify-content: center;
   display: flex;
-  height: 100px;
+  height: 400px;
+  
   
   
 }
 
 img {
-  max-width: 300px; /* Limit the logo size if needed */
+  max-width: 400px; 
   
 }
 
 .main-content {
   color: white;
-  text-align: center; /* Center the content horizontally */
-  margin-top: 200px;
+  text-align: center; 
+  
 }
 
 .main-content h1 {

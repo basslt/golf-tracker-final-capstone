@@ -22,5 +22,9 @@ export default {
 </script>
 
 <style>
-
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+}
 </style>

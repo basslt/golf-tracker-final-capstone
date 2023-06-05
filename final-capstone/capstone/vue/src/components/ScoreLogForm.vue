@@ -2,7 +2,7 @@
   <div>
     <h2>Log Score</h2>
     <form @submit="logScore">
-      <label>Match ID:</label>
+    
       <span>{{ matchId }}</span>
       <br>
       <label for="score">Score:</label>
@@ -45,6 +45,6 @@ export default {
 </script>
 
 <style scoped>
-/* Add custom styling as needed */
+
 </style>
 
