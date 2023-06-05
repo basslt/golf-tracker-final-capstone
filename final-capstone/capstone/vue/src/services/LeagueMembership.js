@@ -8,11 +8,7 @@ export default {
   },
 
   getLeagueMembershipByLeagueMembershipId(leagueMembershipId) {
-    return axios.get(`/leaguemembership/${leagueMembershipId}`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.get(`/leaguemembership/${leagueMembershipId}`);
   },
 
   getLeagueMembersByLeagueId(leagueId) {
@@ -33,34 +29,19 @@ export default {
 
 
   getLeagueMembershipByUserId(userId) {
-    return axios.get(`/users/${userId}/leaguemembership`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.get(`/users/${userId}/leaguemembership`);
   },
 
   addLeagueMembership(leagueMembership) {
-    return axios.post(`/leaguemembership`, leagueMembership)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.post(`/leaguemembership`, leagueMembership);
   },
 
   updateLeagueMembership(leagueMembershipId, leagueMembership) {
-    return axios.put(`/leaguemembership/${leagueMembershipId}`, leagueMembership)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+    return axios.put(`/leaguemembership/${leagueMembershipId}`, leagueMembership);
   },
 
   deleteLeagueMembership(leagueMembershipId) {
-    return axios.delete(`/leaguemembership/${leagueMembershipId}`)
-      .then(() => {})
-      .catch(error => {
-        throw error;
-      });
+    return axios.delete(`/leaguemembership/${leagueMembershipId}`);
   },
+  
 };

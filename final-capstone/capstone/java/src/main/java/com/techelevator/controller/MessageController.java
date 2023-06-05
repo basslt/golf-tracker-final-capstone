@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,23 +16,18 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class MessageController {
-    //private final MessageDao messageDao;
-
-//    @Autowired
-//    public MessageController(MessageDao messageDao) {
-//        this.messageDao = messageDao;
-//    }
 
     @Autowired
     private MessageDao messageDao;
 
     @GetMapping("/messages/{id}")
-    public ResponseEntity<Message> getMessageById(@PathVariable("id") int messageId) throws ChangeSetPersister.NotFoundException {
+    public Message getMessageById(@PathVariable("id") int messageId) {
         Message message = messageDao.findById(messageId);
         if (message == null) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Message not found.");
+        } else {
+            return message;
         }
-        return ResponseEntity.ok(message);
     }
 
     @GetMapping("/messages")
@@ -65,8 +61,7 @@ public class MessageController {
 
     @PutMapping("/messages/{id}")
     public ResponseEntity<Void> updateMessage(@PathVariable("id") int messageId, @RequestBody Message message) {
-        message.setMessageId(messageId);
-        messageDao.updateMessage(message);
+        messageDao.updateMessage(message, message.getMessageId());
         return ResponseEntity.ok().build();
     }
 

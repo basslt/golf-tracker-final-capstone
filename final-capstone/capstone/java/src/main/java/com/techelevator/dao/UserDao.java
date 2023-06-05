@@ -18,5 +18,8 @@ public interface UserDao {
 
     int findIdByUsername(String username);
     String findUsernameById(int userId);
+
+    List<User> findUsersInLeague(int leagueId);
+
     boolean create(String username, String password, String role);
 }

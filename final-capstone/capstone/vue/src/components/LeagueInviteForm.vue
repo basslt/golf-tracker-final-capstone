@@ -32,15 +32,18 @@
 <script>
 import userService from '../services/UserService.js';
 import messageService from '../services/MessageService';
+//import inviteService from '../services/InviteService';
 
 export default {
 
   data() {
     return {
-      message: {
+      invite: {
         senderId: '',
         receiverId: '',
+        leagueId: '',
         content: 'hey',
+        status: '',
         timestamp: Date.now()
       },
       memberships: [],
@@ -56,6 +59,7 @@ export default {
      userService.findUsersNotInLeague(activeLeagueId).then( (response) => {
        this.usersNotInLeague = response.data;
      })
+
   },
 
   computed: {

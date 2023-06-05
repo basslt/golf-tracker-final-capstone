@@ -1,30 +1,27 @@
 <template>
     <div class="container">
-        <div class="message-list" v-on:click="showMessageDetails = true">
-            <message-card v-for="message in $store.state.messages" v-bind:key="message.id" v-bind:message="message" />
+        <div class="message-list">
+            <message-card v-for="message in $store.state.messages" :key="message.id" :message="message" v-on:click="showMessage(message)"/>
         </div>
-        <message-details v-show="showMessageDetails" @close="showMessageDetails = false" />
+        <!-- <message-details v-show="showMessageDetails" @close="showMessageDetails = false" /> -->
     </div>
 </template>
 
 <script>
 import messageService from '../services/MessageService'
 import MessageCard from '../components/MessageCard.vue'
-import MessageDetails from '../components/MessageDetails.vue'
+//import MessageDetails from '../components/MessageDetails.vue'
 
 export default {
     name: "message-list",
-    props: {
-        message: Object
-    },
     components: {
         MessageCard,
-        MessageDetails
+        //MessageDetails
     },
     data() {
         return {
             //showMessageDetails: this.$route.query.showMessageDetails === 'true' || false,
-            showMessageDetails: false
+            //showMessageDetails: false
         }
     },
     methods: {
@@ -32,6 +29,9 @@ export default {
             messageService.getAllMessages().then( (response) => {
                 this.$store.commit("SET_MESSAGES", response.data);
             });
+        },
+        showMessage(message) {
+            this.$emit('message-clicked', message);
         }
     },
     created() {

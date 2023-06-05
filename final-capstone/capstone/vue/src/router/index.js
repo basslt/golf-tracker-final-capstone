@@ -9,7 +9,6 @@ import LeagueHome from '../views/LeagueHome.vue'
 import LeagueInvite from '../views/LeagueInvite.vue'
 import LandingPage from '../views/LandingPage.vue'
 import SelectedLeague from '../views/SelectedLeague.vue'
-import LeagueMembers from '../views/LeagueMembers.vue';
 import Messages from '../views/Messages.vue';
 
 Vue.use(Router)
@@ -79,14 +78,6 @@ const router = new Router({
       path: "/invite-to-league",
       name: "LeagueInvite",
       component: LeagueInvite,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: "/league/:id/members",
-      name: "LeagueMembers",
-      component: LeagueMembers,
       meta: {
         requiresAuth: true
       }

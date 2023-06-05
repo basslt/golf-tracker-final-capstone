@@ -30,7 +30,6 @@ export default {
         organizerId: ''
       },
       newLeagueId: '',
-      //showCreateForm: false
     };
   },
   methods: {
@@ -51,9 +50,6 @@ export default {
       this.$store.commit('SET_SHOW_CREATE_FORM_STATUS', false);
     }
   },
-  // created() {
-  //   this.showCreateForm = this.$store.state.showCreateForm;
-  // }
 }
 </script>
 
