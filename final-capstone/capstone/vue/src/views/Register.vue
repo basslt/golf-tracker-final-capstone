@@ -101,36 +101,38 @@ export default {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
   max-width: 700px;
   width: 100%;
   height: 600px;
+  
 }
 
 .form {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-right: 100px;
-  margin-bottom: 20px;
+  /* margin-right: 100px; */
+  
 }
 
 .logo {
-  margin-bottom: 10px;
-  margin-left: 200px;
+  
+  
   display: flex;
   justify-content: center;
 }
 
 .logo img {
-  max-width: 300px;
+  max-width: 200px;
 }
 
 form {
   display: flex;
+  /* justify-content: center; */
   flex-direction: column;
   align-items: center;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
   
 }
 

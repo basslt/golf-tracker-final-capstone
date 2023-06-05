@@ -8,6 +8,7 @@
             <league-leaderboard id="leaderboard" v-bind:league-id="leagueId"/>
             <league-member-list :league-id="leagueId" />
             <league-invite-form v-bind:league-id="leagueId" />
+            <select-course  v-bind:league-id="leagueId"/>
         </main>
         <aside>
             <league-page-nav />
@@ -23,6 +24,7 @@ import LeaguePageNav from "../components/LeaguePageNav.vue"
 import LeagueMemberList from '../components/LeagueMemberList.vue'
 import HamburgerMenu from '../components/HamburgerMenu.vue'
 import LeagueInviteForm from '../components/LeagueInviteForm.vue'
+import SelectCourse from '../components/SelectCourse.vue'
 
 export default {
     components: {
@@ -30,7 +32,8 @@ export default {
         LeaguePageNav,
         LeagueMemberList,
         HamburgerMenu,
-        LeagueInviteForm
+        LeagueInviteForm,
+        SelectCourse
     },
     data() {
         return {

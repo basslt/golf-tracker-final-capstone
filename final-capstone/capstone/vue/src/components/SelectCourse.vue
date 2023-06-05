@@ -25,25 +25,23 @@
         <button @click="selectCourse(course)">Select</button>
       </li>
     </ul>
-     <div v-if="leagues.length > 0">
-      <h2>Leagues</h2>
-      <ul>
-        <li v-for="league in leagues" :key="league.leagueId">
-          {{ league.leagueName }}
-          <button @click="selectLeague(league.leagueId)">Select</button>
-        </li>
-      </ul>
-    </div>
+     
   </div>
 </template>
 
 <script>
 import courseService from '../services/CourseService';
-import LeagueMembership from '../services/LeagueMembership';
-import LeagueService from '../services/LeagueService';
+//import LeagueMembership from '../services/LeagueMembership';
+//import LeagueService from '../services/LeagueService';
+import userService from '../services/UserService'
 //import LeagueMembership from '../services/LeagueMembership';
 
 export default {
+  props: {
+        leagueId: {
+            type: Number,
+            required: true
+        }},
   data() {
     return {
       name: '',
@@ -52,7 +50,7 @@ export default {
       courses: [],
       selectedCourse: null,
       showForm: true,
-      playerId: '',
+      
       teeTime: {
       courseId: null,
       time: null,
@@ -61,7 +59,6 @@ export default {
     },
     leagues: [],
     leagueMembers: [],
-     selectedLeagueId: null, 
     };
   },
   computed: {
@@ -96,42 +93,37 @@ export default {
         });
        
     },
+     getLeagueMembers() {
+            userService.findUsersInLeague(this.leagueId).then( (response) => {
+                this.leagueMemberNames = response.data;
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+
     selectCourse(course) {
       this.selectedCourse = {
         id: course.courseId,
         data: course
       };
-      this.teeTime.courseId = course.courseId;
-      console.log(this.$store.state.user.id)
-      LeagueService.getLeaguesByOrganizerId(this.$store.state.user.id)
-      .then(response => {
-        this.leagues = response.data;
-        console.log(this.leagues)
-        
-      })
-      if (this.leagueMembers.length > 0) {
-        this.teeTime.playerId = this.leagueMembers[0].userId;
-        }
-      console.log(this.selectedCourse.data);
+    
       
       
       this.showForm = false; // Hide the form
      
     },
-    selectLeague(leagueId) {
-  this.selectedLeagueId = leagueId;
-  console.log(this.selectedLeagueId)
-  LeagueMembership.getLeagueMembersByLeagueId(leagueId)
-    .then(response => {
-      this.leagueMembers = response.data;
-      console.log(response.data)
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-    
-    
-  }
-  }
-};
+  
+  },
+    watch: {
+        leagueId: {
+            immediate: true,
+            handler() {
+                this.getLeagueMembers();
+            }
+        }
+    }
+}
+;
 </script>

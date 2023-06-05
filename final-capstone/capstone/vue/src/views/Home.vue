@@ -37,61 +37,12 @@ export default {
 </script>
 
 <style scoped>
-/* .main {
-    display: grid;
-    /* height: 100vh; 
-    width: 100vw; 
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas: 
-        "header header header header"
-        "content content content content"
-        "footer footer footer footer";
-} */
-
-.main {
-    display: flex;
-    /* height: 100vh; */
-    justify-content: center;
-    align-items: center;
-}
-
-.content {
-  display: flex;
-  justify-content: center;
-
-}
-
-/* .header {
-    width: 100vw;
-    
-}
 
 .content{
-  grid-area: content;
-} */
-
-
-
-
-/* .hamburger-menu {
-   grid-row-start: 1;
-   grid-row-end: 1;
-  grid-column-start: 1; 
-  grid-column-end:  4;
-  background-color: black;
-  width: 1000px;
-}  */
-/* 
-.logo {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
-.main {
-  grid-row: 2 / span 2;
-  grid-column: 1 / span 4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
+
+
 </style>
