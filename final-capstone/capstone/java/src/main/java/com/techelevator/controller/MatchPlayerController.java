@@ -67,4 +67,9 @@ public class MatchPlayerController {
         matchPlayerDao.deleteMatchPlayer(matchPlayerId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/matchplayers/{playerId}/matchId")
+    public int getMatchIdByPlayerId(@PathVariable("playerId") int playerId) {
+        return matchPlayerDao.getMatchIdByPlayerId(playerId);
+    }
 }

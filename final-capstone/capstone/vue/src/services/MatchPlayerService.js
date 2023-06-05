@@ -27,5 +27,9 @@ export default {
 
   deleteMatchPlayer(matchPlayerId) {
     return axios.delete(`/matchplayers/${matchPlayerId}`);
+  },
+ 
+  getMatchIdByPlayerId(playerId) {
+    return axios.get(`/matchplayers/${playerId}/matchid`)
   }
 };

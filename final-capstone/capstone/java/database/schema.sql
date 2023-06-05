@@ -25,6 +25,12 @@ CREATE TABLE Course (
 );
 
 
+CREATE TABLE League (
+  league_id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  organizer_id INTEGER REFERENCES users(user_id)
+);
+
 CREATE TABLE TeeTime (
   tee_time_id SERIAL PRIMARY KEY,
   match_name VARCHAR(255),
@@ -35,14 +41,6 @@ CREATE TABLE TeeTime (
 
 
 );
-
-
-CREATE TABLE League (
-  league_id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  organizer_id INTEGER REFERENCES users(user_id)
-);
-
 
 CREATE TABLE LeagueMembership (
   league_membership_id SERIAL PRIMARY KEY,
