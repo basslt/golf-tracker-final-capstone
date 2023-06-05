@@ -31,7 +31,7 @@ CREATE TABLE TeeTime (
   course_id INTEGER REFERENCES Course(course_id),
   time TIMESTAMP NOT NULL,
   organizer_id INTEGER REFERENCES users(user_id),
-  league_id INTEGER REFERENCES League(league_id),
+  league_id INTEGER REFERENCES League(league_id)
 
 
 );
@@ -54,7 +54,7 @@ CREATE TABLE LeagueMembership (
 
 CREATE TABLE MatchPlayer (
   match_player_id SERIAL PRIMARY KEY,
-  tee_time_id INTEGER REFERENCES TeeTime(tee_time_id),
+  match_id INTEGER REFERENCES TeeTime(tee_time_id),
   player_id INTEGER REFERENCES users(user_id)
 );
 
