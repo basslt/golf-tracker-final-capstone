@@ -10,6 +10,7 @@
         </div>
         <div class="content">
             <message-list />
+            <create-league v-if="this.$store.state.showCreateForm"/>
         </div>
     </body>
   </div>
@@ -19,12 +20,14 @@
 import MessageList from '../components/MessageList.vue'
 import HamburgerMenu from '../components/HamburgerMenu.vue'
 import NewMessageForm from '../components/NewMessageForm.vue'
+import CreateLeague from '../components/CreateLeague.vue'
 
 export default {
     components: {
         MessageList,
         NewMessageForm,
-        HamburgerMenu
+        HamburgerMenu,
+        CreateLeague
     },
     data() {
       return {
