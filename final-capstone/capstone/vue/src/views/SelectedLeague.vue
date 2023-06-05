@@ -2,10 +2,12 @@
   <div class="main">
       <body>
         <header>
-            <main-navigation />
+            <hamburger-menu />
         </header>
-        <main>
-            <league-leaderboard id="leaderboard"/>
+        <main class="content">
+            <league-leaderboard id="leaderboard" v-bind:league-id="leagueId"/>
+            <league-member-list :league-id="leagueId" />
+            <league-invite-form v-bind:league-id="leagueId" />
         </main>
         <aside>
             <league-page-nav />
@@ -18,20 +20,32 @@
 <script>
 import LeagueLeaderboard from "../components/LeagueLeaderboard.vue"
 import LeaguePageNav from "../components/LeaguePageNav.vue"
-import MainNavigation from "../components/MainNavigation.vue"
+import LeagueMemberList from '../components/LeagueMemberList.vue'
+import HamburgerMenu from '../components/HamburgerMenu.vue'
+import LeagueInviteForm from '../components/LeagueInviteForm.vue'
 
 export default {
     components: {
         LeagueLeaderboard,
         LeaguePageNav,
-        MainNavigation
+        LeagueMemberList,
+        HamburgerMenu,
+        LeagueInviteForm
+    },
+    data() {
+        return {
+            leagueId: null
+        }
+    },
+    mounted() {
+        this.leagueId = parseInt(this.$route.params.id);
     }
 
 }
 
 </script>
 
-<style>
+<style scoped>
 body {
     display: grid;
     height: 100vh;
@@ -42,6 +56,10 @@ body {
         "sidebar content content content"
         "footer footer footer footer";
 
+}
+
+.content {
+    display: flex;
 }
 
 header {

@@ -146,6 +146,25 @@ public class JdbcUserDao implements UserDao {
         return users;
     }
 
+    @Override
+    public List<User> findUsersInLeague(int leagueId) {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT user_id, username, password_hash, role FROM users JOIN LeagueMembership USING (user_id) " +
+                "WHERE LeagueMembership.league_id = ?;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, leagueId);
+            while (results.next()) {
+                User user = mapRowToUser(results);
+                users.add(user);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return users;
+    }
+
 //    @Override
 //    public User getUserByUsername(String username) {
 //        User user = null;

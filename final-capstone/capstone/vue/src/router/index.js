@@ -9,9 +9,8 @@ import LeagueHome from '../views/LeagueHome.vue'
 import LeagueInvite from '../views/LeagueInvite.vue'
 import LandingPage from '../views/LandingPage.vue'
 import SelectedLeague from '../views/SelectedLeague.vue'
-import LeagueMembers from '../views/LeagueMembers.vue';
 import Messages from '../views/Messages.vue';
-
+import Match from '../views/MatchView.vue';
 Vue.use(Router)
 
 /**
@@ -84,18 +83,10 @@ const router = new Router({
       }
     },
     {
-      path: "/league/:id/members",
-      name: "LeagueMembers",
-      component: LeagueMembers,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: "/",
       name: "LandingPage",
       component: LandingPage,
-      metha: {
+      meta: {
         requiresAuth: false
       }
     },
@@ -106,6 +97,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+    path: "/match",
+    name: "Match",
+    component: Match,
+    meta: {
+      requiresAuth: true
+    }
     }
   ]
 })

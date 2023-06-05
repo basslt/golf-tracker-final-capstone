@@ -9,7 +9,9 @@
             <new-message-form v-show="showNewMessageForm" @close="showNewMessageForm = false" />
         </div>
         <div class="content">
-            <message-list />
+            <message-list @message-clicked="showDetails" />
+            <message-details :message="selectedMessage" v-if="selectedMessage" v-on:close="closeMessage"/>
+            <create-league v-if="this.$store.state.showCreateForm"/>
         </div>
     </body>
   </div>
@@ -19,16 +21,29 @@
 import MessageList from '../components/MessageList.vue'
 import HamburgerMenu from '../components/HamburgerMenu.vue'
 import NewMessageForm from '../components/NewMessageForm.vue'
+import CreateLeague from '../components/CreateLeague.vue'
+import MessageDetails from'../components/MessageDetails.vue'
 
 export default {
     components: {
         MessageList,
         NewMessageForm,
-        HamburgerMenu
+        HamburgerMenu,
+        CreateLeague,
+        MessageDetails
     },
     data() {
       return {
-        showNewMessageForm: false
+        showNewMessageForm: false,
+        selectedMessage: null
+      }
+    },
+    methods: {
+      showDetails(message) {
+        this.selectedMessage = message;
+      },
+      closeMessage() {
+        this.selectedMessage = null;
       }
     }
 }

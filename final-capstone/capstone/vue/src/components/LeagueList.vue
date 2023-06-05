@@ -11,7 +11,7 @@
       </thead>
       <tbody class="league-list">
         <tr  class="row" v-for="league in filteredLeagues" :key="league.leagueId" >
-          <router-link v-bind:to="{ name: 'SelectedLeague', params: { id: league.leagueId }}">
+          <router-link v-bind:to="{ name: 'SelectedLeague', params: { id: league.leagueId }}" v-on:click="selectedLeague(league.leagueId)">
            <td>{{ league.leagueName }}</td>
           </router-link>
         </tr>
@@ -50,6 +50,9 @@ export default {
        this.leagues = response.data;
      })
     },
+    selectedLeague(leagueId) {
+      this.$store.commit('SET_ACTIVE_LEAGUE', leagueId);
+    }
   }
 };
 </script>

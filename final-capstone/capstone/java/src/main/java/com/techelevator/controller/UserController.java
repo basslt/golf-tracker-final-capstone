@@ -44,9 +44,14 @@ public class UserController {
         return userDao.findAll();
     }
 
-    @GetMapping("/leaguemembership/league/{leagueId}")
-    public List<User> findUsersNotInLeague(@PathVariable int leagueId) {
+    @GetMapping("/leaguemembership/not-in-league/{leagueId}")
+    public List<User> findUsersNotInLeague(@PathVariable("leagueId") int leagueId) {
         return userDao.findUsersNotInLeague(leagueId);
+    }
+
+    @GetMapping("/leaguemembership/league/{leagueId}")
+    public List<User> findUsersInLeague(@PathVariable("leagueId") int leagueId) {
+        return userDao.findUsersInLeague(leagueId);
     }
 
     @GetMapping("/username")

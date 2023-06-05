@@ -26,6 +26,10 @@ export default {
   },
 
   findUsersNotInLeague(leagueId) {
+    return axios.get(`/users/leaguemembership/not-in-league/${leagueId}`);
+  },
+
+  findUsersInLeague(leagueId) {
     return axios.get(`users/leaguemembership/league/${leagueId}`);
   },
 

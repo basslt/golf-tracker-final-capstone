@@ -38,7 +38,6 @@ export default {
 
 <style scoped>
 
-
 .content{
   display: flex;
   justify-content: flex-start;

@@ -22,6 +22,7 @@ import java.util.List;
 
 @Component
 public class JdbcMessageDao implements MessageDao {
+
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcMessageDao(JdbcTemplate jdbcTemplate) {
@@ -120,15 +121,18 @@ public class JdbcMessageDao implements MessageDao {
     }
 
     @Override
-    public void updateMessage(Message message) {
+    public void updateMessage(Message message, int messageId) {
         String query = "UPDATE Message SET sender_id = ?, receiver_id = ?, content = ?, timestamp = ? " +
                 "WHERE message_id = ?";
         try {
             jdbcTemplate.update(query, message.getSenderId(), message.getReceiverId(),
                     message.getContent(), message.getTimestamp(), message.getMessageId());
-        } catch (DataAccessException e) {
-            throw new DataAccessException("Failed to update message with ID: " + message.getMessageId(), e) {
-            };
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Data integrity violation", e);
         }
     }
 
@@ -137,9 +141,12 @@ public class JdbcMessageDao implements MessageDao {
         String query = "DELETE FROM Message WHERE message_id = ?";
         try {
             jdbcTemplate.update(query, messageId);
-        } catch (DataAccessException e) {
-            throw new DataAccessException("Failed to delete message with ID: " + messageId, e) {
-            };
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Data integrity violation", e);
         }
     }
 

@@ -17,33 +17,39 @@
 </template>
 
 <script>
-import leagueMembership from '../services/LeagueMembership'
 import userService from '../services/UserService'
 
 export default {
+    props: {
+        leagueId: {
+            type: Number,
+            required: true
+        }
+    },
     data() {
         return {
             leagueMembers: [],
-            leagueMemberNames: []
+            leagueMemberNames: [],
         }
     },
     methods: {
         getLeagueMembers() {
-            leagueMembership.getAllLeagueMemberships().then( (response) => {
-                this.leagueMembers = response.data;
-                this.leagueMembers.forEach( (member) => {
-                    userService.getUserById(member.userId).then( (response) => {
-                        this.leagueMemberNames.push(response.data);
-                    })
-                });
-            });
+            userService.findUsersInLeague(this.leagueId).then( (response) => {
+                this.leagueMemberNames = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            })
         }
-    },
-    created() {
-        this.getLeagueMembers();
-    },
-    computed: {
 
+    },
+    watch: {
+        leagueId: {
+            immediate: true,
+            handler() {
+                this.getLeagueMembers();
+            }
+        }
     }
 
 }
@@ -54,8 +60,6 @@ export default {
 table {
     width: 125%;
     border-collapse: collapse
-    
-    
 }
 
 th {

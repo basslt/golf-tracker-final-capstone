@@ -1,7 +1,7 @@
 BEGIN TRANSACTION;
 
 
-DROP TABLE IF EXISTS users,Course,TeeTime,League,LeagueMembership,MatchPlayer,Match,Score,Message,leaderboard;
+DROP TABLE IF EXISTS users,Course,TeeTime,League,LeagueMembership,MatchPlayer,Match,Score,Message,leaderboard,LeagueInvite;
 
 
 CREATE TABLE users (
@@ -82,6 +82,16 @@ CREATE TABLE Message (
   sender_id INTEGER REFERENCES users(user_id),
   receiver_id INTEGER REFERENCES users(user_id),
   content TEXT,
+  timestamp TIMESTAMP
+);
+
+CREATE TABLE LeagueInvite (
+  league_invite_id SERIAL PRIMARY KEY,
+  sender_id INTEGER REFERENCES users(user_id),
+  receiver_id INTEGER REFERENCES users(user_id),
+  league_id INTEGER REFERENCES League(league_id),
+  content TEXT,
+  status varchar(50),
   timestamp TIMESTAMP
 );
 

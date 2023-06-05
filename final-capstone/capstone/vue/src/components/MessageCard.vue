@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="message-card">
+        <div class="message-card" @click="$emit('click')">
             <h2>{{this.senderUser.username}}</h2>
         </div>
     </div>
@@ -13,7 +13,8 @@ export default {
     name: 'message-card',
     props: {
         message: {
-            type: Object
+            type: Object,
+            required: true
         }
     },
     data() {
