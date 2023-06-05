@@ -19,6 +19,7 @@ export default new Vuex.Store({
       username: ''
     },
     messages: [],
+    invites: [],
     showCreateForm: false,
     activeLeague: ''
   },
@@ -50,6 +51,9 @@ export default new Vuex.Store({
     },
     SET_MESSAGES(state, data) {
       state.messages = data;
+    },
+    SET_INVITES(state, data) {
+      state.invites = data;
     },
     SET_SHOW_CREATE_FORM_STATUS(state, value) {
       state.showCreateForm = value;

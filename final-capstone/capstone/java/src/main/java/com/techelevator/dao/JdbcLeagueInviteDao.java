@@ -95,11 +95,11 @@ public class JdbcLeagueInviteDao implements LeagueInviteDao {
     @Override
     public LeagueInvite saveLeagueInvite(LeagueInvite leagueInvite) {
         LeagueInvite newInvite =null;
-        String query = "INSERT INTO LeagueInvite (sender_id, receiver_id, league_id, content, timestamp) " +
-                "VALUES (?, ?, ?, ?) RETURNING league_invite_id";
+        String query = "INSERT INTO LeagueInvite (sender_id, receiver_id, league_id, content, status, timestamp) " +
+                "VALUES (?, ?, ?, ?, ?, ?) RETURNING league_invite_id";
         try {
             int newInviteId = jdbcTemplate.queryForObject(query, int.class, leagueInvite.getSenderId(), leagueInvite.getReceiverId(),
-                    leagueInvite.getLeagueId(), leagueInvite.getContent(), leagueInvite.getTimestamp());
+                    leagueInvite.getLeagueId(), leagueInvite.getContent(),leagueInvite.getStatus(), leagueInvite.getTimestamp());
             newInvite = findById(newInviteId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new RuntimeException("Unable to connect to server or database", e);
@@ -155,6 +155,7 @@ public class JdbcLeagueInviteDao implements LeagueInviteDao {
         leagueInvite.setReceiverId(rowSet.getInt("receiver_id"));
         leagueInvite.setLeagueId(rowSet.getInt("league_id"));
         leagueInvite.setContent(rowSet.getString("content"));
+        leagueInvite.setStatus(rowSet.getString("status"));
         leagueInvite.setTimestamp(rowSet.getTimestamp("timestamp"));
         return leagueInvite;
     }
