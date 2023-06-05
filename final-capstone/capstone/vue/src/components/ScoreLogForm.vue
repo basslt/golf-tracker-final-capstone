@@ -12,10 +12,7 @@
 </template>
 
 <script>
-import ScoreService from '@/services/ScoreService';
-import UserService from '@/services/UserService';
-import TeeTimeService from '@/services/TeeTimeService';
-import MatchPlayerService from '@/services/MatchPlayerService'
+import ScoreService from '../services/ScoreService';
 
 export default {
       props: {
