@@ -31,19 +31,24 @@
 
 <script>
 import userService from '../services/UserService.js';
-import messageService from '../services/MessageService';
-//import inviteService from '../services/InviteService';
+//import messageService from '../services/MessageService';
+import inviteService from '../services/InviteService';
 
 export default {
-
+  props: {
+    leagueId: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       invite: {
         senderId: '',
         receiverId: '',
         leagueId: '',
-        content: 'hey',
-        status: '',
+        content: 'Hey, join my league!',
+        status: 'Not Accepted',
         timestamp: Date.now()
       },
       memberships: [],
@@ -72,9 +77,10 @@ export default {
   methods: {
     sendInvite(id) {
       const user = this.$store.getters.getUser;
-      this.message.senderId = user.id;
-      this.message.receiverId = id;
-      messageService.createMessage(this.message).then( (response) => {
+      this.invite.senderId = user.id;
+      this.invite.receiverId = id;
+      this.invite.leagueId = this.leagueId;
+      inviteService.createInvite(this.invite).then( (response) => {
         if (response.status === 201) {
           console.log("Success");
         }

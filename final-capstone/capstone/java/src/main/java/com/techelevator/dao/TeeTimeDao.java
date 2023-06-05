@@ -5,18 +5,19 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface TeeTimeDao {
-    TeeTime findById(int teeTimeId) throws ChangeSetPersister.NotFoundException;
+    TeeTime findById(int teeTimeId);
 
-    List<TeeTime> getAllTeeTimes();
+    List<TeeTime> findAll();
 
-    List<TeeTime> getTeeTimesByCourse(int courseId);
+    void save(TeeTime teeTime);
 
-    List<TeeTime> getTeeTimesByPlayer(int playerId);
+    void update(TeeTime teeTime);
 
-    void saveTeeTime(TeeTime teeTime);
+    void delete(TeeTime teeTime);
 
-    void updateTeeTime(TeeTime teeTime);
-
-    void deleteTeeTime(int teeTimeId);
+    List<TeeTime> findByCourse(int courseId);
 }
+

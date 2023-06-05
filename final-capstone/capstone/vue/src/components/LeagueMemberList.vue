@@ -28,7 +28,7 @@ export default {
     },
     data() {
         return {
-            leagueMembers: [],
+            //leagueMembers: [],
             leagueMemberNames: [],
         }
     },
