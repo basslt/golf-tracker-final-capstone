@@ -1,15 +1,21 @@
 <template>
-  <div class="add-league" v-show="showCreateForm">    
-    <form v-on:submit.prevent>
-      <div class="heading">
-        <h2>Create a New League</h2>
-      </div>
-      <div class="form-group">
-        <label for="leagueName">League Name:</label>
-        <input type="text" id="leagueName" v-model="league.leagueName" required>
-      </div>
-      <button type="submit" v-on:click="createLeague()">Create League</button>
-    </form>
+  <div class="container" >    
+    <div class="add-league">
+      <form v-on:submit.prevent>
+        <div class="heading">
+          <h2>Create a New League</h2>
+        </div>
+        <div class="form-group">
+          <label for="leagueName">League Name:</label>
+          <input type="text" id="leagueName" v-model="league.leagueName" required>
+        </div>
+        <div class="buttons">
+          <button type="submit" v-on:click="createLeague()">Create League</button>
+          <button type="button" v-on:click="closeForm()">Cancel</button>
+        </div>
+      </form>
+      
+    </div>
   </div>
 </template>
 
@@ -24,7 +30,7 @@ export default {
         organizerId: ''
       },
       newLeagueId: '',
-      showCreateForm: false
+      //showCreateForm: false
     };
   },
   methods: {
@@ -41,7 +47,13 @@ export default {
           console.error('Failed to fetch league ID:', error);
         });
     },
-  }
+    closeForm() {
+      this.$store.commit('SET_SHOW_CREATE_FORM_STATUS', false);
+    }
+  },
+  // created() {
+  //   this.showCreateForm = this.$store.state.showCreateForm;
+  // }
 }
 </script>
 
@@ -49,15 +61,26 @@ export default {
 
 .add-league {
   display: flex;
-   background-color: whitesmoke;
-  align-items: center;
+  flex-direction: column;
+  background-color: whitesmoke;
+  align-items: space-around;
   justify-content: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
 }
 
-form{
+.container {
+  position: fixed;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+form {
  background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 5px;

@@ -18,7 +18,8 @@ export default new Vuex.Store({
     loggedUser: {
       username: ''
     },
-    messages: []
+    messages: [],
+    showCreateForm: false,
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -50,6 +51,9 @@ export default new Vuex.Store({
       state.messages = data;
     },
     
+    SET_SHOW_CREATE_FORM_STATUS(state, value) {
+      state.showCreateForm = value;
+    }
   },
   actions: {
     getUserById({ commit }, userId) {

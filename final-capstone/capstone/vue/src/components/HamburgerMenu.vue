@@ -13,7 +13,7 @@
         <router-link v-bind:to="{ name: 'LeagueHome' }">
           <li><a href="#">Leagues</a></li>
         </router-link>
-        <li @click=" showCreateForm = true"><a href="#">Create a League</a></li>
+          <li @click="showCreateForm"><a href="#">Create a League</a></li>
         <router-link v-bind:to="{ name: 'Messages' }">
           <li><a href="#">Messages</a></li>
         </router-link>
@@ -26,26 +26,25 @@
       <img src="../assets/official-logo.png" alt="">
     </div>
     <div class = "main" >
-    <CreateLeague v-show="showCreateForm" v-closew="showCreateForm = false"/>
+    <!-- <CreateLeague v-show="showCreateForm" v-close="showCreateForm = false"/> hey 
+    <CreateLeague v-close="showCreateForm = false"/> hey -->
     </div>
   </div>
-      
-      
-  
-        
+    
 </template>
 
 <script>
-import CreateLeague from '../components/CreateLeague.vue';
+//import CreateLeague from '../components/CreateLeague.vue';
 
 export default {
   components: {
-    CreateLeague
+    //CreateLeague
   },
   data() {
     return {
       isOpen: false,
-      showCreateForm: false
+      //showCreateForm: false
+      //showCreateForm: this.$route.query.showCreateForm === 'false' || true,
     };
   },
   methods: {
@@ -56,6 +55,9 @@ export default {
       this.$store.commit("LOGOUT");
       this.$router.push("/");
     },
+    showCreateForm() {
+      this.$store.commit("SET_SHOW_CREATE_FORM_STATUS", true);
+    }
   }
 };
 </script>
