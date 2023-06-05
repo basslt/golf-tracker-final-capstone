@@ -7,20 +7,11 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import LeagueHome from '../views/LeagueHome.vue'
 import LeagueInvite from '../views/LeagueInvite.vue'
-<<<<<<< HEAD
-import AllMessagesView from '../views/AllMessagesView.vue'
-
-import MessageView from '../views/MessageView.vue';
-import ComposeMessage from '../components/ComposeMessage.vue';
-import SentMessagesView from '../views/SentMessagesView.vue';
-import ReceivedMessagesView from '../views/RecievedMessagesView.vue';
-
-=======
 import LandingPage from '../views/LandingPage.vue'
 import SelectedLeague from '../views/SelectedLeague.vue'
 import Messages from '../views/Messages.vue';
 import Match from '../views/MatchView.vue';
->>>>>>> cdd24ad11c06bdc7234783d554d09b0eadcee21b
+
 Vue.use(Router)
 
 /**
@@ -92,3 +83,45 @@ const router = new Router({
         requiresAuth: true
       }
     },
+    {
+      path: "/",
+      name: "LandingPage",
+      component: LandingPage,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/messages",
+      name: "Messages",
+      component: Messages,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+    path: "/match",
+    name: "Match",
+    component: Match,
+    meta: {
+      requiresAuth: true
+    }
+    }
+    
+  ]
+});
+
+router.beforeEach((to, from, next) => {
+  // Determine if the route requires Authentication
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+
+  // If it does and they are not logged in, send the user to "/login"
+  if (requiresAuth && store.state.token === '') {
+    next("/login");
+  } else {
+    // Else let them go to their next destination
+    next();
+  }
+});
+
+export default router;

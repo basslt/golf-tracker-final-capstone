@@ -9,6 +9,7 @@
             <league-member-list :league-id="leagueId" />
             <league-invite-form v-bind:league-id="leagueId" />
             <select-course  v-bind:league-id="leagueId"/>
+            <tee-time-page/>
         </main>
         <aside>
             <league-page-nav />
@@ -25,6 +26,7 @@ import LeagueMemberList from '../components/LeagueMemberList.vue'
 import HamburgerMenu from '../components/HamburgerMenu.vue'
 import LeagueInviteForm from '../components/LeagueInviteForm.vue'
 import SelectCourse from '../components/SelectCourse.vue'
+import TeeTimePage from '../components/TeeTimePage.vue'
 
 export default {
     components: {
@@ -33,7 +35,8 @@ export default {
         LeagueMemberList,
         HamburgerMenu,
         LeagueInviteForm,
-        SelectCourse
+        SelectCourse,
+        TeeTimePage
     },
     data() {
         return {

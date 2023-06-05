@@ -9,6 +9,7 @@
                 <league-list />
                  <create-league v-if="this.$store.state.showCreateForm"/>
             </main>
+            <score-log-section/>
         </body>
      </div>
      
@@ -20,11 +21,13 @@ import LeagueList from "../components/LeagueList.vue"
 import CreateLeague from "../components/CreateLeague.vue"
 import HamburgerMenu from '../components/HamburgerMenu.vue'
 
+
 export default {
     components: {
         LeagueList,
         CreateLeague,
-        HamburgerMenu
+        HamburgerMenu,
+        
     }
 
 }
