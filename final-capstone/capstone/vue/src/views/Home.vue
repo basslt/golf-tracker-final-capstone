@@ -10,6 +10,7 @@
             </main>
         </body>
      </div>
+     
      </div>
 </template>
 
@@ -17,10 +18,12 @@
 import HamburgerMenu from '../components/HamburgerMenu.vue';
 import MyLeagues from '../components/MyLeagues.vue';
 
+
 export default {
   components: {  
     HamburgerMenu,
     MyLeagues,
+    
     
   },
   name: "main",

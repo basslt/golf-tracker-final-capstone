@@ -48,7 +48,8 @@ export default new Vuex.Store({
     },
     SET_MESSAGES(state, data) {
       state.messages = data;
-    }
+    },
+    
   },
   actions: {
     getUserById({ commit }, userId) {
@@ -62,11 +63,13 @@ export default new Vuex.Store({
         .catch((error) => {
           throw new Error(`Failed to fetch user: ${error}`);
         });
-    }
+    },
+    
   },
   getters: {
     getUser(state) {
       return state.user;
-    }
+    },
+   
   }
 });
