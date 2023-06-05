@@ -1,17 +1,14 @@
 <template>
-  <div>
+  <div class="container">
       <h2>My Leagues</h2>
       <div class="search">
-        <label for="leagueName">Search For a League: </label>
+        <label for="leagueName">Search: </label>
         <input type="text" name="leagueName" v-model="filterText">
     </div>
     <table>
-      <thead>
-        <th>League Name</th>
-      </thead>
       <tbody class="league-list">
         <tr  class="row" v-for="league in filteredLeagues" :key="league.leagueId" >
-          <router-link v-bind:to="{ name: 'SelectedLeague', params: { id: league.leagueId }}">
+          <router-link class="name" v-bind:to="{ name: 'SelectedLeague', params: { id: league.leagueId }}">
            <td>{{ league.leagueName }}</td>
           </router-link>
         </tr>
@@ -54,6 +51,66 @@ export default {
 
 </script>
 
-<style>
 
+<style scoped>
+.container {
+  background-color: #059262; 
+  padding: 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center; 
+  color: white;
+}
+
+.search {
+  margin-bottom: 20px;
+  text-align: center; 
+  
+  border-top: 1px solid #ffffff; 
+  padding-top: 10px;
+  font-weight: bold;
+
+}
+
+label {
+  margin-right: 10px;
+  color: white;
+}
+
+table {
+  width: 100%;
+  
+}
+input[type="text"]
+   {
+ padding: 5px;
+  border: none;
+  
+  background-color: #fff9f9;
+  
+  color: #333;
+  transition: box-shadow 0.3s ease;
+
+ }
+
+.row {
+  display: flex;
+  padding: 10px;
+  text-align: center; 
+  justify-content: center;
+}
+
+.name {
+
+  color: white;
+  text-decoration: none;
+
+}
 </style>

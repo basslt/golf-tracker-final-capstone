@@ -25,10 +25,6 @@
     <div class="logo">
       <img src="../assets/official-logo.png" alt="">
     </div>
-    <div class = "main" >
-    <!-- <CreateLeague v-show="showCreateForm" v-close="showCreateForm = false"/> hey 
-    <CreateLeague v-close="showCreateForm = false"/> hey -->
-    </div>
   </div>
     
 </template>
@@ -68,6 +64,7 @@ export default {
     display: flex;
     flex-grow: 1;
     justify-content: center;
+    align-items: center;
 }
 
 .container .logo img {
@@ -75,27 +72,15 @@ export default {
   height: 275px;
 }
 
-.main{
-  display: absolute;
-  top: 0; 
-  left: 0; 
-  width: 100%;
-  height: 100%; 
-  justify-content: center;
-  align-items: center;
-}
-
 .container {
     display: flex;
     align-items: center;
     flex-grow: 1;    
     background-color: #059262;
+    height: 100px;
 }
 
-/* .hamburger-menu {
-  display: flex;
-  align-items: center;
-} */
+
 
 .menu-icon {
   display: block;
