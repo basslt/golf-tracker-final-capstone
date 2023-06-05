@@ -33,15 +33,11 @@
 import courseService from '../services/CourseService';
 //import LeagueMembership from '../services/LeagueMembership';
 //import LeagueService from '../services/LeagueService';
-import userService from '../services/UserService'
+//import userService from '../services/UserService'
 //import LeagueMembership from '../services/LeagueMembership';
 
 export default {
-  props: {
-        leagueId: {
-            type: Number,
-            required: true
-        }},
+  
   data() {
     return {
       name: '',
@@ -50,15 +46,8 @@ export default {
       courses: [],
       selectedCourse: null,
       showForm: true,
-      
-      teeTime: {
-      courseId: null,
-      time: null,
-      playerId: '',
-      organizerId: this.$store.state.user.id
-    },
     leagues: [],
-    leagueMembers: [],
+    leagueMembersNames: [],
     };
   },
   computed: {
@@ -93,37 +82,24 @@ export default {
         });
        
     },
-     getLeagueMembers() {
-            userService.findUsersInLeague(this.leagueId).then( (response) => {
-                this.leagueMemberNames = response.data;
-                console.log(response.data)
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        },
+    
 
     selectCourse(course) {
       this.selectedCourse = {
         id: course.courseId,
         data: course
+        
       };
     
-      
-      
+      console.log(course.courseId);
+      this.selectedCourseIdLocal = course.courseId;
+      this.$emit('course-selected', course.courseId);
       this.showForm = false; // Hide the form
      
     },
   
   },
-    watch: {
-        leagueId: {
-            immediate: true,
-            handler() {
-                this.getLeagueMembers();
-            }
-        }
-    }
+   
 }
 ;
 </script>
