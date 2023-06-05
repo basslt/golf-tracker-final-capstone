@@ -61,7 +61,7 @@ CREATE TABLE MatchPlayer (
 
 CREATE TABLE Score (
   score_id SERIAL PRIMARY KEY,
-  match_id INTEGER REFERENCES Match(match_id),
+  match_id INTEGER REFERENCES TeeTime(tee_time_id),
   player_id INTEGER REFERENCES users(user_id),
   score INTEGER
 );
