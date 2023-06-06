@@ -106,8 +106,9 @@ const router = new Router({
       requiresAuth: true
     }
     }
+    
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication

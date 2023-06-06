@@ -18,6 +18,12 @@ public interface TeeTimeDao {
 
     void delete(TeeTime teeTime);
 
+    int getLeagueIdByTeeTimeId(int teeTimeId);
+
     List<TeeTime> findByCourse(int courseId);
+
+    int getLeagueIdByUsername(String username);
+
+    int getTeeTimeIdByMatchId(int matchId);
 }
 

@@ -2,17 +2,10 @@ package com.techelevator.dao;
 
 import com.techelevator.model.TeeTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,12 +53,32 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
         String query = "DELETE FROM TeeTime WHERE tee_time_id = ?";
         jdbcTemplate.update(query, teeTime.getTeeTimeId());
     }
-
+    @Override
+    public int getLeagueIdByTeeTimeId(int teeTimeId) {
+        String sql = "SELECT league_id FROM TeeTime WHERE tee_time_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, teeTimeId);
+    }
     @Override
     public List<TeeTime> findByCourse(int courseId) {
         String query = "SELECT * FROM TeeTime WHERE course_id = ?";
         return jdbcTemplate.query(query, new TeeTimeRowMapper(), courseId);
     }
+    @Override
+    public int getLeagueIdByUsername(String username) {
+        String sql = "SELECT t.league_id " +
+                "FROM TeeTime t " +
+                "JOIN MatchPlayer mp ON t.match_id = mp.match_id " +
+                "JOIN users u ON mp.player_id = u.user_id " +
+                "WHERE u.username = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, username);
+    }
+
+        @Override
+    public int getTeeTimeIdByMatchId(int matchId) {
+        String sql = "SELECT tee_time_id FROM TeeTime WHERE match_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, matchId);
+    }
+
 
     private static class TeeTimeRowMapper implements RowMapper<TeeTime> {
         @Override

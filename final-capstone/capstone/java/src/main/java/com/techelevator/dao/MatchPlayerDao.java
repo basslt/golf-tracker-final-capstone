@@ -19,4 +19,7 @@ public interface MatchPlayerDao {
     void updateMatchPlayer(MatchPlayer matchPlayer);
 
     void deleteMatchPlayer(int matchPlayerId);
+
+    int getMatchIdByPlayerId(int playerId);
+
 }
