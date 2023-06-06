@@ -67,6 +67,8 @@ CREATE TABLE Message (
   sender_id INTEGER REFERENCES users(user_id),
   receiver_id INTEGER REFERENCES users(user_id),
   content TEXT,
+  league_id INTEGER REFERENCES League(league_id),
+  type VARCHAR(20),
   timestamp TIMESTAMP
 );
 

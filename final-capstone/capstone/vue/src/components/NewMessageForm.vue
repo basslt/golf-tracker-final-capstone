@@ -47,6 +47,8 @@ export default {
                 senderId: '',
                 receiverId: '',
                 content: '',
+                leagueId: null,
+                type: 'Message',
                 timestamp: Date.now()
             }
         }

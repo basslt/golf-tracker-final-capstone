@@ -57,7 +57,5 @@ export default {
   align-self: flex-start;
  margin: 100px;
  margin-left: 300px;
-
- 
 }
 </style>

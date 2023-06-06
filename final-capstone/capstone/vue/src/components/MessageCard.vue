@@ -2,6 +2,7 @@
     <div>
         <div class="message-card" @click="$emit('click')">
             <h2>{{this.senderUser.username}}</h2>
+            <p>{{message.type}}</p>
         </div>
     </div>
 </template>
@@ -20,13 +21,15 @@ export default {
     data() {
         return {
             senderUser: [],
+            messageSubject: ''
         }
     },
     created() {
         userService.getUserById(this.message.senderId).then( (response) => {
             this.senderUser = response.data;
-        })
-    }
+        });
+    },
+
 
 }
 </script>

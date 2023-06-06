@@ -5,6 +5,7 @@
       <h4>To: {{toUser.username}}</h4>
       <h4>{{message.timestamp}}</h4>
       <p>Message: {{message.content}}</p>
+      <button class="accept" v-on:click="acceptInvite" v-if="message.type==='Invite'">Accept Invite</button>
       <button class="exit-button" v-on:click="closeMessage">x</button>
     </div>
       
@@ -13,9 +14,11 @@
 
 <script>
 import userService from '../services/UserService'
+import leagueMembership from '../services/LeagueMembership'
 
 export default {
   name: "message-detail",
+  isInvite: false,
   props: {
         message: {
             type: Object,
@@ -25,13 +28,35 @@ export default {
   data() {
     return {
       senderUser: [],
-      toUser: []
+      toUser: [],
+      membership: {
+          leagueId: '',
+          userId: ''
+      }
     }
   },
   methods: {
     closeMessage() {
       this.$emit('close');
-    }
+    },
+    acceptInvite() {
+            this.membership.leagueId = this.message.leagueId;
+            this.membership.userId = this.message.receiverId;
+            leagueMembership.addLeagueMembership(this.membership).then( (response) => {
+                if (response.status === 201) {
+                    this.$router.push({ name: 'SelectedLeague', params: {id: this.membership.leagueId}});
+                    console.log('LeagueMembership created!');
+                }
+            }).catch((error) => {
+                if (error.response) {
+                this.errorMsg = "Error submitting new membership";
+                } else if (error.request) {
+                this.errorMsg = "Error submitting new membership. Server could not be reached";
+                } else {
+                this.errorMsg = "Error submitting new membership";
+                }
+        })
+        }
   },
   created() {
       userService.getUserById(this.message.senderId).then( (response) => {
@@ -39,7 +64,7 @@ export default {
       })
       userService.getUserById(this.message.receiverId).then( (response) => {
             this.toUser = response.data;
-      })
+      });
   }
 
 }
