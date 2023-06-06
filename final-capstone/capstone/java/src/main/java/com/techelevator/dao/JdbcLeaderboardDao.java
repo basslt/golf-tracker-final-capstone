@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class JdbcLeaderboardDao implements LeaderboardDao {
@@ -80,6 +81,18 @@ public class JdbcLeaderboardDao implements LeaderboardDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    public List<Map<String, Object>> getTopPlayersByScoringAverage() {
+        String sql = "SELECT u.username, AVG(s.score) AS scoring_avg " +
+                "FROM score s " +
+                "JOIN users u ON u.user_id = s.player_id " +
+                "GROUP BY u.username " +
+                "ORDER BY scoring_avg DESC " +
+                "LIMIT 10";
+
+        return jdbcTemplate.queryForList(sql);
     }
 
     private static class LeaderboardRowMapper implements RowMapper<Leaderboard> {

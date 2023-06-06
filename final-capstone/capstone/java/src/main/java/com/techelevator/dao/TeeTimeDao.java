@@ -12,7 +12,7 @@ public interface TeeTimeDao {
 
     List<TeeTime> findAll();
 
-    void save(TeeTime teeTime);
+     TeeTime createTeeTime(TeeTime teeTime);
 
     void update(TeeTime teeTime);
 

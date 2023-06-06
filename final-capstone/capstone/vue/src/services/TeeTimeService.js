@@ -21,10 +21,7 @@ export default {
 
   createTeeTime(teeTime) {
     return axios.post(BASE_URL, teeTime)
-      .then(() => {})
-      .catch(error => {
-        throw new error('Failed to create TeeTime');
-      });
+     
   },
 
   updateTeeTime(teeTimeId, teeTime) {

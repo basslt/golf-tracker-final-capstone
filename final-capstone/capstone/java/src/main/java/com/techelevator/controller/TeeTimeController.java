@@ -35,8 +35,8 @@ public class TeeTimeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTeeTime(@RequestBody TeeTime teeTime) {
-        teeTimeDao.save(teeTime);
+    public TeeTime createTeeTime(@RequestBody TeeTime teeTime) {
+        return teeTimeDao.createTeeTime(teeTime);
     }
 
     @PutMapping("/{teeTimeId}")

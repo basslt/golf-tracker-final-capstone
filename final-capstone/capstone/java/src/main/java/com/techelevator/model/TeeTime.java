@@ -22,11 +22,15 @@ public class TeeTime {
                 this.leagueId = leagueId;
         }
 
+        public TeeTime() {
+
+        }
+
         public int getTeeTimeId() {
                 return teeTimeId;
         }
 
-        public void setTeeTimeId(int teeTimeId) {
+        public static void setTeeTimeId(int teeTimeId) {
                 this.teeTimeId = teeTimeId;
         }
 
@@ -34,7 +38,7 @@ public class TeeTime {
                 return matchName;
         }
 
-        public void setMatchName(String matchName) {
+        public static void setMatchName(String matchName) {
                 this.matchName = matchName;
         }
 
@@ -42,7 +46,7 @@ public class TeeTime {
                 return courseId;
         }
 
-        public void setCourseId(int courseId) {
+        public static void setCourseId(int courseId) {
                 this.courseId = courseId;
         }
 
@@ -50,7 +54,7 @@ public class TeeTime {
                 return time;
         }
 
-        public void setTime(Timestamp time) {
+        public static void setTime(Timestamp time) {
                 this.time = time;
         }
 
@@ -58,7 +62,7 @@ public class TeeTime {
                 return organizerId;
         }
 
-        public void setOrganizerId(int organizerId) {
+        public static void setOrganizerId(int organizerId) {
                 this.organizerId = organizerId;
         }
 
@@ -66,7 +70,19 @@ public class TeeTime {
                 return leagueId;
         }
 
-        public void setLeagueId(int leagueId) {
+        public static void setLeagueId(int leagueId) {
                 this.leagueId = leagueId;
+        }
+
+        @Override
+        public String toString() {
+                return "TeeTime{" +
+                        "teeTimeId=" + teeTimeId +
+                        ", matchName='" + matchName + '\'' +
+                        ", courseId=" + courseId +
+                        ", time=" + time +
+                        ", organizerId=" + organizerId +
+                        ", leagueId=" + leagueId +
+                        '}';
         }
 }

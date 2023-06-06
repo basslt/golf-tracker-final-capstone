@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import ScoreLogForm from '../components/ScoreLogForm.vue';
+import ScoreLogForm from '../components/ScoreLogPage.vue';
 
 export default {
   components: {

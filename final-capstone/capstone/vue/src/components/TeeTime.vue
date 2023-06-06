@@ -18,12 +18,11 @@
     <button @click="submitForm">Submit</button>
   </div>
 </template>
-
 <script>
 import userService from '../services/UserService'
 import SelectCourse from './SelectCourse.vue';
 import teeTimeService from '../services/TeeTimeService'
-
+import matchPlayerService from '../services/MatchPlayerService'
 export default {
   components: { SelectCourse },
   props: {
@@ -50,10 +49,11 @@ export default {
   },
   methods: {
     getLeagueMembers() {
-      userService.findUsersInLeague(this.leagueId)
+      userService.findUsersInLeague(this.$props.leagueId)
         .then(response => {
           this.leagueMembers = response.data;
           console.log(this.leagueMembers);
+          
           
         })
         .catch(error => {
@@ -69,7 +69,6 @@ export default {
       console.log('Organizer Id: ', this.organizerId);
       console.log('courseId: ', this.selectedCourseId);
       console.log('leagueId', this.leagueId)
-
     const teeTime = {
     matchName: this.matchName,
     courseId: this.selectedCourseId,
@@ -82,12 +81,28 @@ export default {
       teeTimeService.createTeeTime(teeTime).then((response) =>{
           if(response.status === 201){
               console.log("Created Tee Time")
+                const teeTimeId = response.data
+                const matchPlayers = this.selectedMembers.map(memberId => ({
+                    tee_time_id: teeTimeId,
+                    player_id: memberId
+                   
+                }) ,
+                ); console.log(matchPlayers)
+        matchPlayerService.createMatchPlayer(matchPlayers)
+          .then((response) => {
+            if (response.status === 201) {
+              console.log("Created Match Players");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+              
           }
       }).catch(error => {
           console.log(error)
       })
-      // You can send the match name, tee time, and selected members to the server for further processing
-      // Example: Call an API endpoint to create the tee time in the database
+      
     },
      
   },

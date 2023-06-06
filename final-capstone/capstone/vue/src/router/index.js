@@ -11,6 +11,9 @@ import LandingPage from '../views/LandingPage.vue'
 import SelectedLeague from '../views/SelectedLeague.vue'
 import Messages from '../views/Messages.vue';
 import Match from '../views/MatchView.vue';
+import TeeTimePage from '../components/TeeTimePage.vue';
+import ScoreLogPage from '../components/ScoreLogPage.vue';
+
 Vue.use(Router)
 
 /**
@@ -105,7 +108,9 @@ const router = new Router({
     meta: {
       requiresAuth: true
     }
-    }
+  },
+  { path: '/teetimes/:teeTimeId', component: TeeTimePage },
+  { path: '/teetimes/:teeTimeId/score', component: ScoreLogPage },
     
   ]
 });
