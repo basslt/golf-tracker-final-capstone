@@ -38,8 +38,8 @@ export default {
 <style scoped>
 .main {
   display: flex;
-  /* flex-direction: column; */
-  /* align-items: center; */
+  flex-direction: column; 
+  
   
 }
 
@@ -50,6 +50,7 @@ export default {
 }
 
 .my-leagues {
+  display: flex;
   align-self: flex-start;
  margin: 100px;
  margin-left: 300px;

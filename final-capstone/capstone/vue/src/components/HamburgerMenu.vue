@@ -10,9 +10,9 @@
         <router-link v-bind:to="{ name: 'home' }">
           <li><a href="#">Home</a></li>
         </router-link>
-        <router-link v-bind:to="{ name: 'LeagueHome' }">
+        <!-- <router-link v-bind:to="{ name: 'LeagueHome' }">
           <li><a href="#">Leagues</a></li>
-        </router-link>
+        </router-link> -->
           <li @click="showCreateForm"><a href="#">Create a League</a></li>
         <router-link v-bind:to="{ name: 'Messages' }">
           <li><a href="#">Messages</a></li>
@@ -63,16 +63,16 @@ export default {
   align-items: center;
   flex-grow: 1;
   background-color: #059262;
-  height: 100px;
+  height: 120px;
 }
 
 .hamburger-menu {
 
-  z-index: 2;
+  /* z-index: 2; */
     display: flex;
   align-items: center;
   position: relative;
-  z-index: 2;
+  /* z-index: 2; */
   margin-left: 20px;
   
 }
@@ -93,7 +93,7 @@ export default {
   border-radius: 15px;
   background: #059262;
   width: 200px;
-  height: 400px;
+  height: 310px;
   display: flex;
   flex-direction: column;
   align-items: center;
