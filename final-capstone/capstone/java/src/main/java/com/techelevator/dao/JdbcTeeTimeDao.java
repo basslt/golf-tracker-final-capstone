@@ -16,6 +16,7 @@ import javax.sql.RowSet;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -43,7 +44,20 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
 
     @Override
     public List<TeeTime> findAll() {
-        return null;
+        List<TeeTime> teeTimes = new ArrayList<>();
+        String query = " SELECT * FROM TeeTimes";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(query);
+            while (results.next()) {
+                TeeTime teeTime = mapRowToTeeTime(results);
+                teeTimes.add(teeTime);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return teeTimes;
     }
 
 //            @Override
