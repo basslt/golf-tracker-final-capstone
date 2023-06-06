@@ -69,4 +69,16 @@ public class TeeTime {
         public void setLeagueId(int leagueId) {
                 this.leagueId = leagueId;
         }
+
+        @Override
+        public String toString() {
+                return "TeeTime{" +
+                        "teeTimeId=" + teeTimeId +
+                        ", matchName='" + matchName + '\'' +
+                        ", courseId=" + courseId +
+                        ", time=" + time +
+                        ", organizerId=" + organizerId +
+                        ", leagueId=" + leagueId +
+                        '}';
+        }
 }

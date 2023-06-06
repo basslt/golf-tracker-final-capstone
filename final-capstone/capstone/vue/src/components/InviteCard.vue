@@ -1,4 +1,4 @@
-<template>
+e<template>
     <div>
         <div class="invite-card" @click="$emit('click')">
             <h2>{{this.senderUser.username}}</h2>
