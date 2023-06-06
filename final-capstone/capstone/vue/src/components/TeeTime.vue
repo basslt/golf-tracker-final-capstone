@@ -11,16 +11,19 @@
       <label for="teeTime">Tee Time:</label>
       <input type="datetime-local" id="teeTime" v-model="time" />
     </div>
-    <div v-if="showPlayerForm">
+      <div v-if="allMembersInvited" >
+      <p>You have invited all members.</p>
+    </div>
+    <div v-if="showPlayerForm && !allMembersInvited">
       <h3>Add players to your match:</h3>
       <div v-for="member in leagueMembers" :key="member.id">
         <div>
           {{ member.username }}
-          <button @click="addPlayers(member.id)">Select</button>
+          <button  @click="addPlayers(member.id)">Select</button>
         </div>
       </div>
     </div>
-    <button @click="submitForm">Submit</button>
+    <button v-if="submitButtonVisible" @click="submitForm">Submit</button>
   </div>
 </template>
 
@@ -47,7 +50,9 @@ export default {
       selectedMembers: [],
       selectedCourseId: null,
       showPlayerForm: false,
-      teeTimeId: null
+      teeTimeId: null,
+      submitButtonVisible:true,
+        allMembersInvited: false,
     };
   },
   computed: {
@@ -72,7 +77,7 @@ export default {
       console.log('Member ID:', memberId);
       const matchPlayer = {
         matchId: this.teeTimeId,
-        player_id: memberId
+        playerId: memberId
         
       };
       console.log(matchPlayer)
@@ -81,6 +86,13 @@ export default {
         .then(response => {
           if (response.status === 201) {
             console.log('Created Match Players');
+            const index = this.leagueMembers.findIndex(member => member.id === memberId);
+          if (index !== -1) {
+            this.leagueMembers.splice(index, 1);
+          }
+           if (this.leagueMembers.length === 0) {
+            this.allMembersInvited = true;
+  }
           }
         })
         .catch(error => {
@@ -109,6 +121,7 @@ export default {
           console.log(response);
           this.teeTimeId = response
           this.showPlayerForm = true;
+          this.submitButtonVisible = false
         })
         .catch(error => {
           console.log(error);
