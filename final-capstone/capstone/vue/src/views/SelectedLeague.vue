@@ -10,9 +10,8 @@
             <!-- <league-leaderboard id="leaderboard" v-bind:league-id="leagueId"/> -->
             <league-member-list :league-id="leagueId" />
             <league-invite-form v-bind:league-id="leagueId" />
-            <select-course  v-bind:league-id="leagueId"/>
             <create-league v-if="this.$store.state.showCreateForm"/>
-            <tee-time-page/>
+            <tee-time-page />
             <tee-time v-bind:league-id="leagueId"/>
         </main>
         <aside>
@@ -30,7 +29,6 @@ import LeaguePageNav from "../components/LeaguePageNav.vue"
 import LeagueMemberList from '../components/LeagueMemberList.vue'
 import HamburgerMenu from '../components/HamburgerMenu.vue'
 import LeagueInviteForm from '../components/LeagueInviteForm.vue'
-import SelectCourse from '../components/SelectCourse.vue'
 import CreateLeague from '../components/CreateLeague.vue'
 import TeeTimePage from '../components/TeeTimePage.vue'
 import TeeTime from '../components/TeeTime.vue'
@@ -41,7 +39,6 @@ export default {
         LeagueMemberList,
         HamburgerMenu,
         LeagueInviteForm,
-        SelectCourse,
         CreateLeague,
         TeeTimePage,
         TeeTime

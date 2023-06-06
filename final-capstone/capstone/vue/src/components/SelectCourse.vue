@@ -4,7 +4,7 @@
       <label for="nameInput">Name:</label>
       <input type="text" id="nameInput" v-model="name">
       
-      <label for="stateInput">State:</label>
+      <label for="stateInput">State Abbr:</label>
       <input type="text" id="stateInput" v-model="state">
       
       <label for="cityInput">City:</label>

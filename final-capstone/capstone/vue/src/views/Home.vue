@@ -6,8 +6,8 @@
      <div class="main">
         <body>
             <main class="content">
-                <my-leagues />
-                <course-carousel />
+                <my-leagues class="myleagues"/>
+                <course-carousel class="display" />
                 <create-league v-if="this.$store.state.showCreateForm"/>
             </main>
         </body>
@@ -40,22 +40,28 @@ export default {
 </script>
 
 <style scoped>
-.main {
+/* .main {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
 .content {
   display: flex;
   /* flex-direction: column; */
-  /* align-items: flex-start; */
+   align-items: flex; 
 }
 
-.my-leagues {
+.myleagues {
   display: flex;
   align-self: flex-start;
  margin: 100px;
  margin-left: 300px;
+}
+
+.display{
+  display: flex;
+  margin-top: 405px;
+
 }
 </style>

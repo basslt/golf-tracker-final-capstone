@@ -51,7 +51,6 @@ public class MatchPlayerController {
 
     @PostMapping("/matchplayers")
     public ResponseEntity<Void> createMatchPlayer(@RequestBody MatchPlayer matchPlayer) {
-        System.out.println("MatchPlayer object received: " + matchPlayer);
         matchPlayerDao.saveMatchPlayer(matchPlayer);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
