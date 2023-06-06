@@ -14,8 +14,9 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 @CrossOrigin
 @RestController
+@RequestMapping("/teetimes")
 public class TeeTimeController {
-    private final TeeTimeDao teeTimeDao;
+    private TeeTimeDao teeTimeDao;
 
     @Autowired
     public TeeTimeController(TeeTimeDao teeTimeDao) {
@@ -23,56 +24,54 @@ public class TeeTimeController {
     }
 
     @GetMapping("/{teeTimeId}")
-    public ResponseEntity<TeeTime> getTeeTimeById(@PathVariable int teeTimeId) throws ChangeSetPersister.NotFoundException {
-        TeeTime teeTime = teeTimeDao.findById(teeTimeId);
-        if (teeTime != null) {
-            return ResponseEntity.ok(teeTime);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public TeeTime getTeeTimeById(@PathVariable int teeTimeId) {
+        return teeTimeDao.findById(teeTimeId);
     }
 
     @GetMapping
     public List<TeeTime> getAllTeeTimes() {
-        return teeTimeDao.getAllTeeTimes();
-    }
-
-    @GetMapping(params = "courseId")
-    public List<TeeTime> getTeeTimesByCourse(@RequestParam int courseId) {
-        return teeTimeDao.getTeeTimesByCourse(courseId);
-    }
-
-    @GetMapping(params = "playerId")
-    public List<TeeTime> getTeeTimesByPlayer(@RequestParam int playerId) {
-        return teeTimeDao.getTeeTimesByPlayer(playerId);
+        return teeTimeDao.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<TeeTime> addTeeTime(@RequestBody TeeTime teeTime) {
-        teeTimeDao.saveTeeTime(teeTime);
-        return ResponseEntity.status(HttpStatus.CREATED).body(teeTime);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createTeeTime(@RequestBody TeeTime teeTime) {
+        teeTimeDao.save(teeTime);
     }
 
     @PutMapping("/{teeTimeId}")
-    public ResponseEntity<TeeTime> updateTeeTime(@PathVariable int teeTimeId, @RequestBody TeeTime teeTime) throws ChangeSetPersister.NotFoundException {
-        TeeTime existingTeeTime = teeTimeDao.findById(teeTimeId);
-        if (existingTeeTime != null) {
-            teeTime.setTeeTimeId(teeTimeId);
-            teeTimeDao.updateTeeTime(teeTime);
-            return ResponseEntity.ok(teeTime);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateTeeTime(@PathVariable int teeTimeId, @RequestBody TeeTime teeTime) {
+        teeTime.setTeeTimeId(teeTimeId);
+        teeTimeDao.update(teeTime);
     }
 
     @DeleteMapping("/{teeTimeId}")
-    public ResponseEntity<Void> deleteTeeTime(@PathVariable int teeTimeId) throws ChangeSetPersister.NotFoundException {
-        TeeTime existingTeeTime = teeTimeDao.findById(teeTimeId);
-        if (existingTeeTime != null) {
-            teeTimeDao.deleteTeeTime(teeTimeId);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTeeTime(@PathVariable int teeTimeId) {
+        TeeTime teeTime = teeTimeDao.findById(teeTimeId);
+        if (teeTime != null) {
+            teeTimeDao.delete(teeTime);
         }
     }
+    @GetMapping("/{username}/leagueId")
+    public int getLeagueIdByUsername(@PathVariable("username") String username) {
+        return teeTimeDao.getLeagueIdByUsername(username);
+    }
+
+    @GetMapping("/course/{courseId}")
+    public List<TeeTime> getTeeTimesByCourse(@PathVariable int courseId) {
+        return teeTimeDao.findByCourse(courseId);
+    }
+
+    @GetMapping("/{teeTimeId}/leagueid")
+    public int getLeagueIdByTeeTimeId(@PathVariable int teeTimeId) {
+            return teeTimeDao.getLeagueIdByTeeTimeId(teeTimeId);
+
+    }
+    @GetMapping("/{matchId}/teetimeid")
+    public int getTeeTimeIdByMatchId(@PathVariable int matchId) {
+        return teeTimeDao.getTeeTimeIdByMatchId(matchId);
+    }
+
 }

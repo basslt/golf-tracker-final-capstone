@@ -40,13 +40,24 @@ export default {
 </script>
 
 <style scoped>
-
-.content{
+.main {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.content {
+  display: flex;
+  /* flex-direction: column; */
+  /* align-items: flex-start; */
+}
 
+.my-leagues {
+  display: flex;
+  align-self: flex-start;
+ margin: 100px;
+ margin-left: 300px;
 
+ 
+}
 </style>

@@ -48,5 +48,26 @@ export default {
       .catch(Error => {
         throw new Error('Failed to create user');
       });
+  },
+getCurrentUser() {
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    
+    return null;
   }
-};
+
+  return axios.get('/users/me', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(response => response.data)
+    .catch(error => {
+      if (error.response && error.response.status === 401) {
+        // Token is invalid or expired, clear it from localStorage
+        localStorage.removeItem('authToken');
+      }
+      throw new Error('Failed to fetch current user');
+    });
+  },
+}
