@@ -44,7 +44,7 @@ CREATE TABLE LeagueMembership (
 
 CREATE TABLE MatchPlayer (
   match_player_id SERIAL PRIMARY KEY,
-  tee_time_id INTEGER REFERENCES TeeTime(tee_time_id),
+  match_id INTEGER REFERENCES TeeTime(tee_time_id),
   player_id INTEGER REFERENCES users(user_id)
 );
 

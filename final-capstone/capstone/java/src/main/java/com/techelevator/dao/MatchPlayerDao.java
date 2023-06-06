@@ -14,7 +14,7 @@ public interface MatchPlayerDao {
 
     List<MatchPlayer> findMatchPlayersByPlayer(int playerId);
 
-    void saveMatchPlayer(MatchPlayer matchPlayer);
+    MatchPlayer saveMatchPlayer(MatchPlayer matchPlayer);
 
     void updateMatchPlayer(MatchPlayer matchPlayer);
 

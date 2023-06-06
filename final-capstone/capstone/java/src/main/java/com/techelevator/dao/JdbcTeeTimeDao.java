@@ -1,11 +1,16 @@
 package com.techelevator.dao;
 
+import com.sun.el.util.ReflectionUtil;
 import com.techelevator.model.TeeTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.util.ReflectionUtils;
+import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -40,11 +45,23 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
     }
 
     @Override
-    public void save(TeeTime teeTime) {
+    public TeeTime save(TeeTime teeTime) {
+        TeeTime teeTime1 = null;
         String query = "INSERT INTO TeeTime (match_name, course_id, time, organizer_id, league_id) " +
-                "VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(query, teeTime.getMatchName(), teeTime.getCourseId(), teeTime.getTime(),
-                teeTime.getOrganizerId(), teeTime.getLeagueId());
+                "VALUES (?, ?, ?, ?, ?) RETURNING tee_time_id";
+        try{
+        int newTeeTimeId = jdbcTemplate.queryForObject(query, int.class, teeTime.getMatchName(),  teeTime.getCourseId(), teeTime.getTime(),  teeTime.getOrganizerId(),  teeTime.getLeagueId());
+            System.out.println("New Tee Time ID: " + newTeeTimeId);
+        teeTime1 = findById(newTeeTimeId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Data integrity violation", e);
+        }
+        return teeTime1;
+
     }
 
     @Override

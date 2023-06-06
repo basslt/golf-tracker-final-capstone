@@ -3,17 +3,26 @@ package com.techelevator.dao;
 import com.techelevator.model.MatchPlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class JdbcMatchPlayerDao implements MatchPlayerDao {
@@ -65,15 +74,22 @@ public class JdbcMatchPlayerDao implements MatchPlayerDao {
     }
 
     @Override
-    public void saveMatchPlayer(MatchPlayer matchPlayer) {
+    public MatchPlayer saveMatchPlayer(MatchPlayer matchPlayer) {
         try {
-            String query = "INSERT INTO MatchPlayer (match_player_id, match_id, player_id) VALUES (?, ?, ?)";
-            jdbcTemplate.update(query, matchPlayer.getMatchPlayerId(), matchPlayer.getMatchId(), matchPlayer.getPlayerId());
-        } catch (DataAccessException e) {
-            throw new DataAccessException("Failed to save match player: " + e.getMessage()) {
-            };
+            String query = "INSERT INTO MatchPlayer (match_id, player_id) VALUES ( ?, ?) RETURNING match_player_id";
+            int newMatchPlayerId = jdbcTemplate.queryForObject(query, int.class, matchPlayer.getMatchId(), matchPlayer.getPlayerId());
+            MatchPlayer newMatchPlayer = findById(newMatchPlayerId);
+            return newMatchPlayer;
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        } catch (DataIntegrityViolationException | ChangeSetPersister.NotFoundException e) {
+            throw new RuntimeException("Data integrity violation", e);
         }
     }
+
+
 
     @Override
     public void updateMatchPlayer(MatchPlayer matchPlayer) {
