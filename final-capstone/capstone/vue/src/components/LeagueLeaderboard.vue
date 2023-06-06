@@ -1,12 +1,15 @@
 <template>
   <div class="main">
     <h2>Current Leaderboard</h2>
-    <img src="../assets/Empty_Leaderboard.jpg" alt="">
-    <ul>
+    <!-- <img src="../assets/Empty_Leaderboard.jpg" alt=""> -->
+    <div class="leaderboard">
+      <league-member-list />
+    </div>
+    <!-- <ul>
       <li v-for="member in leaderboardMembers" :key="member.id">
         {{ member.name }} - {{ member.score }}
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -14,8 +17,12 @@
 //import LeagueMembershipService from '../services/LeagueMembership';
 //import UserService from '../services/UserService';
 //import ScoreService from '../services/ScoreService';
+import LeagueMemberList from '../components/LeagueMemberList.vue'
 
 export default {
+  components: {
+    LeagueMemberList
+  },
   // props: {
   //   leagueId: {
   //     type: Number,
@@ -73,11 +80,16 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 div.main {
-  display: flex;
+ 
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
+}
+
+.leaderboard {
+   background-image: url("../assets/Empty_Leaderboard.jpg")
 }
 
 ul {
