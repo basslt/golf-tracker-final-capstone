@@ -13,6 +13,7 @@
             <select-course  v-bind:league-id="leagueId"/>
             <create-league v-if="this.$store.state.showCreateForm"/>
             <tee-time-page/>
+            <tee-time v-bind:league-id="leagueId"/>
         </main>
         <aside>
             <league-page-nav />
@@ -32,7 +33,7 @@ import LeagueInviteForm from '../components/LeagueInviteForm.vue'
 import SelectCourse from '../components/SelectCourse.vue'
 import CreateLeague from '../components/CreateLeague.vue'
 import TeeTimePage from '../components/TeeTimePage.vue'
-
+import TeeTime from '../components/TeeTime.vue'
 export default {
     components: {
         // LeagueLeaderboard,
@@ -42,7 +43,8 @@ export default {
         LeagueInviteForm,
         SelectCourse,
         CreateLeague,
-        TeeTimePage
+        TeeTimePage,
+        TeeTime
     },
     data() {
         return {

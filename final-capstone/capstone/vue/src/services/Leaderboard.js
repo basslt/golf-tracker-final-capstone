@@ -9,7 +9,10 @@ export default {
         throw error;
       });
   },
-
+  getTopPlayersByScoringAverage() {
+    const url = `leaderboard/top-players`;
+    return axios.get(url)
+  },
   getLeaderboardsByLeagueId(leagueId) {
     return axios.get(`/leaderboards/league/${leagueId}`)
       .then(response => response.data)

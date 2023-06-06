@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/leaderboards")
@@ -29,6 +30,10 @@ public class LeaderboardController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @GetMapping("/top-players")
+    public List<Map<String, Object>> getTopPlayersByScoringAverage() {
+        return leaderboardDao.getTopPlayersByScoringAverage();
     }
 
     @GetMapping("/league/{leagueId}")
