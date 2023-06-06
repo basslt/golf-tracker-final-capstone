@@ -83,3 +83,14 @@ CREATE TABLE LeagueInvite (
 );
 
 COMMIT TRANSACTION;
+
+
+--ALTER TABLE Message
+--DROP CONSTRAINT message_league_id_fkey;
+--
+--ALTER TABLE Message
+--ALTER COLUMN league_id DROP NOT NULL;
+--
+--ALTER TABLE Message
+--ADD CONSTRAINT fk_message_league
+--FOREIGN KEY (league_id) REFERENCES League(league_id) ON DELETE CASCADE;
