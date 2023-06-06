@@ -36,7 +36,7 @@ public class JdbcMatchPlayerDao implements MatchPlayerDao {
     @Override
     public MatchPlayer findById(int matchPlayerId) throws ChangeSetPersister.NotFoundException {
         try {
-            String query = "SELECT * FROM MatchPlayer WHERE match_player_id = ?";
+            String query = "SELECT match_id FROM MatchPlayer WHERE match_player_id = ?";
             return jdbcTemplate.queryForObject(query, new MatchPlayerRowMapper(), matchPlayerId);
         } catch (EmptyResultDataAccessException e) {
             throw new ChangeSetPersister.NotFoundException();

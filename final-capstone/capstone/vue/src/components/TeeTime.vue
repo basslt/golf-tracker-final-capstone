@@ -26,13 +26,11 @@
     <button v-if="submitButtonVisible" @click="submitForm">Submit</button>
   </div>
 </template>
-
 <script>
 import userService from '../services/UserService';
 import SelectCourse from './SelectCourse.vue';
-import teeTimeService from '../services/TeeTimeService';
-import matchPlayerService from '../services/MatchPlayerService';
-
+import teeTimeService from '../services/TeeTimeService'
+import matchPlayerService from '../services/MatchPlayerService'
 export default {
   components: { SelectCourse },
   props: {
@@ -60,11 +58,12 @@ export default {
   },
   methods: {
     getLeagueMembers() {
-      userService
-        .findUsersInLeague(this.leagueId)
+      userService.findUsersInLeague(this.$props.leagueId)
         .then(response => {
           this.leagueMembers = response.data;
           console.log(this.leagueMembers);
+          
+          
         })
         .catch(error => {
           console.log(error);
