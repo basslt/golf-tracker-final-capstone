@@ -75,21 +75,22 @@ export default {
   /* z-index: 2; */
   margin-left: 20px;
   
+  
 }
 
 .menu-items {
   /* Initial state */
-  display: none;
+  
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   list-style: none;
-  padding: 0;
-  margin-top: 10px;
-  position: fixed;
+  padding-top: 100px;
+  position: absolute;
+  
   top: 0;
   padding-left: 20px;
-  padding-top: 100px;
+  
   border-radius: 15px;
   background: #059262;
   width: 200px;

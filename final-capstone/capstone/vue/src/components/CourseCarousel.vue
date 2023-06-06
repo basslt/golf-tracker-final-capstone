@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <button @click="previous">prev</button>
+    <button @click="previous" class="prev-button"><span>&#171;</span></button>
     
     <div class="course-carousel">
         <div class="inner" >
@@ -9,7 +9,7 @@
                 </div>
         </div>
     </div>
-    <button @click="next">next</button>
+    <button @click="next" class="next-button"><span>&#187;</span></button>
  
   </div>
 </template>
@@ -152,11 +152,14 @@ export default {
 <style scoped>
 
 .container{
-    background-color: rgba(134, 133, 133, 0.5);
-    width: 500px;
+    background-color: rgba(185, 184, 184, 0.5);
+    width: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 300px;
+    border-radius: 10px;
+    flex-direction: row;
     
 }
 
@@ -179,4 +182,30 @@ export default {
     margin-right: 20px;
 }
 
+.prev-button, .next-button {
+    flex: 1;
+  display: flex;
+  
+  align-items: center;
+  justify-content: center;
+    margin-bottom: 100px;
+  height: 200px;
+  width: 50px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+    color: white;
+    /* background-color: #059262; */
+
+}
+.prev-button span, .next-button span{
+    font-size: 50px;
+    background-color: #059262;
+    background-size: 10px;
+    height: 60px;
+    width: 60px;
+    border-radius: 10px;
+
+}
 </style>
