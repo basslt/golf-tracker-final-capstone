@@ -7,6 +7,7 @@
         <body>
             <main class="content">
                 <my-leagues />
+                <course-carousel />
                 <create-league v-if="this.$store.state.showCreateForm"/>
             </main>
         </body>
@@ -19,13 +20,15 @@
 import HamburgerMenu from '../components/HamburgerMenu.vue';
 import MyLeagues from '../components/MyLeagues.vue';
 import CreateLeague from '../components/CreateLeague.vue';
+import CourseCarousel from '../components/CourseCarousel.vue'
 
 
 export default {
   components: {  
     HamburgerMenu,
     MyLeagues,
-    CreateLeague
+    CreateLeague,
+    CourseCarousel
   },
   name: "main",
   data() {
@@ -37,12 +40,22 @@ export default {
 </script>
 
 <style scoped>
-
-.content{
+.main {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
 }
 
+.content {
+  display: flex;
+  /* flex-direction: column; */
+  /* align-items: flex-start; */
+}
 
-
+.my-leagues {
+  display: flex;
+  align-self: flex-start;
+ margin: 100px;
+ margin-left: 300px;
+}
 </style>

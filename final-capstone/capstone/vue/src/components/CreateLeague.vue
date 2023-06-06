@@ -51,8 +51,10 @@ export default {
     },
     closeForm() {
       this.$store.commit('SET_SHOW_CREATE_FORM_STATUS', false);
-    }
+    },
+
   },
+  
 }
 </script>
 

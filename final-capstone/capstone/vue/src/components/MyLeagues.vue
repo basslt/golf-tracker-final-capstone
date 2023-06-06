@@ -56,25 +56,30 @@ export default {
 .container {
   background-color: #059262; 
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center; 
   justify-content: center; 
+  width: 400px;
+
 }
 
 h2 {
   margin-bottom: 20px;
   text-align: center; 
   color: white;
+  font-size: 30px;
+  border-bottom: 3px solid #ffffff; 
+  padding-bottom: 10px;
 }
 
 .search {
   margin-bottom: 20px;
   text-align: center; 
   
-  border-top: 1px solid #ffffff; 
-  padding-top: 10px;
+  /* border-top: 3px solid #ffffff; 
+  padding-top: 10px; */
   font-weight: bold;
 
 }
@@ -108,9 +113,12 @@ input[type="text"]
 }
 
 .name {
-
+  font-size: 20px;
   color: white;
   text-decoration: none;
+  
 
 }
+
+.name:hover { border-bottom:1px solid; }
 </style>

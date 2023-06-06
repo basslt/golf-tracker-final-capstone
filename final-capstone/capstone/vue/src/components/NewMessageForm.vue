@@ -2,24 +2,25 @@
   <div>
       <div id="new-message">
           <div class="container">
+             
           <form @submit.prevent>
-              <div class="form">
-                  <h2>Send a Message</h2>
+              <div class="form"> 
+                  <div class="close-button" @click="closeMessage">x</div>
+                  <h2>Send Message</h2>
                   <div class="recepient-input">
-                      <label for="username">To user: </label>
+                      <label for="username">Enter username: </label>
                       <input type="text" id="username" v-model="toUsername" required autofocus v-on:input="checkUsernames" />
                       <ul v-show="showNames">
                           <li v-for="username in filteredUsernames" v-bind:key="username">{{username}}</li>
                       </ul>
                   </div>
                   <div class="content-input">
-                      <label for="content">Message: </label>
+                      <label for="content">Message </label>
                       <textarea name="content" id="content" cols="30" rows="10" required @input="updateContent($event.target.value)"></textarea>
                   </div>
-                  <button class="exit-button" v-on:click="closeMessage">x</button>
-              </div>
+                  </div>
               <div>
-                  <button type="submit" v-on:click="sendMessage()">Send Message</button>
+                  <button class="submit-button" type="submit" v-on:click="sendMessage()"><span> Send</span></button>
               </div>
               
           </form>
@@ -46,6 +47,8 @@ export default {
                 senderId: '',
                 receiverId: '',
                 content: '',
+                leagueId: null,
+                type: 'Message',
                 timestamp: Date.now()
             }
         }
@@ -107,11 +110,12 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value (0.5) to control the transparency */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center; 
 } 
+
 
 .container {
   background-color: white;
@@ -120,10 +124,85 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   max-width: 400px; /* Adjust the width as needed */
   width: 100%; 
-  display: block;
-  /* flex-direction: column;
+  display: flex;
   justify-content: center;
-  align-items: flex-end; */
+  align-items: center;
+}
+
+.form h2{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.recepient-input{
+display: flex;
+justify-content: center;
+padding: 5px;
+}
+.recepient-input label{
+    display: flex;
+    align-items: center;
+}
+.recepient-input input{
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+background-color: #dddddd;
+  color: #333;
+  transition: box-shadow 0.3s ease;
+}
+.content-input{
+    display: flex;
+    flex-direction: column;
+    border: none;
+    
+}
+
+
+
+.content-input label {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    font-weight: bold;
+}
+.content-input textarea{
+       border-radius: 5px;
+background-color: #dddddd;
+  color: rgb(36, 36, 36);
+  transition: box-shadow 0.3s ease;
+  border: none;
+}
+
+.submit-button {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+  padding: 10px 40px;
+  background-color: #ffde59;
+  color: white;
+  border: none;
+  border-radius: 15px; /* Adjust the value to control the roundness */
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 105px;
+}
+.submit-button span {
+  font-size: 20px; /* Adjust the font size for the login text */
+  font-weight: bold;
+  
+
+}
+
+.login-button:hover {
+  background-color: #fce279;
 }
 
 .exit-button {
@@ -131,5 +210,13 @@ export default {
     right: 35%;
     top: 10%;
 }
+.close-button{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    
 
+}
 </style>

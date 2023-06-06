@@ -20,6 +20,7 @@ export default new Vuex.Store({
     },
     messages: [],
     invites: [],
+    courses: [],
     showCreateForm: false,
     activeLeague: ''
   },
@@ -57,6 +58,9 @@ export default new Vuex.Store({
     },
     SET_SHOW_CREATE_FORM_STATUS(state, value) {
       state.showCreateForm = value;
+    },
+    SET_COURSES(state, data) {
+      state.courses = data;
     }
   },
   actions: {

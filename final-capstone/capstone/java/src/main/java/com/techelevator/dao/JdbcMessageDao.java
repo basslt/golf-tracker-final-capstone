@@ -104,11 +104,11 @@ public class JdbcMessageDao implements MessageDao {
     @Override
     public Message saveMessage(Message message) {
         Message newMessage =null;
-        String query = "INSERT INTO Message (sender_id, receiver_id, content, timestamp) " +
-                "VALUES (?, ?, ?, ?) RETURNING message_id";
+        String query = "INSERT INTO Message (sender_id, receiver_id, league_id, content, type, timestamp) " +
+                "VALUES (?, ?, ?, ?, ?, ?) RETURNING message_id";
         try {
             int newMessageId = jdbcTemplate.queryForObject(query, int.class, message.getSenderId(), message.getReceiverId(),
-                    message.getContent(), message.getTimestamp());
+                    message.getLeagueId(), message.getContent(), message.getType(), message.getTimestamp());
             newMessage = findById(newMessageId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new RuntimeException("Unable to connect to server or database", e);
@@ -122,11 +122,11 @@ public class JdbcMessageDao implements MessageDao {
 
     @Override
     public void updateMessage(Message message, int messageId) {
-        String query = "UPDATE Message SET sender_id = ?, receiver_id = ?, content = ?, timestamp = ? " +
+        String query = "UPDATE Message SET sender_id = ?, receiver_id = ?, league_id = ?, content = ?, type = ?, timestamp = ? " +
                 "WHERE message_id = ?";
         try {
-            jdbcTemplate.update(query, message.getSenderId(), message.getReceiverId(),
-                    message.getContent(), message.getTimestamp(), message.getMessageId());
+            jdbcTemplate.update(query, message.getSenderId(), message.getReceiverId(), message.getLeagueId(),
+                    message.getContent(), message.getType(), message.getTimestamp(), message.getMessageId());
         } catch (CannotGetJdbcConnectionException e) {
             throw new RuntimeException("Unable to connect to server or database", e);
         } catch (BadSqlGrammarException e) {
@@ -157,7 +157,14 @@ public class JdbcMessageDao implements MessageDao {
         message.setMessageId(rowSet.getInt("message_id"));
         message.setSenderId(rowSet.getInt("sender_id"));
         message.setReceiverId(rowSet.getInt("receiver_id"));
+        if (rowSet.getObject("league_id") != null) {
+            message.setLeagueId(rowSet.getInt("league_id"));
+        } else {
+            message.setLeagueId(null);
+        }
+        message.setLeagueId(rowSet.getInt("league_id"));
         message.setContent(rowSet.getString("content"));
+        message.setType(rowSet.getString("type"));
         message.setTimestamp(rowSet.getTimestamp("timestamp"));
         return message;
     }
