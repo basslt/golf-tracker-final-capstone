@@ -31,6 +31,15 @@ export default {
 
   deleteLeague(leagueId) {
     return axios.delete(`/league/${leagueId}`);
-  }
+  },
 
+
+  postScoreToLeague(leagueId, username, score) {
+    const payload = {
+      leagueId: leagueId,
+      username: username,
+      score: score
+    }; return axios.post(`/league/${leagueId}`, payload)
+ 
+  },
 };

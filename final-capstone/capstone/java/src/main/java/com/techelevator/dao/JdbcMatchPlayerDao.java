@@ -63,6 +63,10 @@ public class JdbcMatchPlayerDao implements MatchPlayerDao {
             return Collections.emptyList();
         }
     }
+    public int getMatchIdByPlayerId(int playerId) {
+        String query = "SELECT match_id FROM MatchPlayer WHERE player_id = ?";
+        return jdbcTemplate.queryForObject(query, Integer.class, playerId);
+    }
 
     @Override
     public void saveMatchPlayer(MatchPlayer matchPlayer) {
