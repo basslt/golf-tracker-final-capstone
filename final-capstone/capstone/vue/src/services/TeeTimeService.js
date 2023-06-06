@@ -51,6 +51,15 @@ export default {
       .catch(error => {
         throw new error('Failed to fetch TeeTimes by Course');
       });
+  },
+  getLeagueIdByTeeTimeId(teeTimeId) {
+    return axios.get(`/teetimes/${teeTimeId}/league`)
+  },
+  getTeeTimeIdByMatchId(matchId) {
+    return axios.get(`/matches/${matchId}/teetimeid`)
+  },
+  getLeagueIdByUsername(username) {
+    return axios.get(`/leagues/${username}/leagueId`);
   }
 };
 

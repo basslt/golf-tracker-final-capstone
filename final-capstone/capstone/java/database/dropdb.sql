@@ -9,5 +9,5 @@ WHERE datname = 'golf-tracker-db';
 
 DROP DATABASE golf-tracker-db;
 
-DROP USER final_capstone_owner;
-DROP USER final_capstone_appuser;
+DROP USER postgres;
+

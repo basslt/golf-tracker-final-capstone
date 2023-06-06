@@ -1,13 +1,11 @@
 <template>
   <div>
-    <h2>Log Score</h2>
+    <h4>Score Log Form</h4>
     <form @submit.prevent="logScore">
-     
-      <label for="username">Username:</label>
-      <input type="text" v-model="username" required>
-      <label for="score">Score:</label>
-      <input type="number" v-model="score" required>
-
+      <div>
+        <label for="score">Score:</label>
+        <input type="number" v-model="score" required>
+      </div>
       <button type="submit">Log Score</button>
     </form>
   </div>
@@ -15,59 +13,42 @@
 
 <script>
 import ScoreService from '../services/ScoreService';
-import MatchPlayerService from '../services/MatchPlayerService';
-import UserService from '../services/UserService';
 
 export default {
-  props: {
-    matchId: {
+      props: {
+    teeTimeId: {
+      type: Number,
+      required: true
+    },
+    selectedUserId: {
       type: Number,
       required: true
     }
   },
   data() {
     return {
-      username: '',
       score: null
     };
   },
   methods: {
     logScore() {
-    
-      UserService.getUserIdByUsername(this.username)
-        .then(user => {
-          const playerName = user.name;
-
-          
-          MatchPlayerService.updateMatchPlayer(this.matchId, playerName)
-            .then(matchPlayer => {
-              const playerId = matchPlayer.playerId;
-
-              const score = {
-                matchId: this.matchId,
-                playerId: playerId,
-                // Other score properties
-              };
-
-              ScoreService.createScore(score)
-                .then(() => {
-                  // Score logged successfully
-                })
-                .catch(error => {
-                  console.error('Failed to log score:', error);
-                });
-            })
-            .catch(error => {
-              console.error('Failed to get TeeTimePlayer:', error);
-            });
-        })
-        .catch(error => {
-          console.error('Failed to retrieve playerId:', error);
-        });
-    }
+      const teeTimeId = this.teeTimeId;
+      const userId = this.userId; // Get the selected user ID from the parent component
+      const score = this.score;
+      // Call the appropriate service method to log the score
+  ScoreService.logScore(teeTimeId, userId, score)
+    .then(() => {
+      // Score logged successfully, perform any necessary actions or show a success message
+      console.log('Score logged successfully!');
+      
+      // Clear the form field after logging the score
+      this.score = null;
+    })
+  }
   }
 };
 </script>
+
 
 
 

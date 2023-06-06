@@ -55,9 +55,24 @@ public class TeeTimeController {
             teeTimeDao.delete(teeTime);
         }
     }
+    @GetMapping("/{username}/leagueId")
+    public int getLeagueIdByUsername(@PathVariable("username") String username) {
+        return teeTimeDao.getLeagueIdByUsername(username);
+    }
 
     @GetMapping("/course/{courseId}")
     public List<TeeTime> getTeeTimesByCourse(@PathVariable int courseId) {
         return teeTimeDao.findByCourse(courseId);
     }
+
+    @GetMapping("/{teeTimeId}/leagueid")
+    public int getLeagueIdByTeeTimeId(@PathVariable int teeTimeId) {
+            return teeTimeDao.getLeagueIdByTeeTimeId(teeTimeId);
+
+    }
+    @GetMapping("/{matchId}/teetimeid")
+    public int getTeeTimeIdByMatchId(@PathVariable int matchId) {
+        return teeTimeDao.getTeeTimeIdByMatchId(matchId);
+    }
+
 }
