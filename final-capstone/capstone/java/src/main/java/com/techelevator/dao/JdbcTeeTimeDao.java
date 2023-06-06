@@ -3,7 +3,7 @@ package com.techelevator.dao;
 import com.sun.el.util.ReflectionUtil;
 import com.techelevator.model.TeeTime;
 
-<<<<<<< HEAD
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,8 +12,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.util.ReflectionUtils;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
-=======
->>>>>>> main
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
