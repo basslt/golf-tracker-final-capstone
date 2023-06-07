@@ -1,12 +1,14 @@
 <template>
   <div class="background" v-if="message">
-    <div class="container" >
+    <div class="container">
+      <span class="close-button" @click="closeMessage"> <i class="fa-solid fa-xmark" style="color: #000000;"></i></span> 
       <h4>From: {{senderUser.username}}</h4>
       <h4>To: {{toUser.username}}</h4>
       <h4>{{message.timestamp}}</h4>
-      <p>Message: {{message.content}}</p>
+      <h3>Message </h3>
+      <p>{{message.content}}</p>
       <button class="accept" v-on:click="acceptInvite" v-if="message.type==='Invite'">Accept Invite</button>
-      <button class="exit-button" v-on:click="closeMessage">x</button>
+      
     </div>
       
   </div>
@@ -84,35 +86,48 @@ export default {
   align-items: center;
 }
 
-/* .container {
+.container {
+  display: flex;
+  flex-direction: column;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-   max-width: 400px; /* Adjust the width as needed 
-  width: 100%; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
+  max-width: 400px;
+  width: 100%;
+  margin: 20px;
+}
 
 .exit-button {
   position: absolute;
-  right: 35%;
-  top: 25%;
+  right: 10px;
+  top: 10px;
 }
 
-.container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  max-width: 400px; /* Adjust the width as needed */
-  width: 100%; 
-  display: block;
-  /* flex-direction: column;
+h4{
+  margin: 10px;
+}
+h3{
+  display: flex;
   justify-content: center;
-  align-items: flex-end; */
+  margin: 10px;
+}
+p{
+  display: flex;
+  margin: 10px;
+ background-color: lightgray;
+ border-radius: 10px;
+ padding: 10px;
+}
+.close-button{
+ display: flex;
+  justify-content: flex-end;
+  align-content: flex-end;
+  height: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  
 }
 
 </style>

@@ -47,7 +47,11 @@ export default {
 }
 
 .message-list {
-    width: 50%;
+    width: 100%;
+    margin: 5px;
+
 }
+
+
 
 </style>

@@ -1,10 +1,11 @@
-<template>
+<template> 
 <div class="background" >
+  
   <div class="container">
     <div id="login" v-show="showLoginForm" >
      
       <form @submit.prevent="login">  
-        <div class="close-button" @click="closeForm">x</div>
+        <div class="close-button" @click="closeForm"> <i class="fa-solid fa-xmark" style="color: #000000;"></i> </div>
         <h3>Welcome Back!</h3> 
       
         <div role="alert" v-if="invalidCredentials">
@@ -187,7 +188,7 @@ input[type="password"] {
   margin-bottom: 10px;
 }
 .close-button {
- 
+
   cursor: pointer;
   font-size: 20px;
   margin-left: 350px;
