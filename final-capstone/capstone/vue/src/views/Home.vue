@@ -20,7 +20,7 @@
 import HamburgerMenu from '../components/HamburgerMenu.vue';
 import MyLeagues from '../components/MyLeagues.vue';
 import CreateLeague from '../components/CreateLeague.vue';
-import CourseCarousel from '../components/CourseCarousel.vue'
+import CourseCarousel from '../components/CourseCarousel.vue';
 
 
 export default {
@@ -64,4 +64,15 @@ export default {
   margin-top: 405px;
 
 }
+
+/* body {
+  background-image: url('../assets/MainBackground.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  background-size: 100%; */
+  /* height: 100vh; */
+/* } */
+
 </style>
