@@ -6,7 +6,7 @@
         <div class="heading">
           <h2>Create League</h2>
         </div>
-        <p class="description">Explanation about creating a league goes here</p>
+        <p class="description">Enter your league name below to get started!</p>
         <div class="form-group">
           <label class= "input-text" for="leagueName">League Name:</label>
           <input type="text" id="leagueName" v-model="league.leagueName" required>
@@ -44,6 +44,7 @@ export default {
           this.newLeagueId = response.data.leagueId;
           this.$router.push({ name: 'SelectedLeague', params: { id: this.newLeagueId}})
           console.log('League created!');
+          this.closeForm();
         })
         .catch(error => {
           console.error('Failed to fetch league ID:', error);

@@ -3,14 +3,14 @@
     <header>
       <hamburger-menu />
     </header>
-    <body class="main">
+    <div class="main">
       
         <div class="new-message">
             <button class="new-message-button" @click="showNewMessageForm=true"> <i class="fa-regular fa-note-sticky" style="color: #059262;"></i> New Message</button>
             <new-message-form v-show="showNewMessageForm" @close="showNewMessageForm = false" />
         </div>
         <div class="heading">
-          <h2>Messages</h2>
+          <!-- <h2>Messages</h2> -->
         </div>
         <div class="content">
             <message-list @message-clicked="showDetails" />
@@ -18,7 +18,7 @@
             <create-league v-if="this.$store.state.showCreateForm"/>
         </div>
         
-    </body>
+    </div>
   </div>
 </template>
 
@@ -64,36 +64,6 @@ export default {
 
 <style scoped>
 
-/* .main {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(185, 184, 184, 0.5);
-
-}
-
-
-.new-message-button{
-   display: inline-block;
-  padding: 10px 40px;
-  background-color: #ffde59;
-  color: white;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 25px;
-  align-items: flex-start;
-}
-
-.content {
-    margin: 5px;
-    
-} */
 
 
 .main {
@@ -118,15 +88,17 @@ export default {
   margin-bottom: 20px;
   font-size: 25px;
   align-items: flex-start;
-  /* font-weight: bold; */
+  
 }
 
 .content {
+  display: flex;
+  align-items: flex-start;
   margin: 10px;
-  align-items: center;
-  /* background-color: rgba(185, 184, 184, 0.5); */
+  
+  
   border-radius: 10px;
-  background-color: white;
+  
 }
 
 .heading{

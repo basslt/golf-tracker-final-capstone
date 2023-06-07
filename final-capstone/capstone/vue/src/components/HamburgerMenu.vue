@@ -72,7 +72,7 @@ export default {
   /* z-index: 2; */
     display: flex;
   align-items: center;
-  position: relative;
+  position: fixed;
   /* z-index: 2; */
   margin-left: 20px;
   padding-right: 10px;

@@ -209,6 +209,10 @@ export default {
     height: 60px;
     width: 60px;
     border-radius: 10px;
+}
 
+.prev-button span:hover, .next-button span:hover{
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  transition: box-shadow 0.3s ease;
 }
 </style>

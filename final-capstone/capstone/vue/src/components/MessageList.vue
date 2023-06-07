@@ -1,21 +1,23 @@
 <template>
-    <div class="container">
-        <div class="main">
-            <div>
-                <button type="button" v-on:click="showChange">Inbox</button>
-                <button type="button" v-on:click="showChange">Sent</button>
+   
+           
+            <div class="container"> 
+                 <div class="buttons">
+                <button class="inbox button" type="button" v-on:click="showChange">Inbox</button>
+                <button class= "sent button" type="button" v-on:click="showChange">Sent</button>
             </div>
             <div class="message-list">
+               
                 <div class="received-messages" v-if="show===true">
-                    <h2>Received Messages</h2>
+                    <h2> <span>Received Messages</span> </h2>
                     <inbox-message-card v-for="message in receivedMessages" :key="message.id" :message="message" v-on:click="showMessage(message)"/>
                 </div>
                 <div class="sent-messages" v-if="show===false">
-                    <h2>Sent Messages</h2>
+                    <h2> <span>Sent Messages</span> </h2>
                     <sent-message-card v-for="message in sentMessages" :key="message.id" :message="message" v-on:click="showMessage(message)"/>
                 </div>
-            </div>
         </div>
+       
     </div>
 </template>
 
@@ -81,25 +83,59 @@ export default {
 </script>
 
 <style scoped>
+.container{
+   display: flex;
+  align-items: center; 
+  flex-direction: column;
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
 }
 
-.message-list {
+
+
+.message-list{
     width: 100%;
+    margin: 10px;
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 10px;
+    background: white;
+}
+.buttons{
+    display: flex;
+    align-self: flex-start;
+    margin-left: 10px;
+    size: 20px;
+   
+}
+.inbox.button, .sent.button{
+    color: white;
+    background: #6AD6B2;
+    border: none;
+    border-radius: 2px;
+    font-size: 20px;
     margin: 5px;
+    margin-bottom: -11px;
+    width: 100px;
 
-    /* display: flex;
-    flex-direction: column;
-    width: 50%; */
+}
+.inbox.button:hover, .sent.button:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px black; 
+  transition: box-shadow 0.3s ease;
+    
 }
 
-.main {
-    position: absolute;
-   
+
+h2 {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-bottom: #6AD6B2 solid;
+    margin: 5px;
+    padding: 5px;
+    color: rgb(66, 66, 66);
+    font-weight: lighter;
+    
 }
 
 

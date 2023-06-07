@@ -1,8 +1,9 @@
 <template>
 <div class= "background">
+  
 <div class="container">
    <router-link to="/" class="back-button">
-        <span>&lt; Back</span>
+        <span><i class="fa-solid fa-backward" style="color: #ffffff;"></i></span>
       </router-link>
     <div class="logo">
       <img src="../assets/official-logo.png" alt="Logo" />
@@ -90,21 +91,19 @@ export default {
   background-color: #059262;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  
 }
 
 .container {
   background-color: #6AD6B2;
+  position: absolute;
+  top: 50%; /* Vertically center the container */
+  left: 50%; /* Horizontally center the container */
+  transform: translate(-50%, -50%); /* Adjust for centering */
   padding: 20px;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 700px;
-  width: 100%;
-  height: 600px;
+ border-radius: 5px;
+  
   
 }
 
@@ -112,19 +111,22 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  /* margin-right: 100px; */
+  margin-right: px;
+  
   
 }
 
 .logo {
-  
-  
   display: flex;
   justify-content: center;
+  align-self: center;
+  
+
 }
 
 .logo img {
-  max-width: 200px;
+  
+  max-width: 300px;
 }
 
 form {
@@ -132,7 +134,7 @@ form {
   /* justify-content: center; */
   flex-direction: column;
   align-items: center;
-  /* margin-bottom: 40px; */
+  margin-bottom: 40px;
   
 }
 
@@ -142,6 +144,8 @@ form {
   display: flex;
   align-items: center;
   margin: 10px 0;
+  margin-bottom: 20px;
+  
 }
 
 label {
@@ -205,8 +209,11 @@ p {
 
 }
 
-.back-button span {
-  font-size: 18px;
+
+
+.fa-solid.fa-backward{
+  
+  font-size: 30px;
 }
 </style>
 
