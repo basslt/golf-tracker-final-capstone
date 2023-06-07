@@ -124,7 +124,6 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
     }
 
 
-        @Override
         public TeeTime mapRowToTeeTime(SqlRowSet rowSet)  {
             TeeTime teeTime = new TeeTime();
             teeTime.setTeeTimeId(rowSet.getInt("tee_time_id"));

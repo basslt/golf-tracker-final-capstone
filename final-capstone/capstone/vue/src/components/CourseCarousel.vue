@@ -52,84 +52,104 @@ export default {
             courses: [
                 {
                     image: CarolinaLakes,
-                    name: "Carolina Lakes Golf Club"
+                    name: "Carolina Lakes Golf Club",
+                    location: 'Fort Mill, South Carolina'
             
                 },
                 {
                     image: Heritage,
-                    name: "Eagle Trace Golf Club"
+                    name: "Eagle Trace Golf Club",
+                    location: "Coral Springs, Florida"
                 },
                 {
                     image: WhisperingPines,
-                    name: "Whispering Pines Golf Club"
+                    name: "Whispering Pines Golf Club",
+                    location: "Trinity, Texas"
                 },
                 {
                     image: Muirfield,
-                    name: "Muirfield Golf Club"
+                    name: "Muirfield Golf Club",
+                    location: "Dublin, Ohio"
                 },
                 {
                     image: Riviera,
-                    name: "Riviera Country Club"
+                    name: "Riviera Country Club",
+                    location: "Coral Gables, Florida"
                 },
                 {
                     image: Kinloch,
-                    name: "Kinloch Golf Club"
+                    name: "Kinloch Golf Club",
+                    location: "Manakin Sabot, Virginia"
                 },
                 {
                     image: CastlePines,
-                    name: "Castle Pines Golf Club"
+                    name: "Castle Pines Golf Club",
+                    location: "Castle Rock, Colorado"
                 },
                 {
                     image: Essex,
-                    name: "Essex County Country Club"
+                    name: "Essex County Country Club",
+                    location: "Manchester, Massachusetts"
                 },
                 {
                     image: Sebonack,
-                    name: "Sebonack Golf Club"
+                    name: "Sebonack Golf Club",
+                    location: "Southampton, New York"
                 },
                 {
                     image: KiaWah,
-                    name: "Kiawah Island Golf Resort"
+                    name: "Kiawah Island Golf Resort",
+                    location: "Kiawah Island, South Carolina"
                 },
                 {
                     image: TPCSawgrass,
-                    name: "TPC Sawgrass"
+                    name: "TPC Sawgrass",
+                    location: "Ponte Vedra Beach, Florida"
                 },
                 {
                     image: Shinnecock,
-                    name: "Shinnecock Hills Golf Club"
+                    name: "Shinnecock Hills Golf Club",
+                    location: "Southampton, New York"
                 },
                 {
                     image: Pete,
-                    name: "Pete Dye Golf Club"
+                    name: "Pete Dye Golf Club",
+                    location: "Bridgeport, West Virginia"
                 },
                 {
                     image: OldTown,
-                    name: "Old Town Club"
+                    name: "Old Town Club",
+                    location: "Winston Salem, North Carolina"
                 },
                 {
                     image: WeKoPa,
-                    name: "We-Ko-Pa Golf Club"
+                    name: "We-Ko-Pa Golf Club",
+                    location: "Fort McDowell, Arizona"
                 },
                 {
                     image: BearTrap,
-                    name: "Bear Trap Dunes Golf Club"
+                    name: "Bear Trap Dunes Golf Club",
+                    location: "Ocean View, Delaware"
                 },
                 {
                     image: ShadowCreek,
-                    name: "Shadow Creek Golf Course"
+                    name: "Shadow Creek Golf Course",
+                    location: "North Las Vegas, Nevada"
                 },
                 {
                     image: ErinHills,
-                    name: "Erin Hills Golf Course"
+                    name: "Erin Hills Golf Course",
+                    location: "Hartford, Wisconsin"
                 },
                 {
                     image: Scioto,
-                    name: "Scioto Country Club"
+                    name: "Scioto Country Club",
+                    location: "Powell, Ohio"
                 },
                 {
                     image: CrystalDowns,
-                    name: "Crystal Downs Country Club"
+                    name: "Crystal Downs Country Club",
+                    location: "Frankfort, Michigan"
                 }
              ],
         }
@@ -180,7 +200,7 @@ export default {
 .course {
     display: inline-flex;
     width: 350px;
-    height: 250px;
+    height: 260px;
     margin-right: 20px;
     
 }

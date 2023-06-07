@@ -2,61 +2,34 @@ import axios from 'axios';
 
 export default {
   getScoreById(scoreId) {
-    return axios.get(`/scores/${scoreId}`)
-      .then(response => response.data)
-      .catch(error => {
-        if (error.response && error.response.status === 404) {
-          throw new Error('Score not found');
-        }
-        throw new Error('Failed to fetch score');
-      });
+    return axios.get(`/scores/${scoreId}`);
+  },
+
+  getLatestPlayerScore(leagueId, playerId){
+      return axios.get(`/scores/${leagueId}/most-recent/${playerId}`)
   },
 
   getAllScores() {
-    return axios.get('/scores')
-      .then(response => response.data)
-      .catch(Error => {
-        throw new Error('Failed to fetch scores');
-      });
+    return axios.get('/scores');
   },
 
   getScoresByMatch(matchId) {
-    return axios.get(`/matches/${matchId}/scores`)
-      .then(response => response.data)
-      .catch(Error => {
-        throw new Error('Failed to fetch scores by match');
-      });
+    return axios.get(`/matches/${matchId}/scores`);
   },
 
   getScoresByPlayer(playerId) {
-    return axios.get(`/players/${playerId}/scores`)
-      .then(response => response.data)
-      .catch(Error => {
-        throw new Error('Failed to fetch scores by player');
-      });
+    return axios.get(`/players/${playerId}/scores`);
   },
 
   createScore(score) {
-    return axios.post('/scores', score)
-      .then(() => {})
-      .catch(Error => {
-        throw new Error('Failed to create score');
-      });
+    return axios.post('/scores', score);
   },
 
   updateScore(scoreId, score) {
-    return axios.put(`/scores/${scoreId}`, score)
-      .then(() => {})
-      .catch(Error => {
-        throw new Error('Failed to update score');
-      });
+    return axios.put(`/scores/${scoreId}`, score);
   },
 
   deleteScore(scoreId) {
-    return axios.delete(`/scores/${scoreId}`)
-      .then(() => {})
-      .catch(Error => {
-        throw new Error('Failed to delete score');
-      });
+    return axios.delete(`/scores/${scoreId}`);
   }
 };

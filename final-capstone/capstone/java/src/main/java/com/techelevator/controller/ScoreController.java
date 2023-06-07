@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,20 +16,23 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class ScoreController {
-    private final ScoreDao scoreDao;
 
     @Autowired
-    public ScoreController(ScoreDao scoreDao) {
-        this.scoreDao = scoreDao;
+    private ScoreDao scoreDao;
+
+    @GetMapping("/scores/{leagueId}/most-recent/{userId}")
+    public Score getMostRecentPlayerScore(@PathVariable("userId") int userId, @PathVariable("leagueId") int leagueId) {
+        Score score = scoreDao.findLatestPlayerScore(userId, leagueId);
+        return score;
     }
 
     @GetMapping("/scores/{id}")
-    public ResponseEntity<Score> getScoreById(@PathVariable("id") int scoreId) throws ChangeSetPersister.NotFoundException {
+    public Score getScoreById(@PathVariable("id") int scoreId) {
         Score score = scoreDao.findById(scoreId);
         if (score == null) {
-            throw new ChangeSetPersister.NotFoundException();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Score not found.");
         }
-        return ResponseEntity.ok(score);
+        return score;
     }
 
     @GetMapping("/scores")
@@ -37,29 +41,28 @@ public class ScoreController {
         return ResponseEntity.ok(scores);
     }
 
-    @GetMapping("/matches/{matchId}/scores")
+    @GetMapping("/scores/matches/{matchId}")
     public ResponseEntity<List<Score>> getScoresByMatch(@PathVariable("matchId") int matchId) {
         List<Score> scores = scoreDao.getScoresByMatch(matchId);
         return ResponseEntity.ok(scores);
     }
 
-    @GetMapping("/players/{playerId}/scores")
+    @GetMapping("/scores/players/{playerId}")
     public ResponseEntity<List<Score>> getScoresByPlayer(@PathVariable("playerId") int playerId) {
         List<Score> scores = scoreDao.getScoresByPlayer(playerId);
         return ResponseEntity.ok(scores);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/scores")
-    public ResponseEntity<Void> createScore(@RequestBody Score score) {
-        scoreDao.saveScore(score);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public Score createScore(@RequestBody Score score) {
+        return scoreDao.saveScore(score);
     }
 
     @PutMapping("/scores/{id}")
-    public ResponseEntity<Void> updateScore(@PathVariable("id") int scoreId, @RequestBody Score score) {
-        score.setScoreId(scoreId);
-        scoreDao.updateScore(score);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Score> updateScore(@PathVariable("id") int scoreId, @RequestBody Score score) {
+        Score updatedScore = scoreDao.updateScore(score, score.getScoreId());
+        return ResponseEntity.ok(updatedScore);
     }
 
     @DeleteMapping("/scores/{id}")
@@ -68,8 +71,8 @@ public class ScoreController {
         return ResponseEntity.noContent().build();
     }
 
-    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
-    public ResponseEntity<String> handleNotFoundException(ChangeSetPersister.NotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
+//    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
+//    public ResponseEntity<String> handleNotFoundException(ChangeSetPersister.NotFoundException ex) {
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+//    }
 }
