@@ -88,6 +88,9 @@ export default {
 }
 
 .message-list {
+    width: 100%;
+    margin: 5px;
+
     /* display: flex;
     flex-direction: column;
     width: 50%; */
@@ -97,5 +100,7 @@ export default {
     position: absolute;
    
 }
+
+
 
 </style>

@@ -5,7 +5,7 @@
              
           <form @submit.prevent>
               <div class="form"> 
-                  <div class="close-button" @click="closeMessage">x</div>
+                  <div class="close-button" @click="closeMessage"><i class="fa-solid fa-xmark" style="color: #000000;"></i></div>
                   <h2>Send Message</h2>
                   <div class="recepient-input">
                       <label for="username">Enter username: </label>
