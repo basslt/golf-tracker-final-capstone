@@ -7,9 +7,11 @@
       <h4>{{message.timestamp}}</h4>
       <h3>Message </h3>
       <p>{{message.content}}</p>
-      <button class="accept" v-on:click="acceptInvite" v-if="message.type==='Invite'">Accept Invite</button>
-      <button class="exit-button" v-on:click="closeMessage">x</button>
-      <button class="delete" v-on:click="deleteMessage">Delete</button>
+      <div class="buttons">
+      <button class="accept" v-on:click="acceptInvite" v-if="message.type==='Invite'"> <span>Accept Invite</span> </button>
+      <!-- <button class="exit-button" v-on:click="closeMessage">x</button> -->
+      <button class="delete" v-on:click="deleteMessage"> <span> Delete</span></button>
+      </div>
     </div>
       
   </div>
@@ -155,6 +157,31 @@ p{
   font-weight: bold;
   cursor: pointer;
   
+}
+
+button  {
+display: flex;
+ justify-content: center;
+ align-items: center;
+ 
+  padding: 10px 40px;
+  background-color: #ffde59;
+  color: white;
+  border: none;
+  border-radius: 15px; 
+  cursor: pointer;
+  font-weight: bold;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #fce279;
+}
+.buttons{
+display: flex;
+justify-content: center;
+align-self: center;
+margin: 5px;
 }
 
 </style>
