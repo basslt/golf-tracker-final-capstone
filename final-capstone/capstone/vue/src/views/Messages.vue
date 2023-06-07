@@ -36,8 +36,7 @@ export default {
       return {
         showNewMessageForm: false,
         selectedMessage: null,
-        selectedInvite: null
-
+        selectedInvite: null,
       }
     },
     methods: {
@@ -52,8 +51,34 @@ export default {
       },
       closeInvite() {
         this.selectedInvite = null;
-      }
-    }
+      },
+      // handleReceivedMessageDeleted() {
+      //   const user = this.$store.getters.getUser;
+      //   const userId = user.id;
+      //   messageService.getReceivedMessagesByUser(userId).then( (response) => {
+      //     this.receivedMessages = response.data;
+      //       // this.$store.commit('SET_RECEIVED_MESSAGES', response.data);
+      //   });
+      // },
+      // handleSentMessageDeleted() {
+      //   const user = this.$store.getters.getUser;
+      //   const userId = user.id;
+      //   messageService.getSentMessagesByUser(userId).then( (response) => {
+      //     this.sentMessages = response.data;
+      //       // this.$store.commit('SET_SENT_MESSAGES', response.data);
+      //   });
+      // }
+    },
+    // created() {
+    //     const user = this.$store.getters.getUser;
+    //     const userId = user.id;
+    //     messageService.getReceivedMessagesByUser(userId).then( (response) => {
+    //       this.receivedMessages = response.data;
+    //     });
+    //     messageService.getSentMessagesByUser(userId).then( (response) => {
+    //       this.sentMessages = response.data;
+    //     });
+    // }
 }
 </script>
 

@@ -45,24 +45,6 @@ public class MessageController {
         return messageDao.findMessagesBySenderId(userId);
     }
 
-//    @GetMapping("/messages")
-//    public ResponseEntity<List<Message>> getAllMessages() {
-//        List<Message> messages = messageDao.getAllMessages();
-//        return ResponseEntity.ok(messages);
-//    }
-
-//    @GetMapping("/users/{userId}/sent-messages")
-//    public ResponseEntity<List<Message>> getSentMessagesByUser(@PathVariable("userId") int userId) {
-//        List<Message> messages = messageDao.findMessagesBySenderId(userId);
-//        return ResponseEntity.ok(messages);
-//    }
-
-//    @GetMapping("/users/{userId}/received-messages")
-//    public ResponseEntity<List<Message>> getReceivedMessagesByUser(@PathVariable("userId") int userId) {
-//        List<Message> messages = messageDao.findMessagesByReceiverId(userId);
-//        return ResponseEntity.ok(messages);
-//    }
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/messages")
     public Message createMessage(@RequestBody Message message) {
@@ -75,9 +57,9 @@ public class MessageController {
         return ResponseEntity.ok().build();
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/messages/{id}")
-    public ResponseEntity<Void> deleteMessage(@PathVariable("id") int messageId) {
+    public void deleteMessage(@PathVariable("id") int messageId) {
         messageDao.deleteMessage(messageId);
-        return ResponseEntity.noContent().build();
     }
 }
