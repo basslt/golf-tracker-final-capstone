@@ -14,7 +14,6 @@
             <tee-time-list />
             <tee-time v-bind:league-id="leagueId"/>
             <tee-time-card/>
-            
         </main>
         <aside>
             <league-page-nav />

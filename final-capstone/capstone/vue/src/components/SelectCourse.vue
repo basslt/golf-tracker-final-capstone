@@ -1,6 +1,7 @@
 <template>
   <div>
     <form v-if="showForm && !selectedCourse" @submit.prevent="submitFilters"  class="filter-form">
+      <h2>Select a course!</h2>
       <label for="nameInput">Name:</label>
       <input type="text" id="nameInput" v-model="name">
       
