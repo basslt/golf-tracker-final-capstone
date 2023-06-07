@@ -6,11 +6,14 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import java.util.List;
 
 public interface ScoreDao {
-    Score findById(int scoreId) throws ChangeSetPersister.NotFoundException;
+
+    Score findLatestPlayerScore(int userId, int leagueId);
+
+    Score findById(int scoreId);
     List<Score> getAllScores();
     List<Score> getScoresByMatch(int matchId);
     List<Score> getScoresByPlayer(int playerId);
-    void saveScore(Score score);
-    void updateScore(Score score);
+    Score saveScore(Score score);
+    Score updateScore(Score score, int scoreId);
     void deleteScore(int scoreId);
 }
