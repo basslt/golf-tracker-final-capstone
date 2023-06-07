@@ -162,7 +162,6 @@ public class JdbcMessageDao implements MessageDao {
         } else {
             message.setLeagueId(null);
         }
-        message.setLeagueId(rowSet.getInt("league_id"));
         message.setContent(rowSet.getString("content"));
         message.setType(rowSet.getString("type"));
         message.setTimestamp(rowSet.getTimestamp("timestamp"));

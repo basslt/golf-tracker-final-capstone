@@ -14,9 +14,7 @@
         </div>
         <div class="content">
             <message-list @message-clicked="showDetails" />
-            <invite-list @invite-clicked="showInviteDetails" />
             <message-details :message="selectedMessage" v-if="selectedMessage" v-on:close="closeMessage"/>
-            <invite-details :invite="selectedInvite" v-if="selectedInvite" v-on:close="closeInvite" />
             <create-league v-if="this.$store.state.showCreateForm"/>
         </div>
         
@@ -30,8 +28,6 @@ import HamburgerMenu from '../components/HamburgerMenu.vue'
 import NewMessageForm from '../components/NewMessageForm.vue'
 import CreateLeague from '../components/CreateLeague.vue'
 import MessageDetails from'../components/MessageDetails.vue'
-import InviteDetails from '../components/InviteDetails.vue'
-import InviteList from '../components/InviteList.vue'
 
 export default {
     components: {
@@ -40,8 +36,6 @@ export default {
         HamburgerMenu,
         CreateLeague,
         MessageDetails,
-        InviteDetails,
-        InviteList
     },
     data() {
       return {

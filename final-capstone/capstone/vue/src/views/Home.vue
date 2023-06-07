@@ -9,6 +9,7 @@
                 <my-leagues class="myleagues"/>
                 <course-carousel class="display" />
                 <create-league v-if="this.$store.state.showCreateForm"/>
+                <message-list />
             </main>
         </body>
      </div>
@@ -21,6 +22,7 @@ import HamburgerMenu from '../components/HamburgerMenu.vue';
 import MyLeagues from '../components/MyLeagues.vue';
 import CreateLeague from '../components/CreateLeague.vue';
 import CourseCarousel from '../components/CourseCarousel.vue'
+import MessageList from '../components/MessageList.vue'
 
 
 export default {
@@ -28,7 +30,8 @@ export default {
     HamburgerMenu,
     MyLeagues,
     CreateLeague,
-    CourseCarousel
+    CourseCarousel,
+    MessageList
   },
   name: "main",
   data() {

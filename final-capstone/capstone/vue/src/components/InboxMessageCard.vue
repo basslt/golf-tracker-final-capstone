@@ -1,8 +1,8 @@
-e<template>
+<template>
     <div>
-        <div class="invite-card" @click="$emit('click')">
+        <div class="message-card" @click="$emit('click')">
             <h2>{{this.senderUser.username}}</h2>
-            <p>League Invitation</p>
+            <p>{{message.type}}</p>
         </div>
     </div>
 </template>
@@ -11,9 +11,9 @@ e<template>
 import userService from '../services/UserService'
 
 export default {
-    name: 'invite-card',
+    name: 'message-card',
     props: {
-        invite: {
+        message: {
             type: Object,
             required: true
         }
@@ -21,20 +21,20 @@ export default {
     data() {
         return {
             senderUser: [],
+            messageSubject: ''
         }
     },
     created() {
-        userService.getUserById(this.invite.senderId).then( (response) => {
+        userService.getUserById(this.message.senderId).then( (response) => {
             this.senderUser = response.data;
-        })
-    }
-
+        });
+    },
 }
 </script>
 
 <style scoped>
 
-.invite-card{
+.message-card{
     border: solid;
     margin: 3%;
     width: 800%;

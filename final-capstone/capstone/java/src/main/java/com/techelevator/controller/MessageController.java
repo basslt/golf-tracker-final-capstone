@@ -35,6 +35,16 @@ public class MessageController {
         return messageDao.getAllMessages();
     }
 
+    @GetMapping("/users/{userId}/received-messages")
+    public List<Message> getReceivedMessagesByUser(@PathVariable("userId") int userId){
+        return messageDao.findMessagesByReceiverId(userId);
+    }
+
+    @GetMapping("/users/{userId}/sent-messages")
+    public List<Message> getSentMessagesByUser(@PathVariable("userId") int userId){
+        return messageDao.findMessagesBySenderId(userId);
+    }
+
 //    @GetMapping("/messages")
 //    public ResponseEntity<List<Message>> getAllMessages() {
 //        List<Message> messages = messageDao.getAllMessages();
