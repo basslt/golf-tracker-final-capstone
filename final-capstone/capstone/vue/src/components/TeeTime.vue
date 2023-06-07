@@ -120,7 +120,7 @@ export default {
         .then(response => {
           console.log('Created Tee Time');
           console.log(response);
-          this.teeTimeId = response
+          this.teeTimeId = response.data;
           this.showPlayerForm = true;
           this.submitButtonVisible = false
         })

@@ -18,11 +18,11 @@ export default new Vuex.Store({
     loggedUser: {
       username: ''
     },
-    messages: [],
     invites: [],
     courses: [],
     showCreateForm: false,
-    activeLeague: ''
+    activeLeague: '',
+    showInbox: 'Inbox',
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -50,9 +50,6 @@ export default new Vuex.Store({
     SET_ACTIVE_LEAGUE(state, id) {
       state.activeLeague = id;
     },
-    SET_MESSAGES(state, data) {
-      state.messages = data;
-    },
     SET_INVITES(state, data) {
       state.invites = data;
     },
@@ -61,6 +58,9 @@ export default new Vuex.Store({
     },
     SET_COURSES(state, data) {
       state.courses = data;
+    },
+    SET_SHOW_INBOX_STATUS(state, value) {
+      state.showInbox = value;
     }
   },
   actions: {

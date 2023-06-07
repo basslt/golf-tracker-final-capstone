@@ -2,17 +2,17 @@
     <div class="container">
         <div class="main">
             <div>
-                <button type="button" v-on:click="showChange">Inbox</button>
-                <button type="button" v-on:click="showChange">Sent</button>
+                <button type="button" v-on:click="showInbox">Inbox</button>
+                <button type="button" v-on:click="showSent">Sent</button>
             </div>
             <div class="message-list">
-                <div class="received-messages" v-if="show===true">
+                <div class="received-messages" v-if="$store.state.showInbox === 'Inbox'">
                     <h2>Received Messages</h2>
-                    <inbox-message-card v-for="message in receivedMessages" :key="message.id" :message="message" v-on:click="showMessage(message)"/>
+                    <inbox-message-card v-for="message in receivedMessages" :key="message.id" :message="message" v-on:click="showMessage(message)" />
                 </div>
-                <div class="sent-messages" v-if="show===false">
+                <div class="sent-messages" v-if="$store.state.showInbox === 'Sent'">
                     <h2>Sent Messages</h2>
-                    <sent-message-card v-for="message in sentMessages" :key="message.id" :message="message" v-on:click="showMessage(message)"/>
+                    <sent-message-card v-for="message in sentMessages" :key="message.id" :message="message" v-on:click="showMessage(message)" />
                 </div>
             </div>
         </div>
@@ -32,10 +32,8 @@ export default {
     },
     data() {
         return {
-            messages: [],
             receivedMessages: [],
             sentMessages: [],
-            show: true,
             currentUserId: ''
         }
     },
@@ -65,17 +63,18 @@ export default {
                this.sentMessages = response.data;
            });
         },
-        showChange() {
-            this.show === true ? this.show = false : this.show = true;
+        showInbox() {
+            this.$store.commit('SET_SHOW_INBOX_STATUS', "Inbox");
+        },
+        showSent() {
+            this.$store.commit('SET_SHOW_INBOX_STATUS', "Sent");
         },
     },
     created() {
-        this.getMessages();
         this.getReceivedMessages();
         this.getSentMessages();
-        this.getCurrentUser()
-    }
-
+        this.getCurrentUser();
+    },
 }
 
 </script>
