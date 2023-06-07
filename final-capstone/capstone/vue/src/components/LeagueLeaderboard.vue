@@ -1,104 +1,139 @@
 <template>
-  <div class="main">
-    <h2>Current Leaderboard</h2>
-    <!-- <img src="../assets/Empty_Leaderboard.jpg" alt=""> -->
-    <div class="leaderboard">
-      <league-member-list />
+  <div class="container">
+    <div class="background">
+          <img class="background" src="../assets/Empty_Leaderboard.jpg" alt="">
     </div>
-    <!-- <ul>
-      <li v-for="member in leaderboardMembers" :key="member.id">
-        {{ member.name }} - {{ member.score }}
-      </li>
-    </ul> -->
+    <div class="table-container">
+      <table class="leaderboard">
+          <thead>
+              <tr>
+                <th>Username</th>
+                <th>Scores</th>
+                <th>Last Round</th>
+              </tr>
+          </thead>
+          <tbody class="table-data">
+              <tr v-for="userScore in memberNameScores" v-bind:key="userScore.id">
+                  <td>{{ userScore.username }}</td>
+                  <td class="average">{{userScore.totalScore}}</td>
+                  <td class="last-round">80</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
   </div>
 </template>
 
 <script>
-//import LeagueMembershipService from '../services/LeagueMembership';
-//import UserService from '../services/UserService';
-//import ScoreService from '../services/ScoreService';
-import LeagueMemberList from '../components/LeagueMemberList.vue'
+import leaderboardService from '../services/Leaderboard';
+import userService from '../services/UserService';
 
 export default {
-  components: {
-    LeagueMemberList
+  props: {
+    leagueId: {
+      type: Number,
+      required: true
+    }
   },
-  // props: {
-  //   leagueId: {
-  //     type: Number,
-  //     required: true
-  //   }
-  // },
   data() {
     return {
-      leaderboardMembers: []
+      leagueMembers: [],
+      memberScores: [],
+      memberNameScores: [],
     };
   },
-  // mounted() {
-  //   this.fetchLeaderboardMembers();
-  //},
   methods: {
-    // fetchLeaderboardMembers() {
-    //   LeagueMembershipService.getLeagueMembershipByLeagueId(this.leagueId)
-    //     .then(memberships => {
-    //       const memberIds = memberships.map(membership => membership.userId);
-    //        UserService.getUsersByIds(memberIds)
-    //         .then(users => {
-    //           this.leaderboardMembers = users.map(user => ({
-    //             id: user.id,
-    //             name: user.name,
-    //             score: 0 
-    //           }));
+      getLeagueMembers() {
+          userService.findUsersInLeague(this.leagueId).then( (response) => {
+            console.log(response.data)
+              this.leagueMembers = response.data;
+          })
+          .catch(error => {
+              console.log(error);
+          });
+      },
+      getOrderedLeaderboard() {
+          leaderboardService.getOrderedLeaderboard(this.leagueId).then( (response) => {
+            console.log(response.data);
+            this.memberScores = response.data;
+            this.combineUsersScores();
+          }).catch(error => {
+             console.log(error);
+          });
+      },
 
-              
-    //           this.fetchScoresForMember();
-    //         })
-    //         .catch(error => {
-    //           console.error('Failed to fetch user details:', error);
-    //         });
-    //     })
-    //     .catch(error => {
-    //       console.error('Failed to fetch leaderboard members:', error);
-    //     });
-    //},
-    // fetchScoresForMember() {
-     
-    //   this.leaderboardMembers.forEach(member => {
-    //     ScoreService.getScoresByPlayer(member.id)
-    //       .then(scores => {
-           
-    //         const totalScore = scores.reduce((sum, score) => sum + score.value, 0);
-    //         member.score = totalScore;
-    //       })
-    //       .catch(error => {
-    //         console.error('Failed to fetch scores:', error);
-    //       });
-    //   });
-    // }
-  }
+      combineUsersScores() {
+        if (this.leagueMembers.length > 0 && this.memberScores.length > 0) {
+        this.memberNameScores = this.memberScores.map( (score) => {
+          const member = this.leagueMembers.find(member => member.id === score.userId);
+          return {
+            username: member.username,
+            totalScore: score.totalScore
+          };
+        });
+        console.log(this.memberNameScores);
+      }
+      }
+  },
+  created() {
+       this.getLeagueMembers();
+      this.getOrderedLeaderboard();          
+  },
 }
 
 </script>
 
 <style scoped>
-div.main {
- 
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
+.container {
+    position: relative;
+    width: 500px;
+    height: 500px;
 }
 
-.leaderboard {
-   background-image: url("../assets/Empty_Leaderboard.jpg")
+.background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.table-container {
+    position: absolute;
+    top: 22%;
+    left: 11%;
+    width: 62%;
 }
 
-li {
-  margin-bottom: 10px;
+
+table {
+    width: 125%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th {
+    padding-bottom: 2%;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+
+td {
+    padding-bottom: 1%;
+    padding-top: 1%;
+    border-bottom: 1px solid black;
+    vertical-align: center;
+}
+
+.average {
+    border-left: 1px solid black;
+    width: 25%;
+}
+
+.last-round {
+    border-left: 1px solid black;
+    width: 25%;
 }
 </style>

@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, Course, TeeTime, LeagueMembership, MatchPlayer, Match, Score, Message, leaderboard, LeagueInvite, League;
+DROP TABLE IF EXISTS users, Course, TeeTime, LeagueMembership, MatchPlayer, Score, Message, leaderboard, LeagueInvite, League;
 
 CREATE TABLE users (
   user_id SERIAL,
