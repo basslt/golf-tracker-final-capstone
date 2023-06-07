@@ -26,23 +26,23 @@ export default {
   },
   data() {
     return {
-      teeTimes: [
-      ],
+      teeTimes: [],
       selectedTeeTimeId: null,
       selectedUserId: null
     };
-  },mounted() {
-  this.fetchTeeTimes();
-},
-methods: {
-  fetchTeeTimes() {
-    TeeTimeService.getTeeTimes()
-      .then(response => {
-        this.teeTimes = response.data; // Assign the fetched tee times to the teeTimes data property
-      })
-      .catch(error => {
-        console.error('Failed to fetch tee times:', error);
-      });
+  }, 
+  mounted() {
+      this.fetchTeeTimes();
+  },
+  methods: {
+    fetchTeeTimes() {
+      TeeTimeService.getAllTeeTimes()
+        .then(response => {
+          this.teeTimes = response.data; // Assign the fetched tee times to the teeTimes data property
+        })
+        .catch(error => {
+          console.error('Failed to fetch tee times:', error);
+        });
   },
     showUserList(teeTimeId) {
       this.selectedTeeTimeId = teeTimeId;

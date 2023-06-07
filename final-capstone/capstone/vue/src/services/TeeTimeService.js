@@ -4,59 +4,34 @@ const BASE_URL = '/teetimes';
 
 export default {
   getTeeTimeById(teeTimeId) {
-    return axios.get(`${BASE_URL}/${teeTimeId}`)
-      .then(response => response.data)
-      .catch(error => {
-        throw new error('Failed to fetch TeeTime by ID');
-      });
+    return axios.get(`${BASE_URL}/${teeTimeId}`);
   },
 
   getAllTeeTimes() {
-    return axios.get(BASE_URL)
-      .then(response => response.data)
-      .catch(error => {
-        throw new error('Failed to fetch all TeeTimes');
-      });
+    return axios.get(BASE_URL);
   },
 
   createTeeTime(teeTime) {
-    return axios.post(BASE_URL, teeTime)
-      .then((response) => {
-        return response.data
-      })
-      .catch(error => {
-        throw new error('Failed to create TeeTime');
-      });
+    return axios.post(BASE_URL, teeTime);
   },
 
   updateTeeTime(teeTimeId, teeTime) {
-    return axios.put(`${BASE_URL}/${teeTimeId}`, teeTime)
-      .then(() => {})
-      .catch(error => {
-        throw new error('Failed to update TeeTime');
-      });
+    return axios.put(`${BASE_URL}/${teeTimeId}`, teeTime);
   },
 
   deleteTeeTime(teeTimeId) {
-    return axios.delete(`${BASE_URL}/${teeTimeId}`)
-      .then(() => {})
-      .catch(error => {
-        throw new error('Failed to delete TeeTime');
-      });
+    return axios.delete(`${BASE_URL}/${teeTimeId}`);
   },
 
   getTeeTimesByCourse(courseId) {
-    return axios.get(`${BASE_URL}/course/${courseId}`)
-      .then(response => response.data)
-      .catch(error => {
-        throw new error('Failed to fetch TeeTimes by Course');
-      });
+    return axios.get(`${BASE_URL}/course/${courseId}`);
   },
+
   getLeagueIdByTeeTimeId(teeTimeId) {
-    return axios.get(`/teetimes/${teeTimeId}/league`)
+    return axios.get(`/teetimes/${teeTimeId}/league`);
   },
   getTeeTimeIdByMatchId(matchId) {
-    return axios.get(`/matches/${matchId}/teetimeid`)
+    return axios.get(`/matches/${matchId}/teetimeid`);
   },
   getLeagueIdByUsername(username) {
     return axios.get(`/leagues/${username}/leagueId`);
