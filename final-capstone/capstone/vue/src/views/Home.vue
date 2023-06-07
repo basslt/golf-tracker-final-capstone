@@ -1,8 +1,9 @@
 <template>
-   <div>
+   <div class="background">
      <header>
         <hamburger-menu />
      </header>
+    
      <div class="main">
         <body>
             <main class="content">
@@ -12,7 +13,6 @@
             </main>
         </body>
      </div>
- 
      </div>
 </template>
 
@@ -46,10 +46,16 @@ export default {
   align-items: center;
 } */
 
+.background {
+  background-image: url('../assets/backgroundgolfer.png');
+  height: 100vh;
+}
+
 .content {
   display: flex;
   /* flex-direction: column; */
    align-items: flex; 
+   /* height: 100vh; */
 }
 
 .myleagues {

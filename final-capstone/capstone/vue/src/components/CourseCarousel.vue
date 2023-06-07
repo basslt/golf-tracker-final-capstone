@@ -173,7 +173,7 @@ export default {
 <style scoped>
 
 .container{
-    background-color: rgba(185, 184, 184, 0.5);
+    background-color: rgba(185, 184, 184);
     width: 700px;
     display: flex;
     align-items: center;
