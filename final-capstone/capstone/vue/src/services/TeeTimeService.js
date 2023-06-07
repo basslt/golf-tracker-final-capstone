@@ -14,6 +14,8 @@ export default {
 
   createTeeTime(teeTime) {
     return axios.post(BASE_URL, teeTime)
+      
+     
   },
 
   updateTeeTime(teeTimeId, teeTime) {

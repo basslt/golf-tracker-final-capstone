@@ -54,7 +54,7 @@ export default {
     };
   },
   computed: {
-    // Your computed properties
+    
   },
   methods: {
     getLeagueMembers() {
@@ -117,7 +117,7 @@ export default {
         .createTeeTime(teeTime)
         .then(response => {
           console.log('Created Tee Time');
-          console.log(response);
+          console.log(response.data);
           this.teeTimeId = response.data;
           this.showPlayerForm = true;
           this.submitButtonVisible = false

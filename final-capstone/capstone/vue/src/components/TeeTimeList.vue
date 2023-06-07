@@ -36,18 +36,13 @@ export default {
         });
     },
     getTeeTimePlayers(teeTimeId) {
-      return new Promise((resolve, reject) => {
         matchPlayerService
           .getMatchPlayersByMatch(teeTimeId)
           .then(response => {
-            resolve(response);
+            console.log(response.data);
+            this.teeTimeId = response.data;
           })
-          .catch(error => {
-            console.log(error);
-            reject(error);
-          });
-      });
-    }
+     
   },
   created() {
     this.getAllTeeTimes();
@@ -55,5 +50,6 @@ export default {
   components: {
     TeeTimeCard
   }
-};
+}
+}
 </script>
