@@ -94,3 +94,72 @@ COMMIT TRANSACTION;
 --ALTER TABLE Message
 --ADD CONSTRAINT fk_message_league
 --FOREIGN KEY (league_id) REFERENCES League(league_id) ON DELETE CASCADE;
+
+
+
+--SELECT * FROM TeeTime;
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (1, 1, 78);
+--INSERT INTO Score (match_id, player_id, score) VALUES (1, 2, 75);
+--INSERT INTO Score (match_id, player_id, score) VALUES (1, 3, 82);
+--INSERT INTO Score (match_id, player_id, score) VALUES (1, 4, 85);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (2, 5, 83);
+--INSERT INTO Score (match_id, player_id, score) VALUES (2, 6, 90);
+--INSERT INTO Score (match_id, player_id, score) VALUES (2, 3, 79);
+--INSERT INTO Score (match_id, player_id, score) VALUES (2, 4, 81);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (3, 1, 67);
+--INSERT INTO Score (match_id, player_id, score) VALUES (3, 2, 89);
+--INSERT INTO Score (match_id, player_id, score) VALUES (3, 5, 75);
+--INSERT INTO Score (match_id, player_id, score) VALUES (3, 6, 85);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (4, 1, 86);
+--INSERT INTO Score (match_id, player_id, score) VALUES (4, 2, 95);
+--INSERT INTO Score (match_id, player_id, score) VALUES (4, 3, 80);
+--INSERT INTO Score (match_id, player_id, score) VALUES (4, 4, 82);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (5, 5, 87);
+--INSERT INTO Score (match_id, player_id, score) VALUES (5, 6, 77);
+--INSERT INTO Score (match_id, player_id, score) VALUES (5, 3, 88);
+--INSERT INTO Score (match_id, player_id, score) VALUES (5, 4, 90);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (6, 5, 79);
+--INSERT INTO Score (match_id, player_id, score) VALUES (6, 1, 82);
+--INSERT INTO Score (match_id, player_id, score) VALUES (6, 3, 86);
+--INSERT INTO Score (match_id, player_id, score) VALUES (6, 4, 76);
+--
+--SELECT * FROM Score;
+--
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 1, 78);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 2, 75);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 3, 82);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 4, 85);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 5, 83);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 6, 90);
+--
+--UPDATE Leaderboard SET total_score = total_score + 79 WHERE user_id = 3;
+--UPDATE Leaderboard SET total_score = total_score + 81 WHERE user_id = 4;
+--UPDATE Leaderboard SET total_score = total_score + 67 WHERE user_id = 1;
+--UPDATE Leaderboard SET total_score = total_score + 89 WHERE user_id = 2;
+--UPDATE Leaderboard SET total_score = total_score + 75 WHERE user_id = 5;
+--UPDATE Leaderboard SET total_score = total_score + 85 WHERE user_id = 6;
+--UPDATE Leaderboard SET total_score = total_score + 86 WHERE user_id = 1;
+--UPDATE Leaderboard SET total_score = total_score + 95 WHERE user_id = 2;
+--UPDATE Leaderboard SET total_score = total_score + 80 WHERE user_id = 3;
+--UPDATE Leaderboard SET total_score = total_score + 82 WHERE user_id = 4;
+--UPDATE Leaderboard SET total_score = total_score + 87 WHERE user_id = 5;
+--UPDATE Leaderboard SET total_score = total_score + 77 WHERE user_id = 6;
+--UPDATE Leaderboard SET total_score = total_score + 88 WHERE user_id = 3;
+--UPDATE Leaderboard SET total_score = total_score + 90 WHERE user_id = 4;
+--UPDATE Leaderboard SET total_score = total_score + 79 WHERE user_id = 5;
+--UPDATE Leaderboard SET total_score = total_score + 82 WHERE user_id = 1;
+--UPDATE Leaderboard SET total_score = total_score + 86 WHERE user_id = 3;
+--UPDATE Leaderboard SET total_score = total_score + 76 WHERE user_id = 4;
+--
+--SELECT * FROM Leaderboard ORDER BY total_score;
+--
+--SELECT user_id, username, password_hash, role
+--FROM users
+--JOIN LeagueMembership USING (user_id)
+--WHERE LeagueMembership.league_id = 1;

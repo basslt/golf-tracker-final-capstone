@@ -16,7 +16,10 @@
               <tr v-for="userScore in memberNameScores" v-bind:key="userScore.id">
                   <td>{{ userScore.username }}</td>
                   <td class="average">{{userScore.totalScore}}</td>
-                  <td class="last-round">80</td>
+                  <td class="last-round">{{userScore.latestScore}}</td>
+              </tr>
+              <tr v-if="memberNameScores.length === 0">
+                  <td colspan="3">Play Rounds To See Leaderboard!</td>
               </tr>
           </tbody>
       </table>
@@ -27,6 +30,7 @@
 <script>
 import leaderboardService from '../services/Leaderboard';
 import userService from '../services/UserService';
+import scoreService from '../services/ScoreService'
 
 export default {
   props: {
@@ -40,6 +44,7 @@ export default {
       leagueMembers: [],
       memberScores: [],
       memberNameScores: [],
+      latestMemberScore: []
     };
   },
   methods: {
@@ -47,6 +52,7 @@ export default {
           userService.findUsersInLeague(this.leagueId).then( (response) => {
             console.log(response.data)
               this.leagueMembers = response.data;
+              this.getLatestScore(); 
           })
           .catch(error => {
               console.log(error);
@@ -56,7 +62,6 @@ export default {
           leaderboardService.getOrderedLeaderboard(this.leagueId).then( (response) => {
             console.log(response.data);
             this.memberScores = response.data;
-            this.combineUsersScores();
           }).catch(error => {
              console.log(error);
           });
@@ -68,16 +73,37 @@ export default {
           const member = this.leagueMembers.find(member => member.id === score.userId);
           return {
             username: member.username,
-            totalScore: score.totalScore
+            totalScore: score.totalScore,
+            latestScore: this.latestMemberScore.find( 
+              latestScore => latestScore.playerId === score.userId
+            ).score
           };
         });
         console.log(this.memberNameScores);
-      }
+        }
+      },
+      getLatestScore() {
+        const requests = this.leagueMembers.map(member => {
+          return scoreService.getLatestPlayerScore(this.leagueId, member.id)
+          .then(response => response.data)
+          .catch(error => {
+            console.log(error);
+            return null;
+          });
+        });
+
+        Promise.all(requests).then(scores => {
+          this.latestMemberScore = scores.filter(score => score !== null);
+          this.combineUsersScores();
+        })
+        .catch(error => {
+          console.log(error);
+        })
       }
   },
   created() {
-       this.getLeagueMembers();
-      this.getOrderedLeaderboard();          
+      this.getLeagueMembers();
+      this.getOrderedLeaderboard();       
   },
 }
 

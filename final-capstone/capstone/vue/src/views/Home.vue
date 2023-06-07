@@ -1,8 +1,9 @@
 <template>
-   <div>
+   <div class="background">
      <header>
         <hamburger-menu />
      </header>
+    
      <div class="main">
         <body>
             <main class="content">
@@ -12,7 +13,6 @@
             </main>
         </body>
      </div>
- 
      </div>
 </template>
 
@@ -20,7 +20,7 @@
 import HamburgerMenu from '../components/HamburgerMenu.vue';
 import MyLeagues from '../components/MyLeagues.vue';
 import CreateLeague from '../components/CreateLeague.vue';
-import CourseCarousel from '../components/CourseCarousel.vue'
+import CourseCarousel from '../components/CourseCarousel.vue';
 
 
 export default {
@@ -46,10 +46,16 @@ export default {
   align-items: center;
 } */
 
+.background {
+  background-image: url('../assets/backgroundgolfer.png');
+  height: 100vh;
+}
+
 .content {
   display: flex;
   /* flex-direction: column; */
    align-items: flex; 
+   /* height: 100vh; */
 }
 
 .myleagues {
@@ -64,4 +70,15 @@ export default {
   margin-top: 405px;
 
 }
+
+/* body {
+  background-image: url('../assets/MainBackground.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  background-size: 100%; */
+  /* height: 100vh; */
+/* } */
+
 </style>
