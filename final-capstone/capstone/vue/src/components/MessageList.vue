@@ -1,37 +1,23 @@
 <template>
    
-           
-            <div class="container"> 
-                 <div class="buttons">
-                <button class="inbox button" type="button" v-on:click="showChange">Inbox</button>
-                <button class= "sent button" type="button" v-on:click="showChange">Sent</button>
+    <div class="container"> 
+        <div class="buttons">
+                <button class="inbox button" type="button" v-on:click="showInbox">Inbox</button>
+                <button class="sent button" type="button" v-on:click="showSent">Sent</button>
             </div>
-            <div class="message-list">
-               
-                <div class="received-messages" v-if="show===true">
-                    <h2> <span>Received Messages</span> </h2>
-                    <inbox-message-card v-for="message in receivedMessages" :key="message.id" :message="message" v-on:click="showMessage(message)"/>
-                </div>
-                <div class="sent-messages" v-if="show===false">
-                    <h2> <span>Sent Messages</span> </h2>
-                    <sent-message-card v-for="message in sentMessages" :key="message.id" :message="message" v-on:click="showMessage(message)"/>
-    <div class="container">
         <div class="main">
-            <div>
-                <button type="button" v-on:click="showInbox">Inbox</button>
-                <button type="button" v-on:click="showSent">Sent</button>
-            </div>
+           
             <div class="message-list">
                 <div class="received-messages" v-if="$store.state.showInbox === 'Inbox'">
-                    <h2>Received Messages</h2>
+                    <h2><span>Received Messages</span> </h2>
                     <inbox-message-card v-for="message in receivedMessages" :key="message.id" :message="message" v-on:click="showMessage(message)" />
                 </div>
                 <div class="sent-messages" v-if="$store.state.showInbox === 'Sent'">
-                    <h2>Sent Messages</h2>
+                    <h2><span>Sent Messages</span></h2>
                     <sent-message-card v-for="message in sentMessages" :key="message.id" :message="message" v-on:click="showMessage(message)" />
                 </div>
         </div>
-       
+        </div>
     </div>
 </template>
 
@@ -116,6 +102,7 @@ export default {
 .buttons{
     display: flex;
     align-self: flex-start;
+    justify-content: flex-start;
     margin-left: 10px;
     size: 20px;
    
@@ -124,10 +111,10 @@ export default {
     color: white;
     background: #6AD6B2;
     border: none;
-    border-radius: 2px;
+    border-radius: 3px;
     font-size: 20px;
     margin: 5px;
-    margin-bottom: -11px;
+    margin-bottom: -12px;
     width: 100px;
 
 }
