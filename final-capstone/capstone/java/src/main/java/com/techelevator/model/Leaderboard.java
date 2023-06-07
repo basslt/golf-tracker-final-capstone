@@ -14,6 +14,9 @@ public class Leaderboard {
         this.totalScore = totalScore;
     }
 
+    public Leaderboard() {
+    }
+
     public int getLeaderboardId() {
         return leaderboardId;
     }

@@ -5,18 +5,11 @@ const BASE_URL = '/teetimes';
 export default {
   getTeeTimeById(teeTimeId) {
     return axios.get(`${BASE_URL}/${teeTimeId}`)
-      .then(response => response.data)
-      .catch(error => {
-        throw new error('Failed to fetch TeeTime by ID');
-      });
   },
 
   getAllTeeTimes() {
     return axios.get(BASE_URL)
-      .then(response => response.data)
-      .catch(error => {
-        throw new error('Failed to fetch all TeeTimes');
-      });
+     
   },
 
   createTeeTime(teeTime) {

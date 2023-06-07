@@ -28,7 +28,7 @@ public class TeeTime {
                 return teeTimeId;
         }
 
-        public void setTeeTimeId(Timestamp teeTimeId) {
+        public void setTeeTimeId(int teeTimeId) {
                 this.teeTimeId = teeTimeId;
         }
 

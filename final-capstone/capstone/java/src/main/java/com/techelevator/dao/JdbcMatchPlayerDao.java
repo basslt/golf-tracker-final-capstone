@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.MatchPlayer;
+import com.techelevator.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,10 +48,6 @@ public class JdbcMatchPlayerDao implements MatchPlayerDao {
         return null;
     }
 
-    @Override
-    public List<MatchPlayer> findMatchPlayersByMatch(int matchId) {
-        return null;
-    }
 
     @Override
     public List<MatchPlayer> findMatchPlayersByPlayer(int playerId) {
@@ -66,15 +64,23 @@ public class JdbcMatchPlayerDao implements MatchPlayerDao {
 //        }
 //    }
 //
-//    @Override
-//    public List<MatchPlayer> findMatchPlayersByMatch(int matchId) {
-//        try {
-//            String query = "SELECT * FROM MatchPlayer WHERE match_id = ?";
-//            return jdbcTemplate.query(query, new MatchPlayerRowMapper(), matchId);
-//        } catch (EmptyResultDataAccessException e) {
-//            return Collections.emptyList();
-//        }
-//    }
+    @Override
+    public List<MatchPlayer> findMatchPlayersByMatch(int matchId) {
+        List<MatchPlayer> matchPlayers = new ArrayList<>();
+            String query = "SELECT * FROM MatchPlayer WHERE match_id = ?";
+            try {
+                SqlRowSet results = jdbcTemplate.queryForRowSet(query, matchId);
+                while (results.next()) {
+                    MatchPlayer matchPlayer = mapRowToMatchPlayer(results);
+                    matchPlayers.add(matchPlayer);
+                }
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new RuntimeException("Unable to connect to server or database", e);
+            } catch (BadSqlGrammarException e) {
+                throw new RuntimeException("SQL syntax error", e);
+            }
+            return matchPlayers;
+        }
 
 //    @Override
 //    public List<MatchPlayer> findMatchPlayersByPlayer(int playerId) {

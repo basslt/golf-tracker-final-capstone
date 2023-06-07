@@ -58,17 +58,17 @@ export default {
   },
   methods: {
     getLeagueMembers() {
-      userService.findUsersInLeague(this.$props.leagueId)
-        .then(response => {
-          this.leagueMembers = response.data;
-          console.log(this.leagueMembers);
-          
-          
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
+  userService
+    .findUsersInLeague(this.leagueId)
+    .then(response => {
+      const loggedUserId = this.$store.state.user.id;
+      this.leagueMembers = response.data.filter(member => member.id !== loggedUserId);
+      console.log(this.leagueMembers);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+},
     handleCourseSelected(courseId) {
       this.selectedCourseId = courseId;
     },
@@ -118,7 +118,7 @@ export default {
         .then(response => {
           console.log('Created Tee Time');
           console.log(response);
-          this.teeTimeId = response.data
+          this.teeTimeId = response.data;
           this.showPlayerForm = true;
           this.submitButtonVisible = false
         })

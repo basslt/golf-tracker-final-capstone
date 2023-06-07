@@ -40,7 +40,7 @@ export default {
         matchPlayerService
           .getMatchPlayersByMatch(teeTimeId)
           .then(response => {
-            resolve(response.data);
+            resolve(response);
           })
           .catch(error => {
             console.log(error);

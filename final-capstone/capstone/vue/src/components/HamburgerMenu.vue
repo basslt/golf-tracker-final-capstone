@@ -8,17 +8,17 @@
       </div>
       <ul class="menu-items" :class="{ open: isOpen }">
         <router-link v-bind:to="{ name: 'home' }">
-          <li><a href="#">Home</a></li>
+          <li><a href="#"><i class="fa-solid fa-house" style="color: #ffffff;"></i> Home </a></li>
         </router-link>
         <!-- <router-link v-bind:to="{ name: 'LeagueHome' }">
           <li><a href="#">Leagues</a></li>
         </router-link> -->
-          <li @click="showCreateForm"><a href="#">Create a League</a></li>
+          <li @click="showCreateForm"><a href="#"><i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i> Create League</a></li>
         <router-link v-bind:to="{ name: 'Messages' }">
-          <li><a href="#">Messages</a></li>
+          <li><a href="#"> <i class="fa-solid fa-message" style="color: #ffffff;"></i> Messages </a></li>
         </router-link>
         <router-link v-bind:to="{ name: 'LandingPage' }" v-on:click="logOut">
-          <li><a href="#">Log Out</a></li>
+          <li><a href="#"><i class="fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i> Log Out</a></li>
         </router-link>
       </ul>
     </div>
@@ -64,6 +64,7 @@ export default {
   flex-grow: 1;
   background-color: #059262;
   height: 120px;
+ 
 }
 
 .hamburger-menu {
@@ -74,6 +75,7 @@ export default {
   position: relative;
   /* z-index: 2; */
   margin-left: 20px;
+  padding-right: 10px;
   
   
 }
@@ -90,15 +92,17 @@ export default {
   
   top: 0;
   padding-left: 20px;
-  
+  white-space: nowrap;
   border-radius: 15px;
   background: #059262;
-  width: 200px;
+  width: 210px;
   height: 310px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+
 
 .menu-items.open {
   /* Open state */
@@ -159,7 +163,10 @@ export default {
 }
 
 .menu-items a:hover {
-  font-weight: bold;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  transition: box-shadow 0.3s ease;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .container .logo {
@@ -173,4 +180,13 @@ export default {
   width: auto;
   height: 275px;
 }
+
+.fa-solid.fa-house, .fa-solid.fa-circle-plus, .fa-solid.fa-message, .fa-solid.fa-arrow-right-from-bracket  {
+  margin-right: 5px;
+}
+
+
+
+
+
 </style>

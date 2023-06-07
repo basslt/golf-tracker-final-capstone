@@ -1,5 +1,7 @@
  <template>
+
   <div id="app">
+   
     <div id="nav">
       <!-- <hamburger-menu/> -->
     </div>

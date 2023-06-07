@@ -53,6 +53,7 @@ export default {
                 {
                     image: CarolinaLakes,
                     name: "Carolina Lakes Golf Club"
+            
                 },
                 {
                     image: Heritage,
@@ -173,6 +174,7 @@ export default {
     width: 375px;
     overflow: hidden;
     
+    
 }
 
 .course {
@@ -180,6 +182,7 @@ export default {
     width: 350px;
     height: 250px;
     margin-right: 20px;
+    
 }
 
 .prev-button, .next-button {

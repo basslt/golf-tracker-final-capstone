@@ -4,15 +4,20 @@
       <hamburger-menu />
     </header>
     <body class="main">
+      
         <div class="new-message">
-            <button class="new-message-button" @click="showNewMessageForm=true">Send a Message</button>
+            <button class="new-message-button" @click="showNewMessageForm=true"> <i class="fa-regular fa-note-sticky" style="color: #059262;"></i> New Message</button>
             <new-message-form v-show="showNewMessageForm" @close="showNewMessageForm = false" />
+        </div>
+        <div class="heading">
+          <h2>Messages</h2>
         </div>
         <div class="content">
             <message-list @message-clicked="showDetails" />
             <message-details :message="selectedMessage" v-if="selectedMessage" v-on:close="closeMessage"/>
             <create-league v-if="this.$store.state.showCreateForm"/>
         </div>
+        
     </body>
   </div>
 </template>
@@ -36,8 +41,7 @@ export default {
       return {
         showNewMessageForm: false,
         selectedMessage: null,
-        selectedInvite: null
-
+        selectedInvite: null,
       }
     },
     methods: {
@@ -52,25 +56,107 @@ export default {
       },
       closeInvite() {
         this.selectedInvite = null;
-      }
-    }
+      },
+      // handleReceivedMessageDeleted() {
+      //   const user = this.$store.getters.getUser;
+      //   const userId = user.id;
+      //   messageService.getReceivedMessagesByUser(userId).then( (response) => {
+      //     this.receivedMessages = response.data;
+      //       // this.$store.commit('SET_RECEIVED_MESSAGES', response.data);
+      //   });
+      // },
+      // handleSentMessageDeleted() {
+      //   const user = this.$store.getters.getUser;
+      //   const userId = user.id;
+      //   messageService.getSentMessagesByUser(userId).then( (response) => {
+      //     this.sentMessages = response.data;
+      //       // this.$store.commit('SET_SENT_MESSAGES', response.data);
+      //   });
+      // }
+    },
+    // created() {
+    //     const user = this.$store.getters.getUser;
+    //     const userId = user.id;
+    //     messageService.getReceivedMessagesByUser(userId).then( (response) => {
+    //       this.receivedMessages = response.data;
+    //     });
+    //     messageService.getSentMessagesByUser(userId).then( (response) => {
+    //       this.sentMessages = response.data;
+    //     });
+    // }
 }
 </script>
 
 <style scoped>
 
-.main {
+/* .main {
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 100vw;
     justify-content: center;
     align-items: center;
+    background-color: rgba(185, 184, 184, 0.5);
+
+}
+
+
+.new-message-button{
+   display: inline-block;
+  padding: 10px 40px;
+  background-color: #ffde59;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 25px;
+  align-items: flex-start;
 }
 
 .content {
+    margin: 5px;
     
+} */
+
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #059262;
+  align-items: center;
+  
 }
 
+.new-message-button {
+  display: inline-block;
+  padding: 10px 40px;
+  background-color: #f8d340;
+  color:white ;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size: 25px;
+  align-items: flex-start;
+  /* font-weight: bold; */
+}
+
+.content {
+  margin: 10px;
+  align-items: center;
+  /* background-color: rgba(185, 184, 184, 0.5); */
+  border-radius: 10px;
+  background-color: white;
+}
+
+.heading{
+  margin-top: 30px;
+  color: white;
+}
 
 </style>
