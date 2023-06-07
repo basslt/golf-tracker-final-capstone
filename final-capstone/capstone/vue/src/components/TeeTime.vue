@@ -56,7 +56,7 @@ export default {
     };
   },
   computed: {
-    // Your computed properties
+    
   },
   methods: {
     getLeagueMembers() {
