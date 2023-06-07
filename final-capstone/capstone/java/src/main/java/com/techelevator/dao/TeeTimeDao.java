@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.TeeTime;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.util.List;
 
@@ -25,5 +26,7 @@ public interface TeeTimeDao {
     int getLeagueIdByUsername(String username);
 
     int getTeeTimeIdByMatchId(int matchId);
+
+    TeeTime mapRowToTeeTime(SqlRowSet rowSet);
 }
 

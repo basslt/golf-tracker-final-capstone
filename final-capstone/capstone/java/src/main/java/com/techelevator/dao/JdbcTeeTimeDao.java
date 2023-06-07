@@ -1,26 +1,18 @@
 package com.techelevator.dao;
 
-import com.sun.el.util.ReflectionUtil;
 import com.techelevator.model.TeeTime;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.data.util.ReflectionUtils;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -33,14 +25,37 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
 
     @Override
     public TeeTime findById(int teeTimeId) {
+        TeeTime teeTime = null;
         String query = "SELECT * FROM TeeTime WHERE tee_time_id = ?";
-        return jdbcTemplate.queryForObject(query, new TeeTimeRowMapper(), teeTimeId);
+        try{
+        SqlRowSet results = jdbcTemplate.queryForRowSet(query, teeTimeId);
+        if (results.next()) {
+            teeTime= mapRowToTeeTime(results);
+        }
+    } catch (CannotGetJdbcConnectionException e) {
+        throw new RuntimeException("Unable to connect to server or database", e);
+    } catch (BadSqlGrammarException e) {
+        throw new RuntimeException("SQL syntax error", e);
     }
+        return teeTime;
+}
 
     @Override
     public List<TeeTime> findAll() {
+        List<TeeTime> teeTimes = new ArrayList<>();
         String query = "SELECT * FROM TeeTime";
-        return jdbcTemplate.query(query, new TeeTimeRowMapper());
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(query);
+            while (results.next()) {
+                TeeTime teeTime = mapRowToTeeTime(results);
+                teeTimes.add(teeTime);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return teeTimes;
     }
 
     @Override
@@ -81,11 +96,17 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
         String sql = "SELECT league_id FROM TeeTime WHERE tee_time_id = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, teeTimeId);
     }
+
     @Override
     public List<TeeTime> findByCourse(int courseId) {
-        String query = "SELECT * FROM TeeTime WHERE course_id = ?";
-        return jdbcTemplate.query(query, new TeeTimeRowMapper(), courseId);
+        return null;
     }
+
+    //    @Override
+//    public List<TeeTime> findByCourse(int courseId) {
+//        String query = "SELECT * FROM TeeTime WHERE course_id = ?";
+//        return jdbcTemplate.query(query, new TeeTimeRowMapper(), courseId);
+//    }
     @Override
     public int getLeagueIdByUsername(String username) {
         String sql = "SELECT t.league_id " +
@@ -103,17 +124,17 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
     }
 
 
-    private static class TeeTimeRowMapper implements RowMapper<TeeTime> {
         @Override
-        public TeeTime mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-            int teeTimeId = resultSet.getInt("tee_time_id");
-            String matchName = resultSet.getString("match_name");
-            int courseId = resultSet.getInt("course_id");
-            Timestamp time = resultSet.getTimestamp("time");
-            int organizerId = resultSet.getInt("organizer_id");
-            int leagueId = resultSet.getInt("league_id");
-            return new TeeTime(teeTimeId, matchName, courseId, time, organizerId, leagueId);
+        public TeeTime mapRowToTeeTime(SqlRowSet rowSet)  {
+            TeeTime teeTime = new TeeTime();
+            teeTime.setTeeTimeId(rowSet.getInt("tee_time_id"));
+            teeTime.setMatchName(rowSet.getString("match_name"));
+            teeTime.setCourseId(rowSet.getInt("course_id"));
+            teeTime.setTime(rowSet.getTimestamp("time"));
+            teeTime.setOrganizerId(rowSet.getInt("organizer_id"));
+            teeTime.setLeagueId(rowSet.getInt("league_id"));
+            return teeTime;
         }
     }
-}
+
 

@@ -38,9 +38,9 @@ public class MatchPlayerController {
     }
 
     @GetMapping("/matches/{matchId}/matchplayers")
-    public ResponseEntity<List<MatchPlayer>> getMatchPlayersByMatch(@PathVariable("matchId") int matchId) {
-        List<MatchPlayer> matchPlayers = matchPlayerDao.findMatchPlayersByMatch(matchId);
-        return ResponseEntity.ok(matchPlayers);
+    public List<MatchPlayer> getMatchPlayersByMatch(@PathVariable("matchId") int matchId) {
+       return  matchPlayerDao.findMatchPlayersByMatch(matchId);
+
     }
 
     @GetMapping("/players/{playerId}/matchplayers")
@@ -51,6 +51,7 @@ public class MatchPlayerController {
 
     @PostMapping("/matchplayers")
     public ResponseEntity<Void> createMatchPlayer(@RequestBody MatchPlayer matchPlayer) {
+        System.out.println(matchPlayer);
         matchPlayerDao.saveMatchPlayer(matchPlayer);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

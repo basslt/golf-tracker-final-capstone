@@ -8,11 +8,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class JdbcLeaderboardDao implements LeaderboardDao {
@@ -106,6 +106,11 @@ public class JdbcLeaderboardDao implements LeaderboardDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getTopPlayersByScoringAverage() {
+        return null;
     }
 
 
