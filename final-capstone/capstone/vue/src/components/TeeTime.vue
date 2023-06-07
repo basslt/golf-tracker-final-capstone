@@ -60,16 +60,17 @@ export default {
   },
   methods: {
     getLeagueMembers() {
-      userService
-        .findUsersInLeague(this.leagueId)
-        .then(response => {
-          this.leagueMembers = response.data;
-          console.log(this.leagueMembers);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
+  userService
+    .findUsersInLeague(this.leagueId)
+    .then(response => {
+      const loggedUserId = this.$store.state.user.id;
+      this.leagueMembers = response.data.filter(member => member.id !== loggedUserId);
+      console.log(this.leagueMembers);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+},
     handleCourseSelected(courseId) {
       this.selectedCourseId = courseId;
     },
