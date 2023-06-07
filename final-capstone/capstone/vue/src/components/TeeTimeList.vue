@@ -1,20 +1,16 @@
 <template>
   <div>
     <h2>Tee Times:</h2>
-    <ul>
-      <li v-for="teeTime in teeTimes" :key="teeTime.id">
-        <div>
-          <span>{{ teeTime.matchName }}</span>
-          <span>{{ teeTime.time }}</span>
-          <button @click="selectTeeTime(teeTime)">Select</button>
-        </div>
-      </li>
-    </ul>
+    <div v-for="teeTime in teeTimes" :key="teeTime.id">
+      <tee-time-card :tee-time="teeTime" :tee-time-players="getTeeTimePlayers(teeTime.id)" />
+    </div>
   </div>
 </template>
 
 <script>
 import teeTimeService from '../services/TeeTimeService';
+import matchPlayerService from '../services/MatchPlayerService';
+import TeeTimeCard from './TeeTimeCard.vue';
 
 export default {
   props: {
@@ -39,14 +35,25 @@ export default {
           console.log(error);
         });
     },
-    selectTeeTime(teeTime) {
-      this.$emit('tee-time-selected', teeTime);
+    getTeeTimePlayers(teeTimeId) {
+      return new Promise((resolve, reject) => {
+        matchPlayerService
+          .getMatchPlayersByMatch(teeTimeId)
+          .then(response => {
+            resolve(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+            reject(error);
+          });
+      });
     }
   },
   created() {
     this.getAllTeeTimes();
+  },
+  components: {
+    TeeTimeCard
   }
 };
 </script>
-
-

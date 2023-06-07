@@ -2,11 +2,12 @@ package com.techelevator.dao;
 
 import com.techelevator.model.MatchPlayer;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.util.List;
 
 public interface MatchPlayerDao {
-    MatchPlayer findById(int matchPlayerId) throws ChangeSetPersister.NotFoundException;
+    MatchPlayer findById(int matchPlayerId);
 
     List<MatchPlayer> getAllMatchPlayers();
 
@@ -22,4 +23,5 @@ public interface MatchPlayerDao {
 
     int getMatchIdByPlayerId(int playerId);
 
+    MatchPlayer mapRowToMatchPlayer(SqlRowSet rowSet);
 }

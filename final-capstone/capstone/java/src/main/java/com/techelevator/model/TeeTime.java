@@ -1,8 +1,6 @@
 package com.techelevator.model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class TeeTime {
         private int teeTimeId;
@@ -22,11 +20,15 @@ public class TeeTime {
                 this.leagueId = leagueId;
         }
 
+    public TeeTime() {
+
+    }
+
         public int getTeeTimeId() {
                 return teeTimeId;
         }
 
-        public void setTeeTimeId(int teeTimeId) {
+        public void setTeeTimeId(Timestamp teeTimeId) {
                 this.teeTimeId = teeTimeId;
         }
 
