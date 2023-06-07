@@ -8,7 +8,8 @@
       <h3>Message </h3>
       <p>{{message.content}}</p>
       <button class="accept" v-on:click="acceptInvite" v-if="message.type==='Invite'">Accept Invite</button>
-      
+      <button class="exit-button" v-on:click="closeMessage">x</button>
+      <button class="delete" v-on:click="deleteMessage">Delete</button>
     </div>
       
   </div>
@@ -17,6 +18,7 @@
 <script>
 import userService from '../services/UserService'
 import leagueMembership from '../services/LeagueMembership'
+import messageService from '../services/MessageService'
 
 export default {
   name: "message-detail",
@@ -42,23 +44,48 @@ export default {
       this.$emit('close');
     },
     acceptInvite() {
-            this.membership.leagueId = this.message.leagueId;
-            this.membership.userId = this.message.receiverId;
-            leagueMembership.addLeagueMembership(this.membership).then( (response) => {
-                if (response.status === 201) {
-                    this.$router.push({ name: 'SelectedLeague', params: {id: this.membership.leagueId}});
-                    console.log('LeagueMembership created!');
+      this.membership.leagueId = this.message.leagueId;
+      this.membership.userId = this.message.receiverId;
+      leagueMembership.addLeagueMembership(this.membership).then( (response) => {
+          if (response.status === 201) {
+              this.$router.push({ name: 'SelectedLeague', params: {id: this.membership.leagueId}});
+              console.log('LeagueMembership created!');
+              messageService.deleteMessage(this.message.messageId).then( (response) => {
+                if (response.status === 204) {
+                  console.log("Successfully deleted message");
                 }
-            }).catch((error) => {
-                if (error.response) {
-                this.errorMsg = "Error submitting new membership";
-                } else if (error.request) {
-                this.errorMsg = "Error submitting new membership. Server could not be reached";
-                } else {
-                this.errorMsg = "Error submitting new membership";
-                }
-        })
+              });
+          }
+      }).catch((error) => {
+          if (error.response) {
+          this.errorMsg = "Error submitting new membership";
+          } else if (error.request) {
+          this.errorMsg = "Error submitting new membership. Server could not be reached";
+          } else {
+          this.errorMsg = "Error submitting new membership";
+          }
+      });
+    },
+    deleteMessage() {
+        if (this.message.receiverId === this.$store.state.user.id) {
+          messageService.deleteMessage(this.message.messageId).then( (response) => {
+            if (response.status === 204) {
+              console.log("Successfully deleted message");
+              this.closeMessage();
+              window.location.reload();
+            }
+          });
+        } else {
+            messageService.deleteMessage(this.message.messageId).then( (response) => {
+              if (response.status === 204) {
+                console.log("Successfully deleted message");
+                this.closeMessage();
+                window.location.reload();
+              }
+            });
         }
+
+    }
   },
   created() {
       userService.getUserById(this.message.senderId).then( (response) => {

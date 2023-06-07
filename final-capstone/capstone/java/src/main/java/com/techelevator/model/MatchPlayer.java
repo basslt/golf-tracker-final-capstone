@@ -12,6 +12,10 @@ public class MatchPlayer {
         this.playerId = playerId;
     }
 
+    public MatchPlayer() {
+
+    }
+
     public int getMatchPlayerId() {
         return matchPlayerId;
     }

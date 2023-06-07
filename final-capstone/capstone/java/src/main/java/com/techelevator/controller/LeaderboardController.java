@@ -5,51 +5,56 @@ import com.techelevator.model.Leaderboard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/leaderboards")
 @CrossOrigin
+@PreAuthorize("isAuthenticated()")
 public class LeaderboardController {
-    private LeaderboardDao leaderboardDao;
 
     @Autowired
-    public LeaderboardController(LeaderboardDao leaderboardDao) {
-        this.leaderboardDao = leaderboardDao;
+    private LeaderboardDao leaderboardDao;
+
+    @GetMapping("/{leagueId}")
+    public List<Leaderboard> getOrderedLeaderboard(@PathVariable("leagueId") int leagueId) {
+        return leaderboardDao.getAllLeaderboardsOrdered(leagueId);
     }
 
-    @GetMapping("/{leaderboardId}")
-    public ResponseEntity<Leaderboard> getLeaderboardById(@PathVariable int leaderboardId) {
-        Leaderboard leaderboard = leaderboardDao.getById(leaderboardId);
-        if (leaderboard != null) {
-            return ResponseEntity.ok(leaderboard);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/league/{leagueId}")
-    public ResponseEntity<List<Leaderboard>> getLeaderboardsByLeagueId(@PathVariable int leagueId) {
-        List<Leaderboard> leaderboards = leaderboardDao.getByLeagueId(leagueId);
-        if (!leaderboards.isEmpty()) {
-            return ResponseEntity.ok(leaderboards);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
-    }
-
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Leaderboard>> getLeaderboardsByUserId(@PathVariable int userId) {
-        List<Leaderboard> leaderboards = leaderboardDao.getByUserId(userId);
-        if (!leaderboards.isEmpty()) {
-            return ResponseEntity.ok(leaderboards);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
-    }
+//    @GetMapping("/{leaderboardId}")
+//    public ResponseEntity<Leaderboard> getLeaderboardById(@PathVariable int leaderboardId) {
+//        Leaderboard leaderboard = leaderboardDao.getById(leaderboardId);
+//        if (leaderboard != null) {
+//            return ResponseEntity.ok(leaderboard);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+//
+//    @GetMapping("/league/{leagueId}")
+//    public ResponseEntity<List<Leaderboard>> getLeaderboardsByLeagueId(@PathVariable int leagueId) {
+//        List<Leaderboard> leaderboards = leaderboardDao.getByLeagueId(leagueId);
+//        if (!leaderboards.isEmpty()) {
+//            return ResponseEntity.ok(leaderboards);
+//        } else {
+//            return ResponseEntity.noContent().build();
+//        }
+//    }
+//
+//    @GetMapping("/user/{userId}")
+//    public ResponseEntity<List<Leaderboard>> getLeaderboardsByUserId(@PathVariable int userId) {
+//        List<Leaderboard> leaderboards = leaderboardDao.getByUserId(userId);
+//        if (!leaderboards.isEmpty()) {
+//            return ResponseEntity.ok(leaderboards);
+//        } else {
+//            return ResponseEntity.noContent().build();
+//        }
+//    }
 
     @PostMapping
     public ResponseEntity<Void> addLeaderboard(@RequestBody Leaderboard leaderboard) {
