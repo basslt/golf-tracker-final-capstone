@@ -26,6 +26,7 @@
               </div>
             </div>
             <button v-if="submitButtonVisible" @click="submitForm">Submit</button>
+            <button type="button" v-on:click="closeForm">Close</button>
           </div>
       </div>
   </div>
@@ -62,17 +63,17 @@ export default {
   },
   methods: {
     getLeagueMembers() {
-  userService
-    .findUsersInLeague(this.leagueId)
-    .then(response => {
-      const loggedUserId = this.$store.state.user.id;
-      this.leagueMembers = response.data.filter(member => member.id !== loggedUserId);
-      console.log(this.leagueMembers);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-},
+      userService
+        .findUsersInLeague(this.leagueId)
+        .then(response => {
+          const loggedUserId = this.$store.state.user.id;
+          this.leagueMembers = response.data.filter(member => member.id !== loggedUserId);
+          console.log(this.leagueMembers);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     handleCourseSelected(courseId) {
       this.selectedCourseId = courseId;
     },
@@ -90,13 +91,13 @@ export default {
           if (response.status === 201) {
             console.log('Created Match Players');
             const index = this.leagueMembers.findIndex(member => member.id === memberId);
-          if (index !== -1) {
-            this.leagueMembers.splice(index, 1);
+            if (index !== -1) {
+              this.leagueMembers.splice(index, 1);
+            }
+            if (this.leagueMembers.length === 0) {
+              this.allMembersInvited = true;
           }
-           if (this.leagueMembers.length === 0) {
-            this.allMembersInvited = true;
-  }
-          }
+        }
         })
         .catch(error => {
           console.log(error);
@@ -129,6 +130,9 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    closeForm() {
+      this.$emit('close');
     }
   },
   watch: {

@@ -8,7 +8,7 @@
 
         <main class="content">
             <league-leaderboard v-bind:league-id="leagueId"/>
-            <league-invite-form v-bind:league-id="leagueId" />
+            
             <create-league v-if="this.$store.state.showCreateForm"/>
             <tee-time-list />
             
@@ -17,6 +17,9 @@
             <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
             <tee-time-create v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false"/>
             
+            <button class="league-invite-form" @click="showLeagueInviteForm=true">Invite Members</button>
+            <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
+
         </main>
       </body>
       </div>
@@ -48,7 +51,8 @@ export default {
     data() {
         return {
             leagueId: null,
-            showTeeTimeCreateForm: false
+            showTeeTimeCreateForm: false,
+            showLeagueInviteForm: false,
         }
     },
     created() {

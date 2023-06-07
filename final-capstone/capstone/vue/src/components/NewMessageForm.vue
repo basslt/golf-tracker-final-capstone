@@ -137,9 +137,9 @@ export default {
 
 
 .recepient-input{
-display: flex;
-justify-content: center;
-padding: 5px;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
 }
 .recepient-input label{
     display: flex;
@@ -162,8 +162,6 @@ background-color: #dddddd;
     border: none;
     
 }
-
-
 
 .content-input label {
     display: flex;
@@ -210,13 +208,12 @@ background-color: #dddddd;
     right: 35%;
     top: 10%;
 }
+
 .close-button{
     display: flex;
     justify-content: flex-end;
     font-size: 25px;
     font-weight: bold;
     cursor: pointer;
-    
-
 }
 </style>
