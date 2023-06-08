@@ -8,6 +8,14 @@ export default {
         throw error;
       });
   },
+  
+    getCourseName(courseId) {
+      return axios.get(`/courses/coursename/${courseId}`)
+        .then(response => response.data)
+        .catch(error => {
+          throw error;
+        });
+    },
 
   getAllCourses() {
     return axios.get(`/courses`)

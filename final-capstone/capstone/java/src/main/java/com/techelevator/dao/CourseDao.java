@@ -7,13 +7,23 @@ import java.util.List;
 
 
 public interface CourseDao {
-    Course findById(int courseId) throws ChangeSetPersister.NotFoundException;
+    Course findById(int courseId);
+
     List<Course> getAllCourses();
+
     List<Course> findByState(String state);
+
     List<Course> findByCity(String city);
+
     void saveCourse(Course course);
+
     void updateCourse(Course course);
+
     void deleteCourse(int courseId);
+
     List<Course> findCoursesByFilters(String name, String state, String city);
+
     List<Course> findByName(String name);
+
+    String getNameByCourseId(Integer courseId);
 }

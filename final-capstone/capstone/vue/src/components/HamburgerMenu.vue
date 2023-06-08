@@ -1,18 +1,15 @@
 <template>
 <div class="container">    
-    <div class="hamburger-menu">
+    <div class="hamburger-menu"  >
       <div class="menu-icon" :class="{ open: isOpen }" @click="toggleMenu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <div class="menu-wrapper" >
+       <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
+        </div>
       </div>
-      <ul class="menu-items" :class="{ open: isOpen }">
+      <ul class="menu-items" :class="{ open: isOpen }" >
         <router-link v-bind:to="{ name: 'home' }">
           <li><a href="#"><i class="fa-solid fa-house" style="color: #ffffff;"></i> Home </a></li>
         </router-link>
-        <!-- <router-link v-bind:to="{ name: 'LeagueHome' }">
-          <li><a href="#">Leagues</a></li>
-        </router-link> -->
           <li @click="showCreateForm"><a href="#"><i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i> Create League</a></li>
         <router-link v-bind:to="{ name: 'Messages' }">
           <li><a href="#"> <i class="fa-solid fa-message" style="color: #ffffff;"></i> Messages </a></li>
@@ -82,14 +79,13 @@ export default {
 
 .menu-items {
   /* Initial state */
-  
+  pointer-events: none;
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   list-style: none;
   padding-top: 100px;
   position: absolute;
-  
   top: 0;
   padding-left: 20px;
   white-space: nowrap;
@@ -102,6 +98,22 @@ export default {
   align-items: center;
 }
 
+.fa-solid.fa-bars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 10px;
+ font-size: 50px;
+ font-weight: bold
+}
+
+.fa-solid.fa-bars:hover {
+
+  transition: box-shadow 0.3s ease;
+  border-radius: 5px;
+  padding: 5px;
+}
 
 
 .menu-items.open {
@@ -109,12 +121,13 @@ export default {
   display: block;
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 
 .menu-icon {
   
- 
+  display: block;
   width: 40px;
   height: 25px;
   
@@ -152,7 +165,13 @@ export default {
   padding: 10px;
 }
 
-
+.menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 
 
 .menu-items a {

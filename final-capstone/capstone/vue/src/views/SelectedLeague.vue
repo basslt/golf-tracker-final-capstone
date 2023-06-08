@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
         <header>
             <hamburger-menu />
         </header>
@@ -7,19 +7,27 @@
       <body>
 
         <main class="content">
-            <!-- <league-leaderboard id="leaderboard" v-bind:league-id="leagueId"/> -->
-            <league-member-list :league-id="leagueId" />
-            <league-invite-form v-bind:league-id="leagueId" />
-            <create-league v-if="this.$store.state.showCreateForm"/>
-            <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
+            <div class="leaderboard">
+            <league-leaderboard v-bind:league-id="leagueId"/>
             
+            <create-league v-if="this.$store.state.showCreateForm"/>
+            <div class="parent-container">
+            <div class="left-column">
+            <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
+            </div>
+            </div>
             <tee-time v-bind:league-id="leagueId"/>
             <TeeTimeCard :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
+
+            <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
+            <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false"/>
             
+            <button class="league-invite-form" @click="showLeagueInviteForm=true">Invite Members</button>
+            <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
+
+            <league-member-list v-bind:league-id="leagueId"/>
+            </div>
         </main>
-        <aside>
-            <league-page-nav />
-        </aside>
       </body>
       </div>
       
@@ -27,36 +35,35 @@
 </template>
 
 <script>
-// import LeagueLeaderboard from "../components/LeagueLeaderboard.vue"
-import LeaguePageNav from "../components/LeaguePageNav.vue" 
-import LeagueMemberList from '../components/LeagueMemberList.vue'
+import LeagueLeaderboard from "../components/LeagueLeaderboard.vue"
 import HamburgerMenu from '../components/HamburgerMenu.vue'
 import LeagueInviteForm from '../components/LeagueInviteForm.vue'
 import CreateLeague from '../components/CreateLeague.vue'
-import TeeTime from '../components/TeeTime.vue'
+import TeeTimeForm from '../components/TeeTimeForm.vue'
 import TeeTimeList from '../components/TeeTimeList.vue'
 import TeeTimeCard from '../components/TeeTimeCard.vue'
+import LeagueMemberList from '../components/LeagueMemberList.vue'
 
 
 export default {
     components: {
-        // LeagueLeaderboard,
-        LeaguePageNav,
-        LeagueMemberList,
+        LeagueLeaderboard,
         HamburgerMenu,
         LeagueInviteForm,
         CreateLeague,
-        TeeTime,
+        TeeTimeForm,
         TeeTimeList,
         TeeTimeCard,
-        
+        LeagueMemberList
     },
     data() {
         return {
-            leagueId: null
+            leagueId: null,
+            showTeeTimeCreateForm: false,
+            showLeagueInviteForm: false,
         }
     },
-    mounted() {
+    created() {
         this.leagueId = parseInt(this.$route.params.id);
     }
 
@@ -65,7 +72,23 @@ export default {
 </script>
 
 <style scoped>
-body {
+
+
+.leaderboard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 100px;
+
+}
+
+
+.new-tee-time-button{
+    
+}
+
+
+/* body {
     display: grid;
     height: 100vh;
     width: 100vw;
@@ -104,7 +127,7 @@ main {
 
 #leaderboard {
     
-}
+} */
 
 
 </style>

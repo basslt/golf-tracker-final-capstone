@@ -10,7 +10,7 @@
             <div class="message-list">
                 <div class="received-messages" v-if="$store.state.showInbox === 'Inbox'">
                     <h2><span>Received Messages</span> </h2>
-                    <inbox-message-card v-for="message in receivedMessages" :key="message.id" :message="message" v-on:click="showMessage(message)" />
+                    <inbox-message-card v-for="message in receivedMessages" :class="messageRead" :key="message.id" :message="message" v-on:click="showMessage(message)" />
                 </div>
                 <div class="sent-messages" v-if="$store.state.showInbox === 'Sent'">
                     <h2><span>Sent Messages</span></h2>
@@ -36,7 +36,8 @@ export default {
         return {
             receivedMessages: [],
             sentMessages: [],
-            currentUserId: ''
+            currentUserId: '',
+            messageRead: false
         }
     },
     methods: {

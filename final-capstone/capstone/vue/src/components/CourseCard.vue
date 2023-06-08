@@ -3,6 +3,7 @@
       <div class="course-card">
           <img :src="course.image" :alt="course.name"/>
           <h3>{{course.name}}</h3>
+          <p>{{course.location}}</p>
       </div>
 
 </template>
@@ -32,6 +33,12 @@ export default {
     height: 200px;
     object-fit: cover;
     border-radius: 5%;
+    margin-bottom: 1%;
+}
+
+p {
+    margin-top: 1%;
+    font-style: italic;
 }
 
 </style>

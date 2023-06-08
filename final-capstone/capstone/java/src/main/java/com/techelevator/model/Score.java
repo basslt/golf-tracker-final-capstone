@@ -13,6 +13,9 @@ public class Score {
         this.score = score;
     }
 
+    public Score() {
+    }
+
     public int getScoreId() {
         return scoreId;
     }

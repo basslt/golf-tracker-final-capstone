@@ -64,9 +64,9 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
         String query = "INSERT INTO TeeTime (match_name, course_id, time, organizer_id, league_id) " +
                 "VALUES (?, ?, ?, ?, ?) RETURNING tee_time_id";
         try{
-        int newTeeTimeId = jdbcTemplate.queryForObject(query, int.class, teeTime.getMatchName(),  teeTime.getCourseId(), teeTime.getTime(),  teeTime.getOrganizerId(),  teeTime.getLeagueId());
-            System.out.println("New Tee Time ID: " + newTeeTimeId);
-        teeTime1 = findById(newTeeTimeId);
+            int newTeeTimeId = jdbcTemplate.queryForObject(query, int.class, teeTime.getMatchName(),  teeTime.getCourseId(), teeTime.getTime(),  teeTime.getOrganizerId(),  teeTime.getLeagueId());
+                System.out.println("New Tee Time ID: " + newTeeTimeId);
+            teeTime1 = findById(newTeeTimeId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new RuntimeException("Unable to connect to server or database", e);
         } catch (BadSqlGrammarException e) {
@@ -124,7 +124,6 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
     }
 
 
-        @Override
         public TeeTime mapRowToTeeTime(SqlRowSet rowSet)  {
             TeeTime teeTime = new TeeTime();
             teeTime.setTeeTimeId(rowSet.getInt("tee_time_id"));
