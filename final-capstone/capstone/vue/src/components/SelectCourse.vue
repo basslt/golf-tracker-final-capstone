@@ -2,7 +2,7 @@
   <div>
     <div class="modal">
         <div class="modal-content">
-          <button class="close-btn">×</button>
+          <button class="close-btn" @click="closeModal">×</button>
           <ul class="course-list">
             <li v-for="course in filteredCourses" :key="course.courseId" class="course-item">
               {{ course.name }} - {{ course.city }}, {{ course.state }}
@@ -22,6 +22,11 @@ export default {
       type: Array,
       required: true
     },
+    data (){
+      return {
+        showCourseListModal: true
+      }
+    }
   },
   methods: {
       selectCourse(course) {
@@ -37,6 +42,10 @@ export default {
           // this.showCourseListModal = false;
           // this.$emit('toggle-form'); 
           },
+          closeModal() {
+      this.$emit('close');
+    }
+         
   }
 
 }
@@ -116,6 +125,16 @@ font-size: 15px;
 .filter-form button:hover{
   background-color: #fce279;
   cursor: pointer;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0px;
 }
 
 

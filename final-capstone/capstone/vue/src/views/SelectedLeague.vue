@@ -9,6 +9,7 @@
         <main class="content">
             <div class="leaderboard">
             <league-leaderboard v-bind:league-id="leagueId"/>
+            </div>
             
             <create-league v-if="this.$store.state.showCreateForm"/>
             <tee-time-list />
