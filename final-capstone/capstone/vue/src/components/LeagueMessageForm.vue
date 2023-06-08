@@ -5,15 +5,16 @@
              
           <form @submit.prevent>
               <div class="form"> 
-                  <div class="close-button" @click="closeMessage"><i class="fa-solid fa-xmark" style="color: #000000;"></i></div>
-                  <h2>Send Message</h2>
-                  <div class="recepient-input">
+                  <div class="close-button" @click="closeMessage"><i class="fa-solid fa-xmark" style="color: #000000;" ></i></div>
+                  <h2>Send Message to:</h2>
+                  <h3>{{this.toUser.username}}</h3>
+                  <!-- <div class="recepient-input">
                       <label for="username">Enter username: </label>
                       <input type="text" id="username" v-model="toUsername" required autofocus v-on:input="checkUsernames" />
                       <ul v-show="showNames">
                           <li v-for="username in filteredUsernames" v-bind:key="username">{{username}}</li>
-                      </ul>
-                  </div>
+                      </ul> -->
+                  <!-- </div> -->
                   <div class="content-input">
                       <label for="content">Message </label>
                       <textarea name="content" id="content" cols="30" rows="10" required @input="updateContent($event.target.value)"></textarea>
@@ -37,15 +38,20 @@ import messageService from '../services/MessageService'
 
 export default {
     name: 'new-message',
+    props: {
+        messageRecepient: {
+            type: Number,
+            required: true
+        }
+    },
     data() {
         return {
-            toUsername: "",
             allUsernames: [],
             showNames: false,
-            toUser: [],
+            toUser: null,
             message: {
                 senderId: '',
-                receiverId: '',
+                receiverId: this.messageRecepient,
                 content: '',
                 leagueId: null,
                 type: 'Message',
@@ -61,6 +67,15 @@ export default {
     methods: {
         checkUsernames() {
             this.showNames = this.toUsername.length > 0;
+        },
+        getRecepientUsername() {
+            console.log(this.messageRecepient);
+            userService.getUserById(this.messageRecepient).then( (response) => {
+                this.toUser = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
         },
         sendMessage() {
             const user = this.$store.getters.getUser;
@@ -97,6 +112,14 @@ export default {
                 return username.toLowerCase().includes(this.toUsername.toLowerCase())
             });
         }
+    },
+    watch: {
+        messageRecepient: {
+            immediate: true,
+            handler() {
+                this.getRecepientUsername();
+            }
+        }
     }
 
 }
@@ -124,7 +147,8 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   max-width: 400px; /* Adjust the width as needed */
   width: 100%; 
-  display: flex;
+  /* display: flex;
+  flex-direction: column; */
   justify-content: center;
   align-items: center;
 }
@@ -134,28 +158,10 @@ export default {
     justify-content: center;
 }
 
+form {
+    text-align: center;
+} 
 
-
-.recepient-input{
-display: flex;
-justify-content: center;
-padding: 5px;
-}
-.recepient-input label{
-    display: flex;
-    align-items: center;
-}
-.recepient-input input{
-    display: flex;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-background-color: #dddddd;
-  color: #333;
-  transition: box-shadow 0.3s ease;
-}
 .content-input{
     display: flex;
     flex-direction: column;
@@ -163,27 +169,26 @@ background-color: #dddddd;
     
 }
 
-
-
 .content-input label {
     display: flex;
     justify-content: center;
     padding: 10px;
     font-weight: bold;
 }
+
 .content-input textarea{
-       border-radius: 5px;
-background-color: #dddddd;
+  border-radius: 5px;
+  background-color: #dddddd;
   color: rgb(36, 36, 36);
   transition: box-shadow 0.3s ease;
   border: none;
 }
 
 .submit-button {
- display: flex;
+ /* display: flex; */
  justify-content: center;
  align-items: center;
- flex-direction: column;
+ /* flex-direction: column; */
   padding: 10px 40px;
   background-color: #ffde59;
   color: white;
@@ -192,7 +197,7 @@ background-color: #dddddd;
   cursor: pointer;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 105px;
+  /* margin-left: 105px; */
 }
 .submit-button span {
   font-size: 20px; /* Adjust the font size for the login text */
@@ -216,7 +221,6 @@ background-color: #dddddd;
     font-size: 25px;
     font-weight: bold;
     cursor: pointer;
-    
-
 }
+
 </style>

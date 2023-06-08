@@ -3,7 +3,8 @@
     <div class="popout-card">
       <h3>{{ selectedTeeTime.matchName }}</h3>
       <p>{{ selectedTeeTime.time }}</p>
-      <p>{{ selectedTeeTime.courseId }}</p>
+        <h2>{{ courseName }}</h2>
+        <h2>Scores</h2>
       <div v-for="player in players" :key="player.id">
         <p>{{ player.username }}: {{ player.score }}</p>
       </div>
@@ -11,6 +12,9 @@
         <div v-for="player in players" :key="player.id">
           <input type="number" v-model="player.score" :placeholder="player.username" />
         </div>
+        <li v-for="score in scores" :key="score.id">{{ score }}
+      <p>{{ score.playerName }}: {{ score.score }}</p>
+    </li>
         <button @click="submitScores">Submit</button>
       </div>
       <div v-else>
@@ -34,7 +38,12 @@ export default {
     isEditable: {
       type: Boolean,
       default: true
-    }
+    },  
+       courseName: {
+    type: String,
+    required: true
+  },
+      
   },
   methods: {
     submitScores() {

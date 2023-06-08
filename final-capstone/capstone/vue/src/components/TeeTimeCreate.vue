@@ -2,9 +2,9 @@
   <div class="background">
     <div class="container">
       <div class="main">
-        <!-- <div>
-          <select-course :course-id="selectedCourseId" @course-selected="handleCourseSelected" />
-        </div> -->
+         <h2>Selected Course</h2>
+      <p>{{ selectedCourse.data.name }} - {{ selectedCourse.data.city }}, {{ selectedCourse.data.state }}</p>
+      </div>
         <div class="form-group">
             <div class="match">
               <label for="matchName">Match Name:</label>
@@ -31,7 +31,6 @@
           </div>
           </div>
       </div>
-  </div>
 </template>
 
 <script>
@@ -41,8 +40,8 @@ import teeTimeService from '../services/TeeTimeService'
 import matchPlayerService from '../services/MatchPlayerService'
 
 export default {
-  components: { 
-    // SelectCourse 
+  components: {
+    // SelectCourse
   },
   props: {
     leagueId: {
@@ -69,7 +68,6 @@ export default {
     };
   },
   computed: {
-    
   },
   methods: {
     getLeagueMembers() {
@@ -92,7 +90,6 @@ export default {
       const matchPlayer = {
         matchId: this.teeTimeId,
         playerId: memberId
-        
       };
       console.log(matchPlayer)
       matchPlayerService
@@ -119,7 +116,6 @@ export default {
       console.log('Organizer Id: ', this.organizerId);
       console.log('courseId: ', this.selectedCourse.id);
       console.log('leagueId', this.leagueId);
-
       const teeTime = {
         matchName: this.matchName,
         courseId: this.selectedCourse.id,
@@ -127,7 +123,6 @@ export default {
         organizerId: this.organizerId,
         leagueId: this.leagueId
       };
-
       teeTimeService
         .createTeeTime(teeTime)
         .then(response => {
@@ -164,12 +159,11 @@ export default {
 <style scoped>
 
 .background {
-  position: absolute;
+   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value (0.5) to control the transparency */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -182,22 +176,14 @@ export default {
   height: 200px;
 }
 .container {
-  position: absolute;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  max-width: 400px; /* Adjust the width as needed */
-  /* width: 100%;  */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.main {
+   max-width: 400px; /* Adjust the width as needed */
+  width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #059262;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -263,7 +249,7 @@ export default {
 .submit{
 
   padding: 10px 40px;
-  background-color: #ffde59;
+  background-color: #FFDE59;
   color: white;
   font-weight: bolder;
   border: none;
@@ -281,7 +267,6 @@ button:hover{
 }
 
 .heading{
-  
   display: flex;
   justify-content: center;
   font-size: 24px;

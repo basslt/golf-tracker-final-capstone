@@ -1,61 +1,67 @@
 <template>
   <div class="teetimes-container">
     <!-- Upcoming Tee Times -->
-    <h2>Upcoming Tee Times:</h2>
-    <div v-for="teeTime in upcomingTeeTimes" :key="teeTime.teeTimeId">
-      <div class="tee-time-card" @click="formatTeeTime(teeTime)">
-        <div class="tee-time-info">
-          <p>{{ teeTime.matchName }}</p>
-          <p>{{ formatDateTime(teeTime.time) }}</p>
-          <p>{{ teeTimeCourseNames[teeTime.courseId] }}</p> <!-- Updated line -->
-        </div>
-        <div class="tee-time-buttons">
-          <button v-if="!isEditable" @click="openPlayerList(teeTime)">View Scores</button>
-          <button v-else-if="selectedTeeTime === teeTime" @click="closePlayerList">Cancel</button>
-          <button v-else @click="openPlayerList(teeTime)">Enter Scores</button>
-        </div>
-      </div>
-      <TeeTimePopout
-        v-if="selectedTeeTime === teeTime && isEditable"
-        :selectedTeeTime="teeTime"
-        :players="selectedTeeTimePlayers"
-        @close="closePlayerList"
-        @submit-scores="submitScores"
-        @scores-submitted="moveToRecentTeeTimes"
-      />
-      <TeeTimePopout
-        v-else-if="selectedTeeTime === teeTime && !isEditable"
-        :selectedTeeTime="teeTime"
-        :players="teeTime.players"
-        :isEditable="false"
-        @close="closePlayerList"
-      />
+  <h2>Upcoming Tee Times:</h2>
+<div v-for="teeTime in upcomingTeeTimes" :key="teeTime.teeTimeId">
+  <div class="tee-time-card" @click="formatTeeTime(teeTime)">
+    <div class="tee-time-info">
+      <p>{{ teeTime.matchName }}</p>
+      <p>{{ formatDateTime(teeTime.time) }}</p>
+      <p>{{ teeTimeCourseNames[teeTime.teeTimeId] }}</p>
     </div>
+    <div class="tee-time-buttons">
+      <button v-if="!isEditable" @click="openPlayerList(teeTime)">View Scores</button>
+      <button v-else-if="selectedTeeTime === teeTime" class="cancel-button" @click="closePlayerList">Cancel</button>
+      <button v-else @click="openPlayerList(teeTime)">Enter Scores</button>
+    </div>
+  </div>
+  <TeeTimePopout
+    v-if="selectedTeeTime === teeTime && isEditable"
+    :selectedTeeTime="teeTime"
+    :players="selectedTeeTimePlayers"
+    :courseName="teeTimeCourseNames[teeTime.teeTimeId]"
+    @close="closePlayerList"
+    @submit-scores="submitScores"
+    @scores-submitted="moveToRecentTeeTimes"
+  >
+    <button class="cancel-button" @click="closePlayerList">Cancel</button>
+  </TeeTimePopout>
+  <TeeTimePopout
+    v-else-if="selectedTeeTime === teeTime && !isEditable"
+    :selectedTeeTime="teeTime"
+    :players="teeTime.players"
+    :courseName="teeTimeCourseNames[teeTime.teeTimeId]"
+    :isEditable="false"
+    @close="closePlayerList"
+  />
+</div>
 
-    <!-- Recent Tee Times -->
-    <h2>Recent Tee Times:</h2>
-    <div v-for="teeTime in recentTeeTimes" :key="teeTime.teeTimeId">
-      <div class="tee-time-card" @click="formatTeeTime(teeTime)">
-        <div class="tee-time-info">
-          <p>{{ teeTime.matchName }}</p>
-          <p>{{ formatDateTime(teeTime.time) }}</p>
-          <p>{{ teeTimeCourseNames[teeTime.courseId] }}</p> <!-- Updated line -->
-        </div>
-        <button @click="openPlayerList(teeTime)">View Scores</button>
-        <div v-if="selectedTeeTime === teeTime && !isEditable">
-          <div v-for="player in teeTime.players" :key="player.id">
-            <p>{{ player.username }}: {{ getPlayerScore(teeTime.teeTimeId, player.id) }}</p>
-          </div>
-        </div>
-      </div>
-      <TeeTimePopout
-        v-if="selectedTeeTime === teeTime && !isEditable"
-        :selectedTeeTime="teeTime"
-        :players="teeTime.players"
-        :isEditable="false"
-        @close="closePlayerList"
-      />
+<!-- Recent Tee Times -->
+<h2>Recent Tee Times:</h2>
+<div v-for="teeTime in recentTeeTimes" :key="teeTime.teeTimeId">
+  <div class="tee-time-card" @click="formatTeeTime(teeTime)">
+    <div class="tee-time-info">
+      <p>{{ teeTime.matchName }}</p>
+      <p>{{ formatDateTime(teeTime.time) }}</p>
+      <p>{{ teeTimeCourseNames[teeTime.teeTimeId] }}</p>
     </div>
+    <div class="tee-time-buttons">
+      <button class="yellow-button" @click="openPlayerList(teeTime)">View Scores</button>
+    </div>
+  </div>
+  <TeeTimePopout
+    v-if="selectedTeeTime === teeTime && !isEditable"
+   :selectedTeeTime="teeTime"
+    :players="selectedTeeTimePlayers"
+    :courseName="teeTimeCourseNames[teeTime.teeTimeId]"
+    :scores="teeTime.score"
+    :isEditable="false"
+    @close="closePlayerList"
+  >
+    <button class="cancel-button" @click="closePlayerList">Cancel</button>
+  </TeeTimePopout>
+</div>
+
   </div>
 </template>
 
@@ -81,7 +87,8 @@ export default {
       selectedTeeTimePlayers: [],
       selectedTeeTime: null,
       isEditable: true,
-      teeTimeCourseNames: {},
+      teeTimeCourseNames: {}
+      
     };
   },
   methods: {
@@ -110,92 +117,133 @@ export default {
       this.recentTeeTimes = allTeeTimes.filter(
         (teeTime) => teeTime.time <= currentDate
       );
-
-      this.fetchCourseNames();
+      console.log('Upcoming tee times:', this.upcomingTeeTimes);
+        
       this.fetchScoresForRecentTeeTimes(); // Fetch scores for each recent tee time
     })
     .catch((error) => {
       console.log(error);
     });
 },
-fetchCourseNames() {
-  const courseIds = this.upcomingTeeTimes.map((teeTime) => teeTime.courseId);
-  const coursePromises = courseIds.map((courseId) => this.getCourseName(courseId));
-  Promise.all(coursePromises)
-    .then((courseNames) => {
-      this.upcomingTeeTimes.forEach((teeTime, index) => {
-        this.$set(this.teeTimeCourseNames, teeTime.teeTimeId, courseNames[index]);
-      });
+ fetchCourseNames() {
+  return CourseService.getAllCourses()
+    .then((response) => {
+      console.log('Fetched course names:', response.data);
+      const courses = response.data;
+      const courseNames = courses.map((course) => course.name);
+      this.teeTimeCourseNames = courseNames;
     })
     .catch((error) => {
-      console.log(error);
+      console.log('Error fetching course names:', error);
+      this.teeTimeCourseNames = [];
     });
 },
 
-    getCourseName(courseId) {
+  getCourseName(courseId) {
   return CourseService.getCourseName(courseId)
-    .then(response => {
+    .then((response) => {
+      console.log('Course response:', response);
       const course = response.data;
-      const courseName = course && course.name ? course.name : '';
-      this.$set(this.teeTimeCourseNames, courseId, courseName);
+      return course && course.name ? course.name : '';
     })
-    .catch(error => {
-      console.log(error);
+    .catch((error) => {
+      console.log('Error fetching course name:', error);
+      return '';
     });
 },
 
-  fetchScoresForRecentTeeTimes() {
-  this.recentTeeTimes.forEach((teeTime) => {
-    ScoreService.getScoresByMatch(teeTime.teeTimeId)
+ fetchScoresForRecentTeeTimes() {
+  const scorePromises = this.recentTeeTimes.map((teeTime) => {
+    return ScoreService.getScoresByMatch(teeTime.teeTimeId)
       .then((response) => {
         const scores = response.data;
-        if (teeTime.players) {
+        if (Array.isArray(teeTime.players)) {
           teeTime.players.forEach((player) => {
             const score = scores.find((s) => s.playerId === player.id);
             player.score = score ? score.score : null;
           });
+          console.log('Fetched scores for tee time:', teeTime.teeTimeId);
+          console.log('Updated players:', teeTime.players);
+        } else {
+          console.log('Tee time players array is undefined or not an array');
         }
       })
       .catch((error) => {
         console.log('Error fetching scores:', error);
       });
   });
-},
 
-
-
-fetchScoresForSelectedTeeTime() {
-  ScoreService.getScoresByMatch(this.selectedTeeTime.teeTimeId)
-    .then(response => {
-      const scores = response.data;
-      this.selectedTeeTime.players.forEach(player => {
-        const score = scores.find(s => s.playerId === player.id);
-        player.score = score ? score.score : null;
-      });
+  Promise.all(scorePromises)
+    .then(() => {
+      console.log('All scores fetched successfully');
     })
-    .catch(error => {
+    .catch((error) => {
       console.log('Error fetching scores:', error);
     });
 },
+// submitTeeTime() {
+//   if (Array.isArray(this.selectedTeeTimePlayers)) {
+//     console.log('Selected tee time players:', this.selectedTeeTimePlayers);
+//     // Perform further actions with the selected tee time players
+//   } else {
+//     console.log('Selected tee time players array is undefined or not an array');
+//   }
+// },
 
-      hasScores(teeTime) {
-    return teeTime.players.some(player => player.score !== null);
-  },
+// fetchScoresForSelectedTeeTime() {
+//   if (!this.selectedTeeTime || !this.selectedTeeTime.teeTimeId) {
+//     console.log('Selected tee time is undefined or does not have a valid teeTimeId');
+//     return;
+//   }
+
+//   if (!Array.isArray(this.selectedTeeTime.players)) {
+//     console.log('Selected tee time players array is undefined or not an array');
+//     return;
+//   }
+
+//   ScoreService.getScoresByMatch(this.selectedTeeTime.teeTimeId)
+//     .then(response => {
+//       const scores = response.data;
+//       console.log('Response data:', response.data);
+
+//       this.selectedTeeTime.players.forEach(player => {
+//         console.log('Iterating through players...');
+
+//         const score = scores.find(s => s.playerId === player.id);
+//         player.score = score ? score.score : null;
+//         console.log('Selected tee time players:', this.selectedTeeTime.players);
+//       });
+//     })
+//     .catch(error => {
+//       console.log('Error fetching scores:', error);
+//     });
+
+// console.log('selectedTeeTime:', this.selectedTeeTime);
+// console.log('selectedTeeTimePlayers:', this.selectedTeeTimePlayers);
+// console.log('teeTime:', this.teeTime);
+// this.selectedTeeTime = 3;
+// this.selectedTeeTimePlayers = 3;
+// this.teeTime = 3;
+
+// },
+
+  //     hasScores(teeTime) {
+  //   return teeTime.players.some(player => player.score !== null);
+  // },
     openPlayerList(teeTime) {
   this.selectedTeeTime = teeTime;
   this.isEditable = this.upcomingTeeTimes.includes(teeTime);
-  if (!this.isEditable) {
-    this.fetchScoresForRecentTeeTimes();
-  }
+  this.fetchScoresForRecentTeeTimes();
   this.getPlayers(teeTime);
-  this.fetchScoresForSelectedTeeTime(); // Fetch scores for the selected tee time
-},
+  // this.fetchScoresForSelectedTeeTime(); 
+    },
 
     closePlayerList() {
   this.selectedTeeTime = null;
   this.selectedTeeTimePlayers = [];
   this.isEditable = true;
   this.resetScoresForSelectedTeeTime(); // Reset scores for the selected tee time
+  console.log('closePlayerList called');
 },
 
 resetScoresForSelectedTeeTime() {
@@ -213,11 +261,13 @@ resetScoresForSelectedTeeTime() {
           const getPlayerPromises = playerIds.map(playerId => this.getPlayerUsername(playerId));
           Promise.all(getPlayerPromises)
             .then(players => {
-              this.selectedTeeTimePlayers = players.map(player => ({
-                ...player,
-                score: null
-              }));
-            })
+  console.log('Retrieved players:', players);
+  this.selectedTeeTimePlayers = players.map(player => ({
+    ...player,
+    score: null
+  }));
+})
+
             .catch(error => {
               console.log(error);
               this.selectedTeeTimePlayers = [];
@@ -295,11 +345,11 @@ submitScores(scoresData) {
     }
   });
 },
-getPlayerScore(teeTimeId, playerId) {
-  const teeTime = this.recentTeeTimes.find((teeTime) => teeTime.teeTimeId === teeTimeId);
-  const player = teeTime.players.find((player) => player.id === playerId);
-  return player ? player.score : '';
-},
+// getPlayerScore(teeTimeId, playerId) {
+//   const teeTime = this.recentTeeTimes.find((teeTime) => teeTime.teeTimeId === teeTimeId);
+//   const player = teeTime.players.find((player) => player.id === playerId);
+//   return player ? player.score : '';
+// },
 
 
     removeTeeTime() {
@@ -320,7 +370,9 @@ getPlayerScore(teeTimeId, playerId) {
  
   created() {
     this.getAllTeeTimes();
+    this.fetchCourseNames();
   },
+  
 };
 </script>
 
@@ -333,25 +385,96 @@ getPlayerScore(teeTimeId, playerId) {
 }
 
 .tee-time-card {
-  cursor: pointer;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: green;
   color: white;
-  font-weight: bold;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .tee-time-info {
-  margin-bottom: 10px;
+  flex-grow: 1;
 }
 
-.tee-time-info p {
-  margin: 0;
+.tee-time-buttons {
+  display: flex;
 }
 
 .tee-time-buttons button {
   background-color: yellow;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  color: black;
 }
+
+.cancel-button {
+  background-color: transparent;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: red;
+}
+.teetime-popout {
+  position: relative;
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.cancel-button {
+  position: absolute;
+  bottom: -30px;
+  background-color: yellow;
+  color: black;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+}
+
+.yellow-button {
+  background-color: yellow;
+  color: black;
+}
+
+.teetime-popout {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.teetime-popout .cancel-button {
+  background-color: yellow;
+  color: black;
+}
+.teetime-popout {
+  position: relative;
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.cancel-button {
+  background-color: yellow;
+  color: black;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  margin-top: 10px;
+  width: 100%;
+  font-size: 14px;
+}
+
+.yellow-button {
+  background-color: yellow
+}
+
 </style>
 
