@@ -6,11 +6,11 @@
           <select-course :course-id="selectedCourseId" @course-selected="handleCourseSelected" />
         </div> -->
         <div class="form-group">
-            <div>
+            <div class="match">
               <label for="matchName">Match Name:</label>
               <input type="text" id="matchName" v-model="matchName" />
             </div>
-            <div>
+            <div class="time">
               <label for="teeTime">Tee Time:</label>
               <input type="datetime-local" id="teeTime" v-model="time" />
             </div>
@@ -171,8 +171,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
-
+.container{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: 200px;
+}
 .container {
   position: absolute;
   background-color: white;
@@ -204,74 +210,62 @@ export default {
   padding: 10px;
 }
 
-.add-league {
+
+
+
+
+
+/* .container{
+  background: whitesmoke;
+  width: 600px;
   display: flex;
   flex-direction: column;
-  background-color: whitesmoke;
-  align-items: center;
+  padding: 5px;
   justify-content: center;
-   /* box-shadow: 0 0 10px #004d33; */
-  padding: 20px;
-  margin-bottom: 20px; 
-   border-radius: 10px;
+  align-items: center;
+  white-space: nowrap;
+ 
 }
+.form-group{
+ display: flex;
+ flex-direction: column;
+ white-space: nowrap;
+ 
+}
+
+.match{
+  display: flex;
+  white-space: nowrap;
+  
+}
+
+.time{
+  display: flex;
+  white-space: nowrap;
+}
+
+
 
 .description{
   position: flex;
   padding: 10px;
 }
 
-.input-text{
-  margin-top: 7px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-
-}
-
-form {
- background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 5px;
-}
-
- input[type="text"]
-   {
- padding: 10px;
-  border-width: 2px;
-  border-radius: 10px;
-  border-color: black;
-  background-color: #fffbfb;
-  font-size: 16px;
-  color: rgb(0, 0, 0);
-  transition: box-shadow 0.3s ease;
-
- }
-
-label {
-  margin-right: 0.5rem;
-  color:#000000;
-  font-weight: bold;
-  padding-bottom: 10px;
-}
-
  input {
   /* width: 100%; */
-  height: 2rem;
+  /* height: 2rem;
   padding: 0.25rem;
-  font-size: 1rem;
-}
+  font-size: 1rem; }*/
 
-button{
-display: inline-block;
+
+.submit{
+
   padding: 10px 40px;
   background-color: #ffde59;
   color: white;
   font-weight: bolder;
   border: none;
-  border-radius: 15px; /* Adjust the value to control the roundness */
+  border-radius: 15px; 
   cursor: pointer;
   margin-top: 20px;
   margin-left: 20px;
@@ -293,6 +287,6 @@ button:hover{
   color: #000000;
   align-items: center;
   
-}
+} 
 
 </style>

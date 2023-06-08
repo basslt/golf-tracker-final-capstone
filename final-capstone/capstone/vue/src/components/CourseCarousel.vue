@@ -4,7 +4,9 @@
     
     <div class="course-carousel">
         <div class="inner" >
+            <h2 class="header">Top Courses</h2>
                 <div class="course" v-for="course in courses" :key="course.id">
+                        
                         <course-card  :course="course" />
                 </div>
         </div>
@@ -173,7 +175,7 @@ export default {
 <style scoped>
 
 .container{
-    background-color: rgba(185, 184, 184);
+    background-color: #059262;
     width: 700px;
     display: flex;
     align-items: center;
@@ -183,7 +185,12 @@ export default {
     flex-direction: row;
     
 }
-
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
 .course-carousel {
 
 }

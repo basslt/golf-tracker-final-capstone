@@ -41,8 +41,103 @@ export default {
 
 }
 </script>
+<style scoped>
 
-<style>
+
+.container {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  background: #059262;
+  border-radius:  5px;
+  height: 300px;
+  width: 300px;
+}
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-form h2 {
+  color: white;
+  margin: 5px;
+}
+.name-input, .state-input, .city-input {
+margin: 5px;
+}
+
+.name-input label, .state-input label, .city-input label {
+ color: white;
+  margin: 10px;
+  
+}
+.name-input  [type="text"], .state-input [type="text"], .city-input [type="text"]{
+/* display: flex; */
+background: white;
+border-radius: 5px;
+width: 200px;
+margin-left: 10px;
+height: 20px;
+
+/* justify-content: center;
+align-items: center; */
+display: flex;
+border: none;
+
+}
+
+/* Optional: Adjust the spacing as needed */
+.filter-form button  {
+ color: white;
+ font-weight: bold;
+font-size: 15px;
+}
+
+.filter-form button {
+  margin-top: 20px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 30px;
+  background-color: #ffde59;
+  border: none;
+  border-radius: 10px;
+
+
+}
+
+.filter-form button:hover{
+  background-color: #fce279;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .modal {
   position: fixed;
   top: 0;

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="background">
-          <img class="background" src="../assets/Empty_Leaderboard.jpg" alt="">
-    </div>
+          <img class="background" src="../assets/leaderboard.png" alt="">
+   
     <div class="table-container">
       <table class="leaderboard">
           <thead>
@@ -23,6 +23,7 @@
               </tr>
           </tbody>
       </table>
+  </div> 
   </div>
   </div>
 </template>
@@ -111,6 +112,9 @@ export default {
 
 <style scoped>
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
     position: relative;
     width: 500px;
     height: 500px;
@@ -119,8 +123,8 @@ export default {
 .background {
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 1000px;
+    height: 600px;
     background-size: cover;
     background-position: center;
 }
