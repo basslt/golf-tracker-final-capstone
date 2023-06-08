@@ -23,6 +23,7 @@ export default new Vuex.Store({
     showCreateForm: false,
     activeLeague: '',
     showInbox: 'Inbox',
+    messageRead: false
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -61,6 +62,9 @@ export default new Vuex.Store({
     },
     SET_SHOW_INBOX_STATUS(state, value) {
       state.showInbox = value;
+    },
+    SET_MESSAGE_READ(state, value) {
+      state.messageRead = value;
     }
   },
   actions: {

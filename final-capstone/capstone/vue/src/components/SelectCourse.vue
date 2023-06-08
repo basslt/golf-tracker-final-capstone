@@ -1,120 +1,45 @@
 <template>
-<div>
-  <div class="container"  >
-    <form class="filter-form" v-if="showForm && !selectedCourse" @submit.prevent="submitFilters"  >
-      <h2>Select Your Course</h2>
-      <div class="name-input">
-      <label class="name-label" for="nameInput">Name:</label>
-      <input type="text" id="nameInput" v-model="name">
+  <div>
+    <div class="modal">
+        <div class="modal-content">
+          <button class="close-btn">×</button>
+          <ul class="course-list">
+            <li v-for="course in filteredCourses" :key="course.courseId" class="course-item">
+              {{ course.name }} - {{ course.city }}, {{ course.state }}
+              <button @click="selectCourse(course)" class="selectCourseButton">Select</button>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="state-input">
-      <label class="state-label" for="stateInput">State Abbr:</label>
-      <input type="text" id="stateInput" v-model="state">
-      </div>
-      <div class="city-input">
-      <label class="city-label" for="cityInput">City:</label>
-      <input type="text" id="cityInput" v-model="city">
-      </div>
-      <button type="submit"> <span>Filter</span> </button>
-    </form>
-</div>
-    <div v-if="selectedCourse">
-      <h2>Selected Course</h2>
-      <p>{{ selectedCourse.data.name }} - {{ selectedCourse.data.city }}, {{ selectedCourse.data.state }}</p>
-     
-    </div>
-    <div v-if="showCourseListModal" class="modal">
-      <div class="modal-content">
-        <button class="close-btn" @click="closeCourseListModal">×</button>
-        <ul class="course-list">
-          <li v-for="course in filteredCourses" :key="course.courseId" class="course-item">
-            {{ course.name }} - {{ course.city }}, {{ course.state }}
-             <button @click="selectCourse(course)" class="selectCourseButton">Select</button>
-          </li>
-        </ul>
-      </div>
-    </div>
-     </div>
- 
+  </div>
 </template>
 
 <script>
-import courseService from '../services/CourseService';
+
 export default {
-  
-  
-  data() {
-    return {
-      name: '',
-      state: '',
-      city: '',
-      courses: [],
-      selectedCourse: null,
-      showForm: true,
-    leagues: [],
-    leagueMembersNames: [],
-    showCourseListModal: false
-    };
-  },
-  computed: {
-    filteredCourses() {
-      if (this.selectedCourse) {
-        return [this.selectedCourse.data]; 
-      } else {
-        return this.courses;
-      }
+  props: {
+    filteredCourses: {
+      type: Array,
+      required: true
     },
-    
-    
   },
   methods: {
-    
+      selectCourse(course) {
+          const selectedCourse = {
+            id: course.courseId,
+            data: course
+          };
+          console.log(course.courseId);
+          this.selectedCourseIdLocal = selectedCourse.id;
+          this.$emit('course-selected', selectedCourse);
+          // this.showForm = false; 
+          // this.$emit('close');
+          // this.showCourseListModal = false;
+          // this.$emit('toggle-form'); 
+          },
+  }
 
-    closeCourseListModal() {
-      this.showCourseListModal = false;
-    },
-
-    submitFilters() {
-      const params = {
-        name: this.name,
-        state: this.state,
-        city: this.city
-      };
-
-      courseService.getCoursesByFilter(params)
-        .then(courses => {
-          this.courses = courses;
-          this.selectedCourse = null;
-          console.log(courses);
-          this.showCourseListModal = true;
-          
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-       
-    },
-    
-
-    selectCourse(course) {
-      this.selectedCourse = {
-        id: course.courseId,
-        data: course
-        
-      };
-    
-      console.log(course.courseId);
-      this.selectedCourseIdLocal = course.courseId;
-      this.$emit('course-selected', course.courseId);
-      this.showForm = false; 
-      this.showCourseListModal = false;
-     
-    },
-  
-  },
-   
 }
-;
 </script>
 <style scoped>
 
@@ -192,6 +117,10 @@ font-size: 15px;
   background-color: #fce279;
   cursor: pointer;
 }
+
+
+
+
 
 
 
