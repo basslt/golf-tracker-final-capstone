@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
         <header>
             <hamburger-menu />
         </header>
@@ -7,6 +7,7 @@
       <body>
 
         <main class="content">
+            <div class="leaderboard">
             <league-leaderboard v-bind:league-id="leagueId"/>
             
             <create-league v-if="this.$store.state.showCreateForm"/>
@@ -15,10 +16,12 @@
             <tee-time-card/>
 
             <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
-            <tee-time-create v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false"/>
+            <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false"/>
             
             <button class="league-invite-form" @click="showLeagueInviteForm=true">Invite Members</button>
             <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
+
+            <league-member-list v-bind:league-id="leagueId"/>
 
         </main>
       </body>
@@ -32,9 +35,10 @@ import LeagueLeaderboard from "../components/LeagueLeaderboard.vue"
 import HamburgerMenu from '../components/HamburgerMenu.vue'
 import LeagueInviteForm from '../components/LeagueInviteForm.vue'
 import CreateLeague from '../components/CreateLeague.vue'
-import TeeTimeCreate from '../components/TeeTimeCreate.vue'
+import TeeTimeForm from '../components/TeeTimeForm.vue'
 import TeeTimeList from '../components/TeeTimeList.vue'
 import TeeTimeCard from '../components/TeeTimeCard.vue'
+import LeagueMemberList from '../components/LeagueMemberList.vue'
 
 
 export default {
@@ -43,10 +47,10 @@ export default {
         HamburgerMenu,
         LeagueInviteForm,
         CreateLeague,
-        TeeTimeCreate,
+        TeeTimeForm,
         TeeTimeList,
         TeeTimeCard,
-        
+        LeagueMemberList
     },
     data() {
         return {
@@ -64,7 +68,23 @@ export default {
 </script>
 
 <style scoped>
-body {
+
+
+.leaderboard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 100px;
+
+}
+
+
+.new-tee-time-button{
+    
+}
+
+
+/* body {
     display: grid;
     height: 100vh;
     width: 100vw;
@@ -103,7 +123,7 @@ main {
 
 #leaderboard {
     
-}
+} */
 
 
 </style>

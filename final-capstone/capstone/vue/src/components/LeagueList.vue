@@ -64,8 +64,8 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     background-color: rgb(180, 180, 180);
-    flex-basis: 100%;
-    flex-grow: 1;
+    /* flex-basis: 100%;
+    flex-grow: 1; */
     align-items: flex-start;
     padding-left: 5%;
     padding-top: 5%;

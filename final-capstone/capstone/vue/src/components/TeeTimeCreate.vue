@@ -1,15 +1,16 @@
 <template>
   <div class="background">
     <div class="container">
-        <div>
+      <div class="main">
+        <!-- <div>
           <select-course :course-id="selectedCourseId" @course-selected="handleCourseSelected" />
-        </div>
+        </div> -->
         <div class="form-group">
-            <div>
+            <div class="match">
               <label for="matchName">Match Name:</label>
               <input type="text" id="matchName" v-model="matchName" />
             </div>
-            <div>
+            <div class="time">
               <label for="teeTime">Tee Time:</label>
               <input type="datetime-local" id="teeTime" v-model="time" />
             </div>
@@ -28,21 +29,30 @@
             <button v-if="submitButtonVisible" @click="submitForm">Submit</button>
             <button type="button" v-on:click="closeForm">Close</button>
           </div>
+          </div>
       </div>
   </div>
 </template>
+
 <script>
 import userService from '../services/UserService';
-import SelectCourse from './SelectCourse.vue';
+// import SelectCourse from './SelectCourse.vue';
 import teeTimeService from '../services/TeeTimeService'
 import matchPlayerService from '../services/MatchPlayerService'
+
 export default {
-  components: { SelectCourse },
+  components: { 
+    // SelectCourse 
+  },
   props: {
     leagueId: {
       type: Number,
       required: true
     },
+    selectedCourse: {
+      type: Object,
+      default: null
+    }
   },
   data() {
     return {
@@ -51,7 +61,7 @@ export default {
       organizerId: this.$store.state.user.id,
       leagueMembers: [],
       selectedMembers: [],
-      selectedCourseId: null,
+      // selectedCourseId: null,
       showPlayerForm: false,
       teeTimeId: null,
       submitButtonVisible:true,
@@ -74,9 +84,9 @@ export default {
           console.log(error);
         });
     },
-    handleCourseSelected(courseId) {
-      this.selectedCourseId = courseId;
-    },
+    // handleCourseSelected(courseId) {
+    //   this.selectedCourseId = courseId;
+    // },
     addPlayers(memberId) {
       console.log('Member ID:', memberId);
       const matchPlayer = {
@@ -107,12 +117,12 @@ export default {
       console.log('Match Name:', this.matchName);
       console.log('Tee Time:', this.time);
       console.log('Organizer Id: ', this.organizerId);
-      console.log('courseId: ', this.selectedCourseId);
+      console.log('courseId: ', this.selectedCourse.id);
       console.log('leagueId', this.leagueId);
 
       const teeTime = {
         matchName: this.matchName,
-        courseId: this.selectedCourseId,
+        courseId: this.selectedCourse.id,
         time: this.time,
         organizerId: this.organizerId,
         leagueId: this.leagueId
@@ -133,7 +143,10 @@ export default {
     },
     closeForm() {
       this.$emit('close');
-    }
+    },
+    // created() {
+    //   this.getLeagueMembers();
+    // }
   },
   watch: {
     leagueId: {
@@ -158,83 +171,101 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: 200px;
+}
+.container {
+  position: absolute;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px; /* Adjust the width as needed */
+  /* width: 100%;  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  background-color: #059262;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 20px; 
+  border-radius: 10px;
 }
 
 .form-group{
   display: flex;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   margin-top: 30px;
   padding: 10px;
 }
 
-.add-league {
+
+
+
+
+
+/* .container{
+  background: whitesmoke;
+  width: 600px;
   display: flex;
   flex-direction: column;
-  background-color: whitesmoke;
-  align-items: center;
+  padding: 5px;
   justify-content: center;
-   /* box-shadow: 0 0 10px #004d33; */
-  padding: 20px;
-  margin-bottom: 20px; 
-   border-radius: 10px;
+  align-items: center;
+  white-space: nowrap;
+ 
 }
+.form-group{
+ display: flex;
+ flex-direction: column;
+ white-space: nowrap;
+ 
+}
+
+.match{
+  display: flex;
+  white-space: nowrap;
+  
+}
+
+.time{
+  display: flex;
+  white-space: nowrap;
+}
+
+
 
 .description{
   position: flex;
   padding: 10px;
 }
 
-.input-text{
-  margin-top: 7px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-
-}
-
-form {
- background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 5px;
-}
-
- input[type="text"]
-   {
- padding: 10px;
-  border-width: 2px;
-  border-radius: 10px;
-  border-color: black;
-  background-color: #fffbfb;
-  font-size: 16px;
-  color: rgb(0, 0, 0);
-  transition: box-shadow 0.3s ease;
-
- }
-
-label {
-  margin-right: 0.5rem;
-  color:#000000;
-  font-weight: bold;
-  padding-bottom: 10px;
-}
-
  input {
-  width: 100%;
-  height: 2rem;
+  /* width: 100%; */
+  /* height: 2rem;
   padding: 0.25rem;
-  font-size: 1rem;
-}
+  font-size: 1rem; }*/
 
-button{
-display: inline-block;
+
+.submit{
+
   padding: 10px 40px;
   background-color: #ffde59;
   color: white;
   font-weight: bolder;
   border: none;
-  border-radius: 15px; /* Adjust the value to control the roundness */
+  border-radius: 15px; 
   cursor: pointer;
   margin-top: 20px;
   margin-left: 20px;
@@ -256,6 +287,6 @@ button:hover{
   color: #000000;
   align-items: center;
   
-}
+} 
 
 </style>
