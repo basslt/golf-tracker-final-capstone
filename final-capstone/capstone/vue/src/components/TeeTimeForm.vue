@@ -13,7 +13,6 @@
 import FilterCourse from './FilterCourse.vue'
 import TeeTimeCreate from './TeeTimeCreate.vue'
 
-
 export default {
     components: {
         FilterCourse,
@@ -33,12 +32,11 @@ export default {
         }
     },
     methods: {
-        toggleForms(selectedCourse) {           
+        toggleForms(selectedCourse) {
             console.log("hey");
             this.selectedCourse = selectedCourse;
             this.showFilterCourse = false;
             this.showTeeTimeCreate = true;
-        
         },
         // handleCourseSelected(selectedCourse) {
         //     console.log("hey");
@@ -47,7 +45,6 @@ export default {
         //     this.showTeeTimeCreate = true;
         // }
     }
-
 }
 </script>
 
@@ -66,13 +63,12 @@ export default {
 }
 
 .container {
-  position: absolute;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   max-width: 400px; /* Adjust the width as needed */
-  width: 100%; 
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,7 +81,7 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
   border-radius: 10px;
 }
 
@@ -95,11 +91,10 @@ export default {
   border-width: 2px;
   border-radius: 10px;
   border-color: black;
-  background-color: #fffbfb;
+  background-color: #FFFBFB;
   font-size: 16px;
   color: rgb(0, 0, 0);
   transition: box-shadow 0.3s ease;
-
  }
 
 </style>

@@ -91,7 +91,6 @@ export default {
 }
 
 
-
 .message-list{
     width: 100%;
     margin: 10px;
@@ -99,6 +98,8 @@ export default {
     justify-content: flex-start;
     border-radius: 10px;
     background: white;
+    overflow: auto;
+    height: 500px;
 }
 .buttons{
     display: flex;

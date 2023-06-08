@@ -2,15 +2,15 @@
   <div class="background">
     <div class="container">
       <div class="main">
-        <!-- <div>
-          <select-course :course-id="selectedCourseId" @course-selected="handleCourseSelected" />
-        </div> -->
+         <h2>Selected Course</h2>
+      <p>{{ selectedCourse.data.name }} - {{ selectedCourse.data.city }}, {{ selectedCourse.data.state }}</p>
+      </div>
         <div class="form-group">
-            <div>
+            <div class="match">
               <label for="matchName">Match Name:</label>
               <input type="text" id="matchName" v-model="matchName" />
             </div>
-            <div>
+            <div class="time">
               <label for="teeTime">Tee Time:</label>
               <input type="datetime-local" id="teeTime" v-model="time" />
             </div>
@@ -31,7 +31,6 @@
           </div>
           </div>
       </div>
-  </div>
 </template>
 
 <script>
@@ -41,8 +40,8 @@ import teeTimeService from '../services/TeeTimeService'
 import matchPlayerService from '../services/MatchPlayerService'
 
 export default {
-  components: { 
-    // SelectCourse 
+  components: {
+    // SelectCourse
   },
   props: {
     leagueId: {
@@ -69,7 +68,6 @@ export default {
     };
   },
   computed: {
-    
   },
   methods: {
     getLeagueMembers() {
@@ -92,7 +90,6 @@ export default {
       const matchPlayer = {
         matchId: this.teeTimeId,
         playerId: memberId
-        
       };
       console.log(matchPlayer)
       matchPlayerService
@@ -119,7 +116,6 @@ export default {
       console.log('Organizer Id: ', this.organizerId);
       console.log('courseId: ', this.selectedCourse.id);
       console.log('leagueId', this.leagueId);
-
       const teeTime = {
         matchName: this.matchName,
         courseId: this.selectedCourse.id,
@@ -127,7 +123,6 @@ export default {
         organizerId: this.organizerId,
         leagueId: this.leagueId
       };
-
       teeTimeService
         .createTeeTime(teeTime)
         .then(response => {
@@ -162,116 +157,36 @@ export default {
 <style scoped>
 
 .background {
-  position: absolute;
+   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value (0.5) to control the transparency */
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
 
 .container {
-  position: absolute;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  max-width: 400px; /* Adjust the width as needed */
-  /* width: 100%;  */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.main {
+   max-width: 400px; /* Adjust the width as needed */
+  width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #059262;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
-  margin-bottom: 20px; 
-  border-radius: 10px;
 }
 
-.form-group{
-  display: flex;
-  /* white-space: nowrap; */
-  margin-top: 30px;
-  padding: 10px;
-}
-
-.add-league {
-  display: flex;
-  flex-direction: column;
-  background-color: whitesmoke;
-  align-items: center;
-  justify-content: center;
-   /* box-shadow: 0 0 10px #004d33; */
-  padding: 20px;
-  margin-bottom: 20px; 
-   border-radius: 10px;
-}
-
-.description{
-  position: flex;
-  padding: 10px;
-}
-
-.input-text{
-  margin-top: 7px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-
-}
-
-form {
- background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 5px;
-}
-
- input[type="text"]
-   {
- padding: 10px;
-  border-width: 2px;
-  border-radius: 10px;
-  border-color: black;
-  background-color: #fffbfb;
-  font-size: 16px;
-  color: rgb(0, 0, 0);
-  transition: box-shadow 0.3s ease;
-
- }
-
-label {
-  margin-right: 0.5rem;
-  color:#000000;
-  font-weight: bold;
-  padding-bottom: 10px;
-}
-
- input {
-  /* width: 100%; */
-  height: 2rem;
-  padding: 0.25rem;
-  font-size: 1rem;
-}
-
-button{
-display: inline-block;
+.submit{
   padding: 10px 40px;
-  background-color: #ffde59;
+  background-color: #FFDE59;
   color: white;
   font-weight: bolder;
   border: none;
-  border-radius: 15px; /* Adjust the value to control the roundness */
+  border-radius: 15px;
   cursor: pointer;
   margin-top: 20px;
   margin-left: 20px;
@@ -285,14 +200,12 @@ button:hover{
 }
 
 .heading{
-  
   display: flex;
   justify-content: center;
   font-size: 24px;
   font-weight: bold;
   color: #000000;
   align-items: center;
-  
 }
 
 </style>
