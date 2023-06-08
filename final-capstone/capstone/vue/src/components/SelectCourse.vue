@@ -1,18 +1,23 @@
 <template>
-  <div>
-    <form v-if="showForm && !selectedCourse" @submit.prevent="submitFilters"  class="filter-form">
-      <label for="nameInput">Name:</label>
+<div>
+  <div class="container"  >
+    <form class="filter-form" v-if="showForm && !selectedCourse" @submit.prevent="submitFilters"  >
+      <h2>Select Your Course</h2>
+      <div class="name-input">
+      <label class="name-label" for="nameInput">Name:</label>
       <input type="text" id="nameInput" v-model="name">
-      
-      <label for="stateInput">State Abbr:</label>
+      </div>
+      <div class="state-input">
+      <label class="state-label" for="stateInput">State Abbr:</label>
       <input type="text" id="stateInput" v-model="state">
-      
-      <label for="cityInput">City:</label>
+      </div>
+      <div class="city-input">
+      <label class="city-label" for="cityInput">City:</label>
       <input type="text" id="cityInput" v-model="city">
-      
-      <button type="submit">Filter</button>
+      </div>
+      <button type="submit"> <span>Filter</span> </button>
     </form>
-    
+</div>
     <div v-if="selectedCourse">
       <h2>Selected Course</h2>
       <p>{{ selectedCourse.data.name }} - {{ selectedCourse.data.city }}, {{ selectedCourse.data.state }}</p>
@@ -29,8 +34,8 @@
         </ul>
       </div>
     </div>
-     
-  </div>
+     </div>
+ 
 </template>
 
 <script>
@@ -111,19 +116,99 @@ export default {
 }
 ;
 </script>
-<style>
+<style scoped>
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  background: #059262;
+  border-radius:  5px;
+  height: 300px;
+  width: 300px;
+}
+
 .filter-form {
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
-.form-group label {
-  margin-bottom: 5px;
+.filter-form h2 {
+  color: white;
+  margin: 5px;
+}
+.name-input, .state-input, .city-input {
+margin: 5px;
 }
 
-.form-group input {
-  width: 100%;
+.name-input label, .state-input label, .city-input label {
+ color: white;
+  margin: 10px;
+  
 }
+.name-input  [type="text"], .state-input [type="text"], .city-input [type="text"]{
+/* display: flex; */
+background: white;
+border-radius: 5px;
+width: 200px;
+margin-left: 10px;
+height: 20px;
+
+/* justify-content: center;
+align-items: center; */
+display: flex;
+border: none;
+
+}
+
+/* Optional: Adjust the spacing as needed */
+.filter-form button  {
+ color: white;
+ font-weight: bold;
+font-size: 15px;
+}
+
+.filter-form button {
+  margin-top: 20px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 30px;
+  background-color: #ffde59;
+  border: none;
+  border-radius: 10px;
+
+
+}
+
+.filter-form button:hover{
+  background-color: #fce279;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .modal {
   position: fixed;
   top: 0;

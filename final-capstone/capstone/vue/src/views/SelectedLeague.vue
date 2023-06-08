@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
         <header>
             <hamburger-menu />
         </header>
@@ -7,7 +7,9 @@
       <body>
 
         <main class="content">
+            <div class="leaderboard">
             <league-leaderboard v-bind:league-id="leagueId"/>
+            </div>
             <league-invite-form v-bind:league-id="leagueId" />
             <create-league v-if="this.$store.state.showCreateForm"/>
             <tee-time-list />
@@ -60,7 +62,23 @@ export default {
 </script>
 
 <style scoped>
-body {
+
+
+.leaderboard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 100px;
+
+}
+
+
+.new-tee-time-button{
+    
+}
+
+
+/* body {
     display: grid;
     height: 100vh;
     width: 100vw;
@@ -99,7 +117,7 @@ main {
 
 #leaderboard {
     
-}
+} */
 
 
 </style>
