@@ -14,7 +14,7 @@ export default {
   },
 
   getScoresByMatch(matchId) {
-    return axios.get(`/matches/${matchId}/scores`);
+    return axios.get(`/scores/matches/${matchId}`);
   },
 
   getScoresByPlayer(playerId) {

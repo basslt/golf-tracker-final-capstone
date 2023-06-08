@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@PreAuthorize("isAuthenticated()")
+
 @CrossOrigin
 @RestController
 public class ScoreController {

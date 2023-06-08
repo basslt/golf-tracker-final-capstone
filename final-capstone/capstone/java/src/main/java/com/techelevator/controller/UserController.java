@@ -80,13 +80,11 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/username")
-    public ResponseEntity<String> getUsernameById(@PathVariable int userId) {
-        String username = userDao.findUsernameById(userId);
-        if (username != null) {
-            return ResponseEntity.ok(username);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+    public String getUsernameById(@PathVariable int userId) {
+        return userDao.findUsernameById(userId);
 
+    }
 }
+
+
+

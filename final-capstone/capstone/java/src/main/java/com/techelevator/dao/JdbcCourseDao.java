@@ -26,13 +26,10 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
-    public Course findById(int courseId) throws ChangeSetPersister.NotFoundException {
-        try {
+    public Course findById(int courseId) {
             String query = "SELECT * FROM Course WHERE course_id = ?";
             return jdbcTemplate.queryForObject(query, new CourseRowMapper(), courseId);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ChangeSetPersister.NotFoundException();
-        }
+
     }
 
     @Override
@@ -135,7 +132,11 @@ public class JdbcCourseDao implements CourseDao {
 
         return jdbcTemplate.query(sql, params.toArray(), new CourseRowMapper());
     }
-
+    public String getNameByCourseId(Integer courseId) {
+        String query = "SELECT name FROM course WHERE course_id = ?";
+        Object[] params = new Object[]{courseId};
+        return jdbcTemplate.queryForObject(query, params, String.class);
+    }
 
     private static class CourseRowMapper implements RowMapper<Course> {
         @Override

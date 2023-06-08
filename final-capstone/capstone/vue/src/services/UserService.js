@@ -10,8 +10,14 @@ export default {
   },
 
   getUsernameById(userId) {
-    return axios.get(`/users/username/${userId}`);
+    return axios.get(`/users/${userId}/username`);
   },
+
+    getUsernamesByIds(userIds) {
+      const joinedIds = userIds.join(',');
+      return axios.get(`/users/${joinedIds}/username`);
+    },
+  
 
   getUserById(userId) {
     return axios.get(`/users/${userId}`);

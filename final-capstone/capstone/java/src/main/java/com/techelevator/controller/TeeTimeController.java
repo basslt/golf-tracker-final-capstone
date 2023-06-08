@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@PreAuthorize("isAuthenticated()")
+
 @CrossOrigin
 @RestController
 @RequestMapping("/teetimes")
@@ -27,6 +27,7 @@ public class TeeTimeController {
     public TeeTime getTeeTimeById(@PathVariable int teeTimeId) {
         return teeTimeDao.findById(teeTimeId);
     }
+
 
     @GetMapping
     public List<TeeTime> getAllTeeTimes() {

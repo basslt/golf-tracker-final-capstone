@@ -9,8 +9,8 @@ export default {
     return axios.get('/matchplayers');
   },
 
-  getMatchPlayersByMatch(matchId) {
-    return axios.get(`/matches/${matchId}/matchplayers`);
+  getMatchPlayersByMatch(teeTimeId) {
+    return axios.get(`/matches/${teeTimeId}/matchplayers`);
   },
 
   getMatchPlayersByPlayer(playerId) {

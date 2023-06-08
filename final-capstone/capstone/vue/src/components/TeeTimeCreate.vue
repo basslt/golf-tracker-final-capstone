@@ -43,8 +43,8 @@ import teeTimeService from '../services/TeeTimeService'
 import matchPlayerService from '../services/MatchPlayerService'
 
 export default {
-  components: { 
-    // SelectCourse 
+  components: {
+    // SelectCourse
   },
   props: {
     leagueId: {
@@ -71,7 +71,6 @@ export default {
     };
   },
   computed: {
-    
   },
   methods: {
     getLeagueMembers() {
@@ -94,7 +93,6 @@ export default {
       const matchPlayer = {
         matchId: this.teeTimeId,
         playerId: memberId
-        
       };
       console.log(matchPlayer)
       matchPlayerService
@@ -121,7 +119,6 @@ export default {
       console.log('Organizer Id: ', this.organizerId);
       console.log('courseId: ', this.selectedCourse.id);
       console.log('leagueId', this.leagueId);
-
       const teeTime = {
         matchName: this.matchName,
         courseId: this.selectedCourse.id,
@@ -129,15 +126,16 @@ export default {
         organizerId: this.organizerId,
         leagueId: this.leagueId
       };
-
       teeTimeService
         .createTeeTime(teeTime)
         .then(response => {
           console.log('Created Tee Time');
           console.log(response.data);
           this.teeTimeId = response.data;
+          const createdTeeTime = response.data;
           this.showPlayerForm = true;
-          this.submitButtonVisible = false
+          this.submitButtonVisible = false;
+          this.upcomingTeeTimes.push(createdTeeTime);
         })
         .catch(error => {
           console.log(error);
@@ -238,7 +236,7 @@ color: white;
 button{
 
   padding: 10px 40px;
-  background-color: #ffde59;
+  background-color: #FFDE59;
   color: white;
   font-weight: bolder;
   border: none;
@@ -261,7 +259,6 @@ h3{
 }
 
 .heading{
-  
   display: flex;
   justify-content: center;
   font-size: 24px;

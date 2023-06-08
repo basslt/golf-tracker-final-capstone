@@ -16,20 +16,25 @@
                 <tbody>
                     <tr v-for="member in leagueMembers" v-bind:key="member.id">
                         <td>{{member.username}}</td>
-                        <td><i class="fa-solid fa-message" style="color: #059262;"></i></td>
+                        <td><i class="fa-solid fa-message" style="color: #059262;" @click="openMessageForm(member.id)"></i></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <league-message-form v-if="showMessageForm" :messageRecepient="checkedMemberId" @close="close"/>
 
 </div>
 </template>
 
 <script>
 import userService from '../services/UserService'
+import LeagueMessageForm from '../components/LeagueMessageForm.vue'
 
 export default {
+    components: {
+        LeagueMessageForm
+    },
     props: {
         leagueId: {
             type: Number,
@@ -39,6 +44,8 @@ export default {
     data() {
         return {
             leagueMembers: [],
+            showMessageForm: false,
+            checkedMemberId: null
         }
     },
     methods: {
@@ -50,6 +57,15 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+        },
+        openMessageForm(memberId) {
+            this.showMessageForm = true;
+            this.checkedMemberId = memberId;
+            console.log(memberId)
+        },
+        close(){ 
+            this.showMessageForm = false;
+            this.checkMember = null;
         }
     },
     created() {

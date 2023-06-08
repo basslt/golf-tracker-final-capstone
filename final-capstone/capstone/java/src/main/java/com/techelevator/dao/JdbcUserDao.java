@@ -1,9 +1,14 @@
 package com.techelevator.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.techelevator.model.Message;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -37,18 +42,22 @@ public class JdbcUserDao implements UserDao {
 
         return userId;
     }
-
     @Override
     public String findUsernameById(int userId) {
-        String sql = "SELECT username FROM users WHERE userId = ?";
+        String userName = null;
+        String sql = "SELECT username FROM users WHERE user_id = ?";
         try {
-            return jdbcTemplate.queryForObject(sql, String.class, userId);
+            userName = jdbcTemplate.queryForObject(sql, String.class, userId);
         } catch (EmptyResultDataAccessException e) {
-            throw new UsernameNotFoundException("User " + userId + " was not found.");
+            // Handle case where user ID is not found
+        } catch (DataAccessException e) {
+            // Handle other exceptions
         }
+        return userName;
     }
 
-	@Override
+
+    @Override
 	public User getUserById(int userId) {
         User user = null;
 		String sql = "SELECT * FROM users WHERE user_id = ?";
