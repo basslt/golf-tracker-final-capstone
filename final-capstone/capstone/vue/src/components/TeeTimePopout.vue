@@ -1,57 +1,58 @@
 <template>
-  <div>
-  
-    <TeeTimeList :league-id="leagueId" @tee-time-selected="handleTeeTimeSelected" />
-    <div v-if="selectedTeeTime">
-      <h2>Selected Tee Time:</h2>
-      <div>
-        <span>Match Name: {{ selectedTeeTime.matchName }}</span>
-        <span>Time: {{ selectedTeeTime.time }}</span>
-      </div>
-      <div>
-        <h3>Players:</h3>
-        <ul>
-          <li v-for="player in selectedTeeTimePlayers" :key="player.id">
-            {{ player.username }}
-            <!-- Add score input fields here -->
-          </li>
-        </ul>
-      </div>
-    </div>
+  <div class="popup">
+    <h3>Players:</h3>
+    <ul>
+      <li v-for="player in players" :key="player.id">
+        {{ player.username }}:
+        <input type="number" v-model="player.score" />
+      </li>
+    </ul>
+    <button @click="submit">Submit</button>
+    <button @click="close">Close</button>
   </div>
 </template>
 
 <script>
-import TeeTimeList from './TeeTimeList.vue';
-import matchPlayerService from '../services/MatchPlayerService';
-
 export default {
-  components: {
-    TeeTimeList
-  },
-  data() {
-    return {
-      leagueId: 1,
-      selectedTeeTime: null,
-      selectedTeeTimePlayers: []
-    };
+  props: {
+    players: {
+      type: Array,
+      required: true
+    }
   },
   methods: {
-    handleTeeTimeSelected(teeTime) {
-      this.selectedTeeTime = teeTime;
-      this.getTeeTimePlayers(teeTime.id);
+    close() {
+      this.$emit('close');
     },
-    getTeeTimePlayers(teeTimeId) {
-      matchPlayerService
-        .getMatchPlayersByMatch(teeTimeId)
-        .then(response => {
-          this.selectedTeeTimePlayers = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    submit() {
+      const scoresData = this.players.map(player => ({
+        playerId: player.id,
+        score: player.score
+      }));
+      this.$emit('submit-scores', scoresData);
     }
   }
 };
 </script>
 
+<style scoped>
+.popup {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  /* Additional styles as needed */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+input[type="number"] {
+  width: 50px;
+}
+</style>

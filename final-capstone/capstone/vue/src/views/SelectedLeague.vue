@@ -11,9 +11,10 @@
             <league-member-list :league-id="leagueId" />
             <league-invite-form v-bind:league-id="leagueId" />
             <create-league v-if="this.$store.state.showCreateForm"/>
-            <tee-time-list />
+            <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
+            
             <tee-time v-bind:league-id="leagueId"/>
-            <tee-time-card/>
+            <TeeTimeCard :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
             
         </main>
         <aside>

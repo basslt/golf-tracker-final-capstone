@@ -11,10 +11,7 @@ export default {
 
   getAllCourses() {
     return axios.get(`/courses`)
-      .then(response => response.data)
-      .catch(error => {
-        throw error;
-      });
+     
   },
 
   getCoursesByState(state) {
