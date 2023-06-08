@@ -1,6 +1,9 @@
 <template>
   <div>
-    <form  @submit.prevent="submitFilters"  class="filter-form">
+
+    
+    <form   @submit.prevent="submitFilters"  class="filter-form">
+      <h2>Find Course</h2>
       <label for="nameInput">Name:</label>
       <input type="text" id="nameInput" v-model="name">
       
@@ -10,7 +13,7 @@
       <label for="cityInput">City:</label>
       <input type="text" id="cityInput" v-model="city">
       
-      <button type="submit">Filter</button>
+      <button type="submit"> <span>Filter</span> </button>
     </form>
     
     <div v-if="selectedCourse">
@@ -97,6 +100,7 @@ export default {
     },
     handleCourseSelected(selectedCourse) {
       this.$emit('toggle-form', selectedCourse)
+      
     }
     },
     
@@ -127,14 +131,65 @@ export default {
 .filter-form {
   display: flex;
   flex-direction: column;
+  color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  background: #059262;
+   padding: 20px; 
+  border-radius: 10px; 
+  width: 300px;
+
 }
 
-.form-group label {
-  margin-bottom: 5px;
+.filter-form label {
+  
 }
 
-.form-group input {
-  width: 100%;
+.filter-form input {
+  height: 25px;
+  
+}
+
+h2{
+  margin: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+button{
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  
+  padding: 10px 30px;
+  background-color: #ffde59;
+  color: white;
+  border: none;
+  border-radius: 15px; /* Adjust the value to control the roundness */
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  
+}
+
+button span{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+
+button:hover{
+   background-color: #fce279;
+}
+
+input{
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 10px;
+  margin-top: 2px;
 }
 .modal {
   position: fixed;
@@ -147,6 +202,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 
 .modal-content {
   width: 80%;

@@ -1,32 +1,41 @@
 <template>
-  <div>
-        <header>
-            <hamburger-menu />
-        </header>
-        <div class="main">
-      <body>
+  <div class="background">
+    <header>
+      <hamburger-menu />
+    </header>
+    <div class="main">
+      <!-- <body> -->
 
-        <main class="content">
+      <main class="content">
+        <div class="grid-container">
+          <div class="column">
+            <div class="left-content">
+              <create-league v-if="this.$store.state.showCreateForm" />
+              <tee-time-list />
+              <tee-time-card />
+              <div class="buttons">
+                <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
+                <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false" />
+                <button class="league-invite-form" @click="showLeagueInviteForm=true">Add New Members</button>
+                <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
+              </div>
+            </div>
+          </div>
+          <div class="column">
             <div class="leaderboard">
-            <league-leaderboard v-bind:league-id="leagueId"/>
-            
-            <create-league v-if="this.$store.state.showCreateForm"/>
-            <tee-time-list />
-            
-            <tee-time-card/>
 
-            <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
-            <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false"/>
-            
-            <button class="league-invite-form" @click="showLeagueInviteForm=true">Invite Members</button>
-            <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
-
-            <league-member-list v-bind:league-id="leagueId"/>
-
-        </main>
-      </body>
-      </div>
-      
+              <league-leaderboard v-bind:league-id="leagueId" />
+            </div>
+          </div>
+          <div class="column">
+            <div class="right-content">
+              <league-member-list v-bind:league-id="leagueId" />
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- </body> -->
+    </div>
   </div>
 </template>
 
@@ -68,62 +77,46 @@ export default {
 </script>
 
 <style scoped>
-
-
-.leaderboard{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 100px;
-
-}
-
-
-.new-tee-time-button{
-    
-}
-
-
-/* body {
-    display: grid;
-    height: 100vh;
-    width: 100vw;
-    grid-template-columns: 0.5fr 1fr 1fr 1fr;
-    grid-template-areas: 
-        "header header header header"
-        "sidebar content content content"
-        "footer footer footer footer";
-
-}
-
 .content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  
 }
 
-header {
-    grid-area: header;
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-footer {
-    grid-area: footer;
+.column {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
 }
 
-aside {
-    grid-area: sidebar;
-    background-color: lightgray;
+.leaderboard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 100px;
+  height: 700px;
 
 }
 
-main {
-    grid-area: content;
-    align-items: center;
+.new-tee-time-button,
+.league-invite-form {
+  background: #ffed59;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
-
-#leaderboard {
-    
-} */
-
 
 </style>

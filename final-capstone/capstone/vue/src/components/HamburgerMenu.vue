@@ -105,7 +105,8 @@ export default {
   margin-top: 10px;
   margin-left: 10px;
  font-size: 50px;
- font-weight: bold
+ font-weight: bold;
+ position: relative;
 }
 
 .fa-solid.fa-bars:hover {
