@@ -165,9 +165,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  
 }
-
+.container{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: 200px;
+}
 .container {
   background-color: white;
   padding: 20px;
@@ -178,15 +183,75 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 20px; 
+  border-radius: 10px;
 }
 
+.form-group{
+  display: flex;
+  /* white-space: nowrap; */
+  margin-top: 30px;
+  padding: 10px;
+}
+
+
+
+
+
+
+/* .container{
+  background: whitesmoke;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+ 
+}
+.form-group{
+ display: flex;
+ flex-direction: column;
+ white-space: nowrap;
+ 
+}
+
+.match{
+  display: flex;
+  white-space: nowrap;
+  
+}
+
+.time{
+  display: flex;
+  white-space: nowrap;
+}
+
+
+
+.description{
+  position: flex;
+  padding: 10px;
+}
+
+ input {
+  /* width: 100%; */
+  /* height: 2rem;
+  padding: 0.25rem;
+  font-size: 1rem; }*/
+
+
 .submit{
+
   padding: 10px 40px;
   background-color: #FFDE59;
   color: white;
   font-weight: bolder;
   border: none;
-  border-radius: 15px;
+  border-radius: 15px; 
   cursor: pointer;
   margin-top: 20px;
   margin-left: 20px;
@@ -206,6 +271,7 @@ button:hover{
   font-weight: bold;
   color: #000000;
   align-items: center;
-}
+  
+} 
 
 </style>

@@ -59,6 +59,31 @@ export default {
 
 <style scoped>
 
+
+.leaderboard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 100px;
+
+}
+
+
+.new-tee-time-button{
+    
+}
+
+
+/* body {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr;
+    grid-template-areas: 
+        "header header header header"
+        "sidebar content content content"
+        "footer footer footer footer";
+
 .leaderboard{
     display: flex;
     align-items: center;
@@ -66,7 +91,8 @@ export default {
     padding-top: 100px;
 }
 
-.new-tee-time-button{
-}
+#leaderboard {
+    
+} */
 
 </style>

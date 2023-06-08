@@ -8,7 +8,9 @@
         <body>
             <main class="content">
                 <my-leagues class="myleagues"/>
+                
                 <course-carousel class="display" />
+                
                 <create-league v-if="this.$store.state.showCreateForm"/>
             </main>
         </body>
@@ -46,10 +48,10 @@ export default {
   align-items: center;
 } */
 
-.background {
+/* .background {
   background-image: url('../assets/backgroundgolfer.png');
   height: 100vh;
-}
+} */
 
 .content {
   display: flex;
@@ -63,6 +65,7 @@ export default {
   align-self: flex-start;
  margin: 100px;
  margin-left: 300px;
+ 
 }
 
 .display{
