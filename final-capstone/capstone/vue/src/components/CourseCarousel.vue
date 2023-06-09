@@ -180,7 +180,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 300px;
+    height: 600px;
     border-radius: 10px;
     flex-direction: row;
     
