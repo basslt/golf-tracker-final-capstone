@@ -1,6 +1,7 @@
 <template>
     <div class="main">
-        <div class="message-card" :class="this.$store.state.messageRead ? 'read' : 'unread'" @click="$emit('click')">
+        <!-- <div class="message-card" :class="this.$store.state.messageRead ? 'read' : 'unread'" @click="$emit('click')"> -->
+        <div class="message-card" :class="message.messageRead ? 'read' : 'unread'" @click="$emit('click')">
             <h2>{{this.senderUser.username}}</h2>
             <p>{{message.type}}</p>
         </div>
@@ -70,14 +71,14 @@ export default {
   transition: background-color 0.3s;
 }
 
-.unread {
+/* .unread {
   background-color:  #6AD6B2;
   border-color: #059262;
   border-top-width: 2px;
   border-right-width: 2px;
   border-bottom-width: 2px;
   border-left-width: 7px;
-}
+} */
 
 .read > p {
   color: black;
@@ -93,14 +94,14 @@ export default {
   font-weight: bold;
 }
 
-.read {
+/* .read {
   background-color:  white;
   border-color: #059262;
   border-top-width: 2px;
   border-right-width: 2px;
   border-bottom-width: 2px;
   border-left-width: 7px;
-}
+} */
 
 .main :hover{
   background-color: #7ED9C2; 

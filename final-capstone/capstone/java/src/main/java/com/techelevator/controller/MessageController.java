@@ -52,9 +52,13 @@ public class MessageController {
     }
 
     @PutMapping("/messages/{id}")
-    public ResponseEntity<Void> updateMessage(@PathVariable("id") int messageId, @RequestBody Message message) {
-        messageDao.updateMessage(message, message.getMessageId());
-        return ResponseEntity.ok().build();
+    public Message updateMessage(@PathVariable("id") int messageId, @RequestBody Message message) {
+        Message updatedMessage = messageDao.updateMessage(message, message.getMessageId());
+        if (updatedMessage == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Message not found");
+        } else {
+            return updatedMessage;
+        }
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

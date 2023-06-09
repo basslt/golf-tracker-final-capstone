@@ -8,16 +8,9 @@
                   <div class="close-button" @click="closeMessage"><i class="fa-solid fa-xmark" style="color: #000000;" ></i></div>
                   <h2>Send Message to:</h2>
                   <h3>{{this.toUser.username}}</h3>
-                  <!-- <div class="recepient-input">
-                      <label for="username">Enter username: </label>
-                      <input type="text" id="username" v-model="toUsername" required autofocus v-on:input="checkUsernames" />
-                      <ul v-show="showNames">
-                          <li v-for="username in filteredUsernames" v-bind:key="username">{{username}}</li>
-                      </ul> -->
-                  <!-- </div> -->
                   <div class="content-input">
-                      <label for="content">Message </label>
-                      <textarea name="content" id="content" cols="30" rows="10" required @input="updateContent($event.target.value)"></textarea>
+                      <!-- <label for="content">Message </label> -->
+                      <textarea name="content" id="content" cols="30" rows="10" placeholder="Type your message here" required @input="updateContent($event.target.value)"></textarea>
                   </div>
                   </div>
               <div>
@@ -46,8 +39,6 @@ export default {
     },
     data() {
         return {
-            allUsernames: [],
-            showNames: false,
             toUser: null,
             message: {
                 senderId: '',
@@ -55,19 +46,12 @@ export default {
                 content: '',
                 leagueId: null,
                 type: 'Message',
+                messageRead: false,
                 timestamp: Date.now()
             }
         }
     },
-    created() {
-        userService.getAllUsernames().then( (response) => {
-            this.allUsernames = response.data;
-        })
-    },
     methods: {
-        checkUsernames() {
-            this.showNames = this.toUsername.length > 0;
-        },
         getRecepientUsername() {
             console.log(this.messageRecepient);
             userService.getUserById(this.messageRecepient).then( (response) => {
@@ -80,9 +64,7 @@ export default {
         sendMessage() {
             const user = this.$store.getters.getUser;
             this.message.senderId = user.id;
-            userService.getUserIdByUsername(this.toUsername).then( (response) => {
-                this.message.receiverId = response.data;
-                messageService.createMessage(this.message).then( (response) => {
+            messageService.createMessage(this.message).then( (response) => {
                 if (response.status === 201) {
                      console.log("Success");
                      this.$emit('close');
@@ -95,22 +77,14 @@ export default {
                 } else {
                 this.errorMsg = "Error submitting new message";
                 }
-            })
             });
-            
         },
+
         closeMessage() {
             this.$emit('close');
         },
         updateContent(value) {
             this.message.content = value;
-        }
-    },
-    computed: {
-        filteredUsernames() {
-            return this.allUsernames.filter( (username) => {
-                return username.toLowerCase().includes(this.toUsername.toLowerCase())
-            });
         }
     },
     watch: {
@@ -133,7 +107,7 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #00000080;
   display: flex;
   justify-content: center;
   align-items: center; 
@@ -166,7 +140,7 @@ form {
     display: flex;
     flex-direction: column;
     border: none;
-    
+    margin-top: 5%;
 }
 
 .content-input label {
@@ -202,8 +176,6 @@ form {
 .submit-button span {
   font-size: 20px; /* Adjust the font size for the login text */
   font-weight: bold;
-  
-
 }
 
 .login-button:hover {
@@ -221,6 +193,10 @@ form {
     font-size: 25px;
     font-weight: bold;
     cursor: pointer;
+}
+
+textarea::placeholder {
+    font-size: 16px;
 }
 
 </style>

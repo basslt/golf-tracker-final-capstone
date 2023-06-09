@@ -58,6 +58,7 @@ export default {
         leagueId: null,
         content: 'Hey, join my league!',
         type: 'Invite',
+        messageRead: false,
         timestamp: Date.now()
       },
       memberships: [],
