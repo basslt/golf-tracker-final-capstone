@@ -15,7 +15,7 @@
                <TeeTimeCard :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
               <tee-time-card />
               <div class="buttons">
-                <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
+                <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time <i class="fa-solid fa-calendar-plus" style="color: #059262;"></i></button>
                 <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false" />
                 
               </div>
@@ -30,7 +30,7 @@
           <div class="column">
             <div class="right-content">
               <league-member-list v-bind:league-id="leagueId" />
-              <button class="league-invite-form" @click="showLeagueInviteForm=true">Add New Members</button>
+              <button class="league-invite-form" @click="showLeagueInviteForm=true">Add New Members <i class="fa-solid fa-user-plus" style="color: #059262;"></i></button>
                 <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
             </div>
           </div>
@@ -110,6 +110,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  background: lightgray;
   
 }
 
@@ -121,7 +122,7 @@ export default {
 
 .column {
   padding: 20px;
-  background-color: #ffffff;
+  background-color: lightgray;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -138,7 +139,7 @@ export default {
 
 .new-tee-time-button,
 .league-invite-form {
-  background: #ffed59;
+  background: #ffe837;
   padding: 10px 20px;
   border: none;
   border-radius: 20px;
@@ -150,12 +151,27 @@ export default {
 
 .new-tee-time-button:hover,
 .league-invite-form:hover{
+ cursor: pointer;
+background-color: rgb(255, 255, 20);
+ 
+}
 
+.league-invite-form{
+  padding: 10px;
+  margin-top: 25px;
 }
 
 .left-content{
   display: flex;
   flex-direction: column;
+
+}
+
+.right-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
 
 }
 

@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+    <h1></h1>
     <div class="background">
  
         <div class="table-container">
@@ -9,14 +10,14 @@
             <table>
                 <thead>
                     <tr>
-                        <th>User</th>
+                        <th class="headline">Members</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="list">
                     <tr v-for="member in leagueMembers" v-bind:key="member.id">
                         <td>{{member.username}}</td>
-                        <td><i class="fa-solid fa-message" style="color: #059262;" @click="openMessageForm(member.id)"></i></td>
+                        <!-- <td><i class="fa-solid fa-message" style="color: #00000;" @click="openMessageForm(member.id)"></i></td> -->
                     </tr>
                 </tbody>
             </table>
@@ -78,24 +79,43 @@ export default {
 <style scoped>
 
 .container {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 
 }
 
-.table-container {
-    width: 90%;
-    height: 100px;
-    background-color: lightgrey;
-    margin: auto;
-    vertical-align: middle;
+.list {
+    width: 150px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 5px;
+}
+
+.list td{
+    font-size: 20px;
 }
 
 .background {
     background-color: #059262;
-    width: 150px;
-    height: 150px;
+    height: 400px;
     display: flex;
-    background-size: cover;
+    /* background-size: cover; */
     background-position: center;
+    border-radius: 15px;
+}
+.headline{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    color: white;
+     margin: 10px;
+     border-bottom: white solid;
+     padding: 5px;
 }
 
 
@@ -128,7 +148,7 @@ th {
     text-align: center;
 } */
 
-tr {
+/* tr {
     margin-bottom: 10%;
 }
 
@@ -142,7 +162,7 @@ td {
  } 
 
 tbody {
-    /* height: 100px; */
+    
      overflow: auto;
      display: block;
 }
@@ -160,7 +180,7 @@ th {
      height: 100px;
      overflow: auto;
      display: block;
- }
+ } */
 
 
 </style>

@@ -60,8 +60,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center; 
-  justify-content: center; 
+  justify-content: flex-start; 
   width: 400px;
+  height: 600px;
+  
 
 }
 

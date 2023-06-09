@@ -31,7 +31,7 @@ export default {
 .course-card img {
     width: 350px;
     height: 200px;
-    object-fit: cover;
+    
     border-radius: 5%;
     margin-bottom: 1%;
 }

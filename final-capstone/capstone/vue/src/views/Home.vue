@@ -1,17 +1,22 @@
 <template>
-   <div class="background">
+   <div class="background" >
      <header>
         <hamburger-menu />
      </header>
     
      <div class="main">
+       
         <body>
             <main class="content">
+               
                 <my-leagues class="myleagues"/>
                 
+              
                 <course-carousel class="display" />
                 
                 <create-league v-if="this.$store.state.showCreateForm"/>
+
+                 
             </main>
         </body>
      </div>
@@ -42,36 +47,38 @@ export default {
 </script>
 
 <style scoped>
-/* .main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
 
-/* .background {
+
+.background{
+ 
+}
+.main {
   background-image: url('../assets/backgroundgolfer.png');
-  height: 100vh;
-} */
+  height: 830px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  flex-direction: row;
+}
 
 .content {
   display: flex;
-  /* flex-direction: column; */
-   align-items: flex; 
-   /* height: 100vh; */
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 }
 
-.myleagues {
-  display: flex;
-  align-self: flex-start;
- margin: 100px;
- margin-left: 300px;
- 
+.myleagues{
+  
+  margin: 40px;
 }
 
 .display{
   display: flex;
-  margin-top: 405px;
-
+ justify-content: center;
+ align-items: center;
+margin-left: 40px;
 }
 
 /* body {

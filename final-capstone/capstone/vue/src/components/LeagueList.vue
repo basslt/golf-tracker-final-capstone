@@ -72,6 +72,7 @@ export default {
     padding-right: 10%;
     padding-bottom: 5%;
     margin-top: 3%;
+    
   }
 
   th {

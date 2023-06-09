@@ -209,6 +209,15 @@ export default {
     font-size: 1rem;
 }
 
+button{
+   background-color: #ffde59;
+  color: white;
+  border: none;
+  font-size: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  font-weight: bold;
+}
 
 button:hover{
    background-color:#fce279;
