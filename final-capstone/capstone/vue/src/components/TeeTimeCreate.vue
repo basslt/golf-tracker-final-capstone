@@ -77,8 +77,7 @@ export default {
       userService
         .findUsersInLeague(this.leagueId)
         .then(response => {
-          const loggedUserId = this.$store.state.user.id;
-          this.leagueMembers = response.data.filter(member => member.id !== loggedUserId);
+          this.leagueMembers = response.data
           console.log(this.leagueMembers);
         })
         .catch(error => {
