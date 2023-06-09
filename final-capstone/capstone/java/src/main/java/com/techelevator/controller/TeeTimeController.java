@@ -11,21 +11,29 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@PreAuthorize("isAuthenticated()")
 @CrossOrigin
 @RestController
 @RequestMapping("/teetimes")
 public class TeeTimeController {
-    private TeeTimeDao teeTimeDao;
+
 
     @Autowired
-    public TeeTimeController(TeeTimeDao teeTimeDao) {
-        this.teeTimeDao = teeTimeDao;
-    }
+    private TeeTimeDao teeTimeDao;
 
     @GetMapping("/{teeTimeId}")
     public TeeTime getTeeTimeById(@PathVariable int teeTimeId) {
         return teeTimeDao.findById(teeTimeId);
+    }
+
+    @GetMapping("/upcoming/league/{leagueId}")
+    public List<TeeTime> getUpcomingTeeTimesByLeague(@PathVariable("leagueId") int leagueId) {
+        return teeTimeDao.getUpcomingTeeTimesByLeague(leagueId);
+    }
+
+    @GetMapping("/past/league/{leagueId}")
+    public List<TeeTime> getPastTeeTimesByLeague(@PathVariable("leagueId") int leagueId) {
+        return teeTimeDao.getPastTeeTimeByLeague(leagueId);
     }
 
 

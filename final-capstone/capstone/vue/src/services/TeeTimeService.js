@@ -11,6 +11,14 @@ export default {
     return axios.get(BASE_URL);
   },
 
+  getUpcomingTeeTimesByLeague(leagueId) {
+    return axios.get(`/teetimes/upcoming/league/${leagueId}`); 
+  },
+
+  getPastTeeTimesByLeague(leagueId) {
+    return axios.get(`/teetimes/past/league/${leagueId}`); 
+  },
+
   createTeeTime(teeTime) {
     return axios.post(BASE_URL, teeTime);
   },

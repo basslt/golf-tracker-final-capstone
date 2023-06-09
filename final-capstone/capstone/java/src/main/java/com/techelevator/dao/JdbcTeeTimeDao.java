@@ -28,17 +28,54 @@ public class JdbcTeeTimeDao implements TeeTimeDao {
         TeeTime teeTime = null;
         String query = "SELECT * FROM TeeTime WHERE tee_time_id = ?";
         try{
-        SqlRowSet results = jdbcTemplate.queryForRowSet(query, teeTimeId);
-        if (results.next()) {
-            teeTime= mapRowToTeeTime(results);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(query, teeTimeId);
+            if (results.next()) {
+                teeTime= mapRowToTeeTime(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
         }
-    } catch (CannotGetJdbcConnectionException e) {
-        throw new RuntimeException("Unable to connect to server or database", e);
-    } catch (BadSqlGrammarException e) {
-        throw new RuntimeException("SQL syntax error", e);
+            return teeTime;
     }
-        return teeTime;
-}
+
+    @Override
+    public List<TeeTime> getUpcomingTeeTimesByLeague(int leagueId) {
+        List<TeeTime> upcomingTeeTimes = new ArrayList<>();
+        String sql = "SELECT * FROM TeeTime WHERE league_id = ? AND time > NOW();";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, leagueId);
+            while (results.next()) {
+                TeeTime teeTime = mapRowToTeeTime(results);
+                upcomingTeeTimes.add(teeTime);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return upcomingTeeTimes;
+    }
+
+    @Override
+    public List<TeeTime> getPastTeeTimeByLeague(int leagueId) {
+        List<TeeTime> pastTeeTimes = new ArrayList<>();
+        String sql = "SELECT * FROM TeeTime WHERE league_id = ? AND time < NOW();";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, leagueId);
+            while (results.next()) {
+                TeeTime teeTime = mapRowToTeeTime(results);
+                pastTeeTimes.add(teeTime);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new RuntimeException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new RuntimeException("SQL syntax error", e);
+        }
+        return pastTeeTimes;
+    }
+
 
     @Override
     public List<TeeTime> findAll() {

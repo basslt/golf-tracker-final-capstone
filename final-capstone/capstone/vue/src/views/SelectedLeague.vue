@@ -5,20 +5,25 @@
     </header>
     <div class="main">
      
-
       <main class="content">
         <div class="grid-container">
           <div class="column">
             <div class="left-content">
               <create-league v-if="this.$store.state.showCreateForm" />
-              <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
+              <!-- <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
                <TeeTimeCard :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
-              <tee-time-card />
+              <tee-time-card /> -->
+
+              <past-tee-time-list v-bind:league-id="leagueId" @past-tee-time-click="showPastDetails"/>
+              <past-tee-time-details v-if="selectedPastTeeTime" :teeTime="selectedPastTeeTime" @close="closePastDetails" />
+              <upcoming-tee-time-list v-bind:league-id="leagueId" @upcoming-tee-time-click="showUpcomingDetails"/>
+              <upcoming-tee-time-details v-if="selectedUpcomingTeeTime" :teeTime="selectedUpcomingTeeTime" @close="closeUpcomingDetails"/>
+
               <div class="buttons">
                 <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
                 <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false" />
-                
               </div>
+
             </div>
           </div>
           <div class="column">
@@ -77,9 +82,14 @@ import HamburgerMenu from '../components/HamburgerMenu.vue'
 import LeagueInviteForm from '../components/LeagueInviteForm.vue'
 import CreateLeague from '../components/CreateLeague.vue'
 import TeeTimeForm from '../components/TeeTimeForm.vue'
-import TeeTimeList from '../components/TeeTimeList.vue'
-import TeeTimeCard from '../components/TeeTimeCard.vue'
+// import TeeTimeList from '../components/TeeTimeList.vue'
+// import TeeTimeCard from '../components/TeeTimeCard.vue'
 import LeagueMemberList from '../components/LeagueMemberList.vue'
+import UpcomingTeeTimeList from '../components/UpcomingTeeTimeList.vue';
+import UpcomingTeeTimeDetails from '../components/UpcomingTeeTimeDetails.vue';
+import PastTeeTimeList from '../components/PastTeeTimeList.vue';
+import PastTeeTimeDetails from '../components/PastTeeTimeDetails.vue';
+
 
 export default {
     components: {
@@ -88,16 +98,36 @@ export default {
         LeagueInviteForm,
         CreateLeague,
         TeeTimeForm,
-        TeeTimeList,
-        TeeTimeCard,
-        LeagueMemberList
+        // TeeTimeList,
+        // TeeTimeCard,
+        LeagueMemberList,
+        UpcomingTeeTimeList,
+        UpcomingTeeTimeDetails,
+        PastTeeTimeList,
+        PastTeeTimeDetails
     },
     data() {
         return {
             leagueId: null,
             showTeeTimeCreateForm: false,
             showLeagueInviteForm: false,
+            selectedUpcomingTeeTime: null,
+            selectedPastTeeTime: null
         }
+    },
+    methods: {
+      showUpcomingDetails(teeTime) {
+        this.selectedUpcomingTeeTime = teeTime;
+      },
+      closeUpcomingDetails() {
+        this.selectedUpcomingTeeTime = null;
+      },
+      showPastDetails(teeTime) {
+        this.selectedPastTeeTime = teeTime;
+      },
+      closePastDetails() {
+        this.selectedPastTeeTime = null;
+      }
     },
     created() {
         this.leagueId = parseInt(this.$route.params.id);

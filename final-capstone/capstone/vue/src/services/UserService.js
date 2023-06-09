@@ -39,6 +39,10 @@ export default {
     return axios.get(`users/leaguemembership/league/${leagueId}`);
   },
 
+  findUsersInMatch(matchId) {
+    return axios.get(`users/matches/${matchId}`);
+  },
+
   getUserByUsername(username) {
     return axios.get(`/users/${username}`);
   },

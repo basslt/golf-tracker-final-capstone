@@ -21,5 +21,7 @@ public interface UserDao {
 
     List<User> findUsersInLeague(int leagueId);
 
+    List<User> findUsersInMatch(int matchId);
+
     boolean create(String username, String password, String role);
 }
