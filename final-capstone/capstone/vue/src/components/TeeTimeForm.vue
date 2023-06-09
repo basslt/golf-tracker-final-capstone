@@ -4,7 +4,7 @@
         <div class="main">
             
             <filter-course v-if="showFilterCourse" @toggle-form="toggleForms" @course-selected="handleCourseSelected"/>
-            <tee-time-create v-if="showTeeTimeCreate" v-bind:league-id="leagueId" :selected-course="selectedCourse" />
+            <tee-time-create  @close="closeTeeTimeCreate" v-if="showTeeTimeCreate" v-bind:league-id="leagueId" :selected-course="selectedCourse" />
         </div>
       </div>
 </div>
@@ -39,6 +39,10 @@ export default {
             this.showFilterCourse = false;
             this.showTeeTimeCreate = true;
         },
+        closeTeeTimeCreate() {
+      this.showTeeTimeCreate = false;
+      this.showFilterCourse = true;
+    }
         // handleCourseSelected(selectedCourse) {
         //     console.log("hey");
         //     this.selectedCourse = selectedCourse;
