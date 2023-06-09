@@ -11,13 +11,13 @@
           <div class="column">
             <div class="left-content">
               <create-league v-if="this.$store.state.showCreateForm" />
-              <tee-time-list />
+              <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
+               <TeeTimeCard :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
               <tee-time-card />
               <div class="buttons">
                 <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
                 <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false" />
-                <button class="league-invite-form" @click="showLeagueInviteForm=true">Add New Members</button>
-                <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
+                
               </div>
             </div>
           </div>
@@ -30,14 +30,16 @@
           <div class="column">
             <div class="right-content">
               <league-member-list v-bind:league-id="leagueId" />
+              <button class="league-invite-form" @click="showLeagueInviteForm=true">Add New Members</button>
+                <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
             </div>
           </div>
         </div>
       </main>
     
     </div>
-
-
+  </div>
+<!-- 
 
 
   <div>
@@ -45,14 +47,13 @@
             <hamburger-menu />
         </header>
         <div class="main">
-      <body>
         <main class="content">
             <div class="leaderboard">
             <league-leaderboard v-bind:league-id="leagueId"/>
             <create-league v-if="this.$store.state.showCreateForm"/>
             <div class="parent-container">
             <div class="left-column">
-            <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
+            
             </div>
             </div>
             <tee-time v-bind:league-id="leagueId"/>
@@ -65,9 +66,9 @@
             <league-member-list v-bind:league-id="leagueId"/>
             </div>
         </main>
-      </body>
+      
       </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -146,5 +147,23 @@ export default {
   font-weight: bold;
   margin-bottom: 20px;
 }
+
+.new-tee-time-button:hover,
+.league-invite-form:hover{
+
+}
+
+.left-content{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+
 
 </style>

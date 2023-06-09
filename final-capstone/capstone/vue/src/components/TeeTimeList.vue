@@ -1,7 +1,9 @@
 <template>
   <div class="teetimes-container">
     <!-- Upcoming Tee Times -->
-  <h2>Upcoming Tee Times:</h2>
+
+  <h2>Upcoming Matches</h2>
+  <div class="upcoming">
 <div v-for="teeTime in upcomingTeeTimes" :key="teeTime.teeTimeId">
   <div class="tee-time-card" @click="formatTeeTime(teeTime)">
     <div class="tee-time-info">
@@ -12,7 +14,7 @@
     <div class="tee-time-buttons">
       <button v-if="!isEditable" @click="openPlayerList(teeTime)">View Scores</button>
       <button v-else-if="selectedTeeTime === teeTime" class="cancel-button" @click="closePlayerList">Cancel</button>
-      <button v-else @click="openPlayerList(teeTime)">Enter Scores</button>
+      <button class="yellow-button" v-else @click="openPlayerList(teeTime)"> Enter Scores <i class="fa-solid fa-pen" style="color: #ffffff;"></i></button>
     </div>
   </div>
   <TeeTimePopout
@@ -35,10 +37,11 @@
     @close="closePlayerList"
   />
 </div>
-
+</div>
 <!-- Recent Tee Times -->
-<h2>Recent Tee Times:</h2>
-<div v-for="teeTime in recentTeeTimes" :key="teeTime.teeTimeId">
+<h2>Recent Matches</h2>
+<div class="recent">
+<div  v-for="teeTime in recentTeeTimes" :key="teeTime.teeTimeId">
   <div class="tee-time-card" @click="formatTeeTime(teeTime)">
     <div class="tee-time-info">
       <p>{{ teeTime.matchName }}</p>
@@ -46,7 +49,7 @@
       <p>{{ teeTimeCourseNames[teeTime.teeTimeId] }}</p>
     </div>
     <div class="tee-time-buttons">
-      <button class="yellow-button" @click="openPlayerList(teeTime)">View Scores</button>
+      <button class="yellow-button" @click="openPlayerList(teeTime)">View Scores <i class="fa-solid fa-eye" style="color: #ffffff;"></i></button>
     </div>
   </div>
   <TeeTimePopout
@@ -61,7 +64,7 @@
     <button class="cancel-button" @click="closePlayerList">Cancel</button>
   </TeeTimePopout>
 </div>
-
+</div>
   </div>
 </template>
 
@@ -378,12 +381,64 @@ submitScores(scoresData) {
 
 <style scoped>
 
+.recent, .upcoming{
+  height: 300px;
+  overflow: auto; 
+  
+  border: #059262;
+  /* border-radius: 10px; */
+box-shadow: 10px 5px 10px lightgray;
+}
+
+
 .teetimes-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+ margin: 20px;
+ 
+  
+}
+.tee-time-card{
+  
+   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #059262;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 20px;
 }
 
+.tee-time-info p{
+margin: 5px;
+}
+
+.yellow-button{
+  border-radius: 10px;
+  background: none;
+  border: none;
+  color:white;
+  font-weight: bold;
+  padding: 5px;
+
+}
+
+.yellow-button:hover{
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  transition: box-shadow 0.3s ease;
+}
+
+h2{
+  margin: 10px;
+}
+
+
+
+
+/* 
 .tee-time-card {
   display: flex;
   justify-content: space-between;
@@ -474,7 +529,7 @@ submitScores(scoresData) {
 
 .yellow-button {
   background-color: yellow
-}
+} */
 
 </style>
 
