@@ -17,20 +17,23 @@
               <div v-if="allMembersInvited" >
               <p>You have invited all members.</p>
             </div>
-            <div v-if="showPlayerForm && !allMembersInvited">
+            <div class="player-form" v-if="showPlayerForm && !allMembersInvited">
               <h3>Add players to your match:</h3>
               <div v-for="member in leagueMembers" :key="member.id">
-                <div>
+                <div class="select">
                   {{ member.username }}
                   <button  @click="addPlayers(member.id)">Select</button>
                 </div>
               </div>
             </div>
+            </div>
+            <div class="buttons">
             <button v-if="submitButtonVisible" @click="submitForm">Submit</button>
             <button type="button" v-on:click="closeForm">Close</button>
           </div>
           </div>
       </div>
+  
 </template>
 
 <script>
@@ -129,8 +132,10 @@ export default {
           console.log('Created Tee Time');
           console.log(response.data);
           this.teeTimeId = response.data;
+          const createdTeeTime = response.data;
           this.showPlayerForm = true;
-          this.submitButtonVisible = false
+          this.submitButtonVisible = false;
+          this.upcomingTeeTimes.push(createdTeeTime);
         })
         .catch(error => {
           console.log(error);
@@ -157,7 +162,8 @@ export default {
 <style scoped>
 
 .background {
-   position: fixed;
+ 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -165,86 +171,69 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+  z-index: 9999;
+
 }
-.container{
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  height: 200px;
-}
+
 .container {
-  background-color: white;
+  background-color: #059262;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
    max-width: 400px; /* Adjust the width as needed */
-  width: 100%;
+  width: 100%; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
-  margin-bottom: 20px; 
-  border-radius: 10px;
-}
-
-.form-group{
-  display: flex;
-  /* white-space: nowrap; */
-  margin-top: 30px;
-  padding: 10px;
-}
-
-
-
-
-
-
-/* .container{
-  background: whitesmoke;
-  width: 600px;
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-  justify-content: center;
-  align-items: center;
-  white-space: nowrap;
- 
-}
-.form-group{
- display: flex;
- flex-direction: column;
- white-space: nowrap;
- 
-}
-
-.match{
-  display: flex;
-  white-space: nowrap;
   
 }
 
-.time{
-  display: flex;
+h2{
+  margin-bottom: 20px;
+  color: white;
+}
+.main p{
+  margin-bottom: 10px;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  border-radius: 5px;
   white-space: nowrap;
 }
+.main{
+  display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-self: center;
+ align-items: center;
+ margin: 10px;
+}
+.form-group{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
 
-
-
-.description{
-  position: flex;
-  padding: 10px;
 }
 
- input {
-  /* width: 100%; */
-  /* height: 2rem;
-  padding: 0.25rem;
-  font-size: 1rem; }*/
+.match, .time{
+margin: 10px;
+color: white;
+
+}
+
+.match input, .time input{
+  display: flex;
+  align-self: flex-start;
+  border-radius: 5px;
+  border: none;
+  height: 25px;
+
+}
 
 
-.submit{
+button{
 
   padding: 10px 40px;
   background-color: #FFDE59;
@@ -264,6 +253,11 @@ button:hover{
    background-color:#fce279;
 }
 
+h3{
+  color: white;
+  margin: 10px;
+}
+
 .heading{
   display: flex;
   justify-content: center;
@@ -273,5 +267,28 @@ button:hover{
   align-items: center;
   
 } 
+
+.select button{
+  padding: 5px 15px;
+  background-color: #ffde59;
+  color: white;
+  font-weight: bolder;
+  border: none;
+  border-radius: 15px; 
+  cursor: pointer;
+  /* margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px; */
+  font-size: 15px;
+  /* display: flex;
+  align-self: center; */
+}
+
+.player-form{
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
 
 </style>

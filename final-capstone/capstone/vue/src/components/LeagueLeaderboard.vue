@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <div class="background">
-          <img class="background" src="../assets/leaderboard.png" alt="">
-   
+     <h1>Leaderboard</h1>
     <div class="table-container">
+     
       <table class="leaderboard">
+        
           <thead>
               <tr>
                 <th>Username</th>
@@ -25,7 +25,7 @@
       </table>
   </div> 
   </div>
-  </div>
+ 
 </template>
 
 <script>
@@ -112,58 +112,62 @@ export default {
 
 <style scoped>
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-    position: relative;
-    width: 500px;
-    height: 500px;
+  background:#059262;
+  padding: 10px;
+  border-radius: 5px;
+  
 }
 
-.background {
-    top: 0;
-    left: 0;
-    width: 1000px;
-    height: 600px;
-    background-size: cover;
-    background-position: center;
-}
+
 
 .table-container {
-    position: absolute;
-    top: 22%;
-    left: 11%;
-    width: 62%;
+   display: flex;
+    width: 100%;
+    height: 600px;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    
+}
+
+h1{
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin-bottom: 10px;
+  font-size: 40px;
 }
 
 
 table {
-    width: 125%;
+    width: 700px;
     border-collapse: collapse;
     text-align: center;
+    color: white;
 }
 
 th {
-    padding-bottom: 2%;
-    border-bottom: 1px solid black;
+    padding: 10px;
+    border-bottom: 3px solid white;
+  
     text-align: center;
 }
 
 
 td {
-    padding-bottom: 1%;
-    padding-top: 1%;
-    border-bottom: 1px solid black;
+    padding: 10px;
+    border-bottom: 3px solid white;
+  
     vertical-align: center;
 }
 
 .average {
-    border-left: 1px solid black;
+    border-left: 3px solid white;
     width: 25%;
 }
 
 .last-round {
-    border-left: 1px solid black;
+    border-left: 3px solid white ;
     width: 25%;
 }
 </style>

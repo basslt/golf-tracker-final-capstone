@@ -1,4 +1,45 @@
 <template>
+  <div class="background">
+    <header>
+      <hamburger-menu />
+    </header>
+    <div class="main">
+     
+
+      <main class="content">
+        <div class="grid-container">
+          <div class="column">
+            <div class="left-content">
+              <create-league v-if="this.$store.state.showCreateForm" />
+              <tee-time-list />
+              <tee-time-card />
+              <div class="buttons">
+                <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
+                <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false" />
+                <button class="league-invite-form" @click="showLeagueInviteForm=true">Add New Members</button>
+                <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="leaderboard">
+
+              <league-leaderboard v-bind:league-id="leagueId" />
+            </div>
+          </div>
+          <div class="column">
+            <div class="right-content">
+              <league-member-list v-bind:league-id="leagueId" />
+            </div>
+          </div>
+        </div>
+      </main>
+    
+    </div>
+
+
+
+
   <div>
         <header>
             <hamburger-menu />
@@ -9,14 +50,20 @@
             <div class="leaderboard">
             <league-leaderboard v-bind:league-id="leagueId"/>
             <create-league v-if="this.$store.state.showCreateForm"/>
-            <tee-time-list />
-            <tee-time-card/>
+            <div class="parent-container">
+            <div class="left-column">
+            <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
+            </div>
+            </div>
+            <tee-time v-bind:league-id="leagueId"/>
+            <TeeTimeCard :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
+
             <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time</button>
             <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false"/>
             <button class="league-invite-form" @click="showLeagueInviteForm=true">Invite Members</button>
             <league-invite-form v-if="showLeagueInviteForm" v-bind:league-id="leagueId" @close="showLeagueInviteForm=false" />
             <league-member-list v-bind:league-id="leagueId"/>
-                </div>
+            </div>
         </main>
       </body>
       </div>
@@ -58,41 +105,46 @@ export default {
 </script>
 
 <style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  
+}
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
 
-.leaderboard{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 100px;
+.column {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.leaderboard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 100px;
+  height: 700px;
 
 }
 
-
-.new-tee-time-button{
-    
+.new-tee-time-button,
+.league-invite-form {
+  background: #ffed59;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
-
-
-/* body {
-    display: grid;
-    height: 100vh;
-    width: 100vw;
-    grid-template-columns: 0.5fr 1fr 1fr 1fr;
-    grid-template-areas: 
-        "header header header header"
-        "sidebar content content content"
-        "footer footer footer footer";
-
-.leaderboard{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 100px;
-}
-
-#leaderboard {
-    
-} */
 
 </style>

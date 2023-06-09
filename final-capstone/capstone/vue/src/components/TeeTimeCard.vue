@@ -1,7 +1,7 @@
 <template>
-  <div class="tee-time-card" @click="showPlayers = !showPlayers">
+  <div class="tee-time-card" @click="togglePlayers">
     <div class="tee-time-info">
-      <h3>{{ teeTime.matchName }}</h3>
+      <h3>{{ matchName }}</h3>
       <p>{{ teeTime.time }}</p>
     </div>
     <div v-if="showPlayers">
@@ -9,9 +9,10 @@
       <ul>
         <li v-for="player in teeTimePlayers" :key="player.id">
           {{ player.username }}
-          <!-- Add score input fields here -->
+          <input type="number" v-model="player.score" placeholder="Enter score" />
         </li>
       </ul>
+      <button @click="submitScores">Submit</button>
     </div>
   </div>
 </template>
@@ -25,13 +26,29 @@ export default {
     },
     teeTimePlayers: {
       type: Array,
-      default: () => []
+      required: true
+    },
+    matchName: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
       showPlayers: false
     };
+  },
+  methods: {
+    togglePlayers() {
+      this.showPlayers = !this.showPlayers;
+    },
+    submitScores() {
+      // Handle the submission of scores
+      // You can access the scores from the `teeTimePlayers` array
+      // and perform the necessary logic to update the leaderboard
+      // Once the scores are submitted, you can hide the tee-time card
+      this.showPlayers = false;
+    }
   }
 };
 </script>

@@ -2,11 +2,11 @@
   <div>
     <div class="modal">
         <div class="modal-content">
-          <button class="close-btn">×</button>
+          <button class="close-btn" @click="closeModal">×</button>
           <ul class="course-list">
             <li v-for="course in filteredCourses" :key="course.courseId" class="course-item">
               {{ course.name }} - {{ course.city }}, {{ course.state }}
-              <button @click="selectCourse(course)" class="selectCourseButton">Select</button>
+              <button @click="selectCourse(course)" class="selectCourseButton"><i class="fa-solid fa-arrow-right" style="color: #ffffff;"></i></button>
             </li>
           </ul>
         </div>
@@ -22,6 +22,11 @@ export default {
       type: Array,
       required: true
     },
+    data (){
+      return {
+        showCourseListModal: true
+      }
+    }
   },
   methods: {
       selectCourse(course) {
@@ -37,6 +42,10 @@ export default {
           // this.showCourseListModal = false;
           // this.$emit('toggle-form'); 
           },
+          closeModal() {
+      this.$emit('close');
+    }
+         
   }
 
 }
@@ -56,86 +65,32 @@ export default {
   width: 300px;
 }
 
-.filter-form {
-  display: flex;
-  flex-direction: column;
-  white-space: nowrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.filter-form h2 {
-  color: white;
-  margin: 5px;
-}
-.name-input, .state-input, .city-input {
-margin: 5px;
-}
-
-.name-input label, .state-input label, .city-input label {
- color: white;
-  margin: 10px;
-  
-}
-.name-input  [type="text"], .state-input [type="text"], .city-input [type="text"]{
-/* display: flex; */
-background: white;
+.selectCourseButton{
+background-color: #059262;
+color: white;
 border-radius: 5px;
-width: 200px;
-margin-left: 10px;
-height: 20px;
-
-/* justify-content: center;
-align-items: center; */
-display: flex;
 border: none;
-
-}
-
-/* Optional: Adjust the spacing as needed */
-.filter-form button  {
- color: white;
- font-weight: bold;
-font-size: 15px;
-}
-
-.filter-form button {
-  margin-top: 20px;
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 30px;
-  background-color: #ffde59;
-  border: none;
-  border-radius: 10px;
+padding: 10px 40px;
+font-size: 20px;
+width: 25px;
 
 
 }
 
-.filter-form button:hover{
-  background-color: #fce279;
+.selectCourseButton:hover{
   cursor: pointer;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0px;
+}
 
 
 .modal {
@@ -151,8 +106,8 @@ font-size: 15px;
 }
 
 .modal-content {
-  width: 80%;
-  max-height: 80%;
+  width: 50%;
+  max-height: 50%;
   overflow-y: auto; 
   background-color: white;
   padding: 20px;
@@ -171,9 +126,13 @@ font-size: 15px;
   margin: 0px;
 }
 .course-list {
-  margin: 0;
+  
   padding: 0;
-  list-style-type: none;
+  list-style-type: circle;
+}
+
+li{
+  margin: 10px;
 }
 
 .selectCourseButton {

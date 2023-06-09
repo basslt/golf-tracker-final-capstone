@@ -8,9 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @CrossOrigin
@@ -25,35 +28,37 @@ public class CourseController {
     }
 
     @GetMapping("/{courseId}")
-    public ResponseEntity<Course> getCourseById(@PathVariable int courseId) throws ChangeSetPersister.NotFoundException {
+    public Course getCourseById(@PathVariable int courseId) throws ChangeSetPersister.NotFoundException {
         Course course = courseDao.findById(courseId);
-        if (course != null) {
-            return ResponseEntity.ok(course);
+        if (course == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Message not found.");
         } else {
-            return ResponseEntity.notFound().build();
+            return course;
         }
+
+
     }
 
 
-@GetMapping
+    @GetMapping
     public List<Course> getCoursesByFilters(@RequestParam Map<String, String> filters) {
         String name = filters.get("name");
         String state = filters.get("state");
         String city = filters.get("city");
 
-    // Convert filter values to lowercase
-    if (name != null) {
-        name = name.toLowerCase();
-    }
-    if (state != null) {
-        state = state.toLowerCase();
-    }
-    if (city != null) {
-        city = city.toLowerCase();
-    }
+        // Convert filter values to lowercase
+        if (name != null) {
+            name = name.toLowerCase();
+        }
+        if (state != null) {
+            state = state.toLowerCase();
+        }
+        if (city != null) {
+            city = city.toLowerCase();
+        }
 
-    return courseDao.findCoursesByFilters(name, state, city);
-}
+        return courseDao.findCoursesByFilters(name, state, city);
+    }
 
     @GetMapping("/state/{state}")
     public List<Course> getCoursesByState(@PathVariable String state) {
@@ -97,5 +102,11 @@ public class CourseController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    @GetMapping("/coursename/{courseId}")
+    public String getCourseName(@PathVariable("courseId") Integer courseId) {
+        return courseDao.getNameByCourseId(courseId);
     }
 }
