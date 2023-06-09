@@ -16,7 +16,7 @@ public interface MessageDao {
 
     Message saveMessage(Message message);
 
-    void updateMessage(Message message, int messageId);
+    Message updateMessage(Message message, int messageId);
 
     void deleteMessage(int messageId);
 }

@@ -23,7 +23,9 @@ export default new Vuex.Store({
     showCreateForm: false,
     activeLeague: '',
     showInbox: 'Inbox',
-    messageRead: false
+    messageRead: false,
+    sentMessages: [],
+    receivedMessages: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -63,9 +65,27 @@ export default new Vuex.Store({
     SET_SHOW_INBOX_STATUS(state, value) {
       state.showInbox = value;
     },
-    SET_MESSAGE_READ(state, value) {
-      state.messageRead = value;
-    }
+    SET_SENT_MESSAGE_READ(state, data) {
+      const { messageId, readStatus } = data;
+      const message = state.sentMessages.find( (message) => message.messageId === messageId);
+      if (message) {
+        message.messageRead = readStatus;
+      }
+    },
+    SET_RECEIVED_MESSAGE_READ(state, data) {
+      const { messageId, readStatus } = data;
+      const message = state.receivedMessages.find( (message) => message.messageId === messageId);
+      if (message) {
+        message.messageRead = readStatus;
+      }
+    },
+    SET_SENT_MESSAGES(state, data) {
+       state.sentMessages = data;
+    },
+    SET_RECEIVED_MESSAGES(state, data) {
+      state.receivedMessages = data;
+    },
+
   },
   actions: {
     getUserById({ commit }, userId) {

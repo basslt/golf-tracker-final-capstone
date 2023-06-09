@@ -2,7 +2,6 @@
   <div>
       <div id="new-message">
           <div class="container">
-             
           <form @submit.prevent>
               <div class="form"> 
                   <div class="close-button" @click="closeMessage"><i class="fa-solid fa-xmark" style="color: #000000;"></i></div>
@@ -22,11 +21,8 @@
               <div>
                   <button class="submit-button" type="submit" v-on:click="sendMessage()"><span> Send</span></button>
               </div>
-              
           </form>
-          
           </div>
-        
       </div>
   </div>
 </template>
@@ -49,6 +45,7 @@ export default {
                 content: '',
                 leagueId: null,
                 type: 'Message',
+                messageRead: false,
                 timestamp: Date.now()
             }
         }

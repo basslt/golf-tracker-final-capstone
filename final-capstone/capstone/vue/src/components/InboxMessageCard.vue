@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <div class="message-card" :class="this.$store.state.messageRead ? 'read' : 'unread'" @click="handleClick">
+        <div class="message-card" :class="message.messageRead ? 'read' : 'unread'" @click="handleClick">
             <h2>{{this.senderUser.username}}</h2>
             <p>{{message.type}}</p>
         </div>
@@ -28,7 +28,7 @@ export default {
     methods: {
         handleClick() {
             this.$emit('click');
-            this.$store.commit('SET_MESSAGE_READ', true);
+            
         }
     },
     created() {

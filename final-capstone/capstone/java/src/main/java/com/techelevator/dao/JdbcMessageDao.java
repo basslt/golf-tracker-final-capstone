@@ -68,7 +68,7 @@ public class JdbcMessageDao implements MessageDao {
     @Override
     public List<Message> findMessagesBySenderId(int senderId) {
         List<Message> messages = new ArrayList<>();
-        String query = "SELECT * FROM Message WHERE sender_id = ?";
+        String query = "SELECT * FROM Message WHERE sender_id = ? ORDER BY timestamp DESC;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(query, senderId);
             while (results.next()) {
@@ -86,7 +86,7 @@ public class JdbcMessageDao implements MessageDao {
     @Override
     public List<Message> findMessagesByReceiverId(int receiverId) {
         List<Message> messages = new ArrayList<>();
-        String query = "SELECT * FROM Message WHERE receiver_id = ?;";
+        String query = "SELECT * FROM Message WHERE receiver_id = ? ORDER BY timestamp DESC;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(query, receiverId);
             while (results.next()) {
@@ -104,11 +104,11 @@ public class JdbcMessageDao implements MessageDao {
     @Override
     public Message saveMessage(Message message) {
         Message newMessage =null;
-        String query = "INSERT INTO Message (sender_id, receiver_id, league_id, content, type, timestamp) " +
-                "VALUES (?, ?, ?, ?, ?, ?) RETURNING message_id";
+        String query = "INSERT INTO Message (sender_id, receiver_id, league_id, content, type, message_read, timestamp) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING message_id";
         try {
             int newMessageId = jdbcTemplate.queryForObject(query, int.class, message.getSenderId(), message.getReceiverId(),
-                    message.getLeagueId(), message.getContent(), message.getType(), message.getTimestamp());
+                    message.getLeagueId(), message.getContent(), message.getType(), message.getMessageRead(), message.getTimestamp());
             newMessage = findById(newMessageId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new RuntimeException("Unable to connect to server or database", e);
@@ -121,12 +121,18 @@ public class JdbcMessageDao implements MessageDao {
     }
 
     @Override
-    public void updateMessage(Message message, int messageId) {
-        String query = "UPDATE Message SET sender_id = ?, receiver_id = ?, league_id = ?, content = ?, type = ?, timestamp = ? " +
+    public Message updateMessage(Message message, int messageId) {
+        Message updatedMessage = null;
+        String query = "UPDATE Message SET sender_id = ?, receiver_id = ?, league_id = ?, content = ?, type = ?, message_read = ?, timestamp = ? " +
                 "WHERE message_id = ?";
         try {
-            jdbcTemplate.update(query, message.getSenderId(), message.getReceiverId(), message.getLeagueId(),
-                    message.getContent(), message.getType(), message.getTimestamp(), message.getMessageId());
+            int numberOfRows = jdbcTemplate.update(query, message.getSenderId(), message.getReceiverId(), message.getLeagueId(),
+                    message.getContent(), message.getType(), message.getMessageRead(), message.getTimestamp(), message.getMessageId());
+            if (numberOfRows == 0) {
+                throw new RuntimeException("Zero rows affected, expected at least one");
+            } else {
+                updatedMessage = findById(message.getMessageId());
+            }
         } catch (CannotGetJdbcConnectionException e) {
             throw new RuntimeException("Unable to connect to server or database", e);
         } catch (BadSqlGrammarException e) {
@@ -134,6 +140,7 @@ public class JdbcMessageDao implements MessageDao {
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("Data integrity violation", e);
         }
+        return updatedMessage;
     }
 
     @Override
@@ -164,6 +171,7 @@ public class JdbcMessageDao implements MessageDao {
         }
         message.setContent(rowSet.getString("content"));
         message.setType(rowSet.getString("type"));
+        message.setMessageRead(rowSet.getBoolean("message_read"));
         message.setTimestamp(rowSet.getTimestamp("timestamp"));
         return message;
     }

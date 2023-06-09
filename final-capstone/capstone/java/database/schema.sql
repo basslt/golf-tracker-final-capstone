@@ -69,6 +69,7 @@ CREATE TABLE Message (
   content TEXT,
   league_id INTEGER REFERENCES League(league_id),
   type VARCHAR(20),
+  message_read BOOLEAN NOT NULL,
   timestamp TIMESTAMP
 );
 

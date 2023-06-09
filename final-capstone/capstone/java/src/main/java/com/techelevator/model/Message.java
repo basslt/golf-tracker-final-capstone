@@ -9,16 +9,21 @@ public class Message {
     private Integer leagueId;
     private String content;
     private String type;
+    private Boolean messageRead;
     private Timestamp timestamp;
 
-    public Message(int messageId, int senderId, int receiverId, Integer leagueId, String content, String type, Timestamp timestamp) {
+    public Message(int messageId, int senderId, int receiverId, Integer leagueId, String content, String type, Boolean messageRead, Timestamp timestamp) {
         this.messageId = messageId;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.leagueId = leagueId;
         this.content = content;
         this.type = type;
+        this.messageRead = messageRead;
         this.timestamp = timestamp;
+    }
+
+    public Message() {
     }
 
     public Integer getLeagueId() {
@@ -37,8 +42,6 @@ public class Message {
         this.type = type;
     }
 
-    public Message() {
-    }
 
     public int getMessageId() {
         return messageId;
@@ -72,6 +75,14 @@ public class Message {
         this.content = content;
     }
 
+    public Boolean getMessageRead() {
+        return messageRead;
+    }
+
+    public void setMessageRead(Boolean messageRead) {
+        this.messageRead = messageRead;
+    }
+
     public Timestamp getTimestamp() {
         return timestamp;
     }
@@ -89,8 +100,8 @@ public class Message {
                 ", leagueId=" + leagueId +
                 ", content='" + content + '\'' +
                 ", type='" + type + '\'' +
+                ", read=" + messageRead +
                 ", timestamp=" + timestamp +
                 '}';
     }
-
 }

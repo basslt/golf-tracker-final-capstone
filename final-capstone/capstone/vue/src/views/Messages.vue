@@ -7,13 +7,14 @@
       
         <div class="new-message">
             <button class="new-message-button" @click="showNewMessageForm=true"> <i class="fa-regular fa-note-sticky" style="color: #059262;"></i> New Message</button>
-            <new-message-form v-show="showNewMessageForm" @close="showNewMessageForm = false" />
+            <new-message-form v-show="showNewMessageForm" @close="closeNewMessageForm" />
         </div>
         <div class="heading">
           <!-- <h2>Messages</h2> -->
         </div>
         <div class="content">
-            <message-list @message-clicked="showDetails" />
+            <!-- <message-list @message-clicked="showDetails" :receivedMessages="receivedMessages" :sentMessages="sentMessages" /> -->
+            <message-list @sent-message-clicked="showSentDetails" @received-message-clicked="showReceivedDetails" />
             <message-details :message="selectedMessage" v-if="selectedMessage" v-on:close="closeMessage"/>
             <create-league v-if="this.$store.state.showCreateForm"/>
         </div>
@@ -28,6 +29,8 @@ import HamburgerMenu from '../components/HamburgerMenu.vue'
 import NewMessageForm from '../components/NewMessageForm.vue'
 import CreateLeague from '../components/CreateLeague.vue'
 import MessageDetails from'../components/MessageDetails.vue'
+import messageService from '../services/MessageService'
+
 
 export default {
     components: {
@@ -42,11 +45,50 @@ export default {
         showNewMessageForm: false,
         selectedMessage: null,
         selectedInvite: null,
+        updatedMessage: {
+          messageId: null,
+          senderId: null,
+          receiverId: null,
+          leagueId: null,
+          content: '',
+          type: '',
+          messageRead: true,
+          timestamp: null
+        }
       }
     },
     methods: {
-      showDetails(message) {
+      showSentDetails(message) {
         this.selectedMessage = message;
+        this.$store.commit('SET_SENT_MESSAGE_READ', { messageId: message.messageId, readStatus: true })
+        this.updatedMessage.messageId = message.messageId;
+        this.updatedMessage.senderId = message.senderId;
+        this.updatedMessage.receiverId = message.receiverId;
+        this.updatedMessage.leagueId = message.leagueId;
+        this.updatedMessage.content = message.content;
+        this.updatedMessage.type = message.type;
+        this.updatedMessage.timestamp = message.timestamp;
+        messageService.updateMessage(message.messageId, this.updatedMessage).then( (response) => {
+          if (response.status === 200) {
+            console.log('Successfully updated message');
+          }
+        })
+      },
+      showReceivedDetails(message) {
+        this.selectedMessage = message;
+        this.$store.commit('SET_RECEIVED_MESSAGE_READ', { messageId: message.messageId, readStatus: true })
+        this.updatedMessage.messageId = message.messageId;
+        this.updatedMessage.senderId = message.senderId;
+        this.updatedMessage.receiverId = message.receiverId;
+        this.updatedMessage.leagueId = message.leagueId;
+        this.updatedMessage.content = message.content;
+        this.updatedMessage.type = message.type;
+        this.updatedMessage.timestamp = message.timestamp;
+        messageService.updateMessage(message.messageId, this.updatedMessage).then( (response) => {
+          if (response.status === 200) {
+            console.log('Successfully updated message');
+          }
+        })
       },
       showInviteDetails(invite) {
         this.selectedInvite = invite;
@@ -57,39 +99,34 @@ export default {
       closeInvite() {
         this.selectedInvite = null;
       },
-      // handleReceivedMessageDeleted() {
-      //   const user = this.$store.getters.getUser;
-      //   const userId = user.id;
-      //   messageService.getReceivedMessagesByUser(userId).then( (response) => {
-      //     this.receivedMessages = response.data;
-      //       // this.$store.commit('SET_RECEIVED_MESSAGES', response.data);
-      //   });
-      // },
-      // handleSentMessageDeleted() {
-      //   const user = this.$store.getters.getUser;
-      //   const userId = user.id;
-      //   messageService.getSentMessagesByUser(userId).then( (response) => {
-      //     this.sentMessages = response.data;
-      //       // this.$store.commit('SET_SENT_MESSAGES', response.data);
-      //   });
-      // }
+      closeNewMessageForm() {
+          this.showNewMessageForm = false;
+          this.getSentMessages();
+      },
+      getReceivedMessage() {
+          const user = this.$store.getters.getUser;
+          const userId = user.id;
+          messageService.getReceivedMessagesByUser(userId).then( (response) => {
+            this.$store.commit('SET_RECEIVED_MESSAGES', response.data);
+          });
+      },
+      getSentMessages() {
+        const user = this.$store.getters.getUser;
+        const userId = user.id;
+        messageService.getSentMessagesByUser(userId).then( (response) => {
+          console.log(response.data);
+          this.$store.commit('SET_SENT_MESSAGES', response.data);
+        });
+      }
     },
-    // created() {
-    //     const user = this.$store.getters.getUser;
-    //     const userId = user.id;
-    //     messageService.getReceivedMessagesByUser(userId).then( (response) => {
-    //       this.receivedMessages = response.data;
-    //     });
-    //     messageService.getSentMessagesByUser(userId).then( (response) => {
-    //       this.sentMessages = response.data;
-    //     });
-    // }
+    created() {
+        this.getReceivedMessage();
+        this.getSentMessages();
+    }
 }
 </script>
 
 <style scoped>
-
-
 
 .main {
   display: flex;

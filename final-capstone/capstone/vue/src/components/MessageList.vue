@@ -10,13 +10,26 @@
             <div class="message-list">
                 <div class="received-messages" v-if="$store.state.showInbox === 'Inbox'">
                     <h2><span>Received Messages</span> </h2>
+                    <inbox-message-card v-for="message in this.$store.state.receivedMessages" :key="message.id" :message="message" v-on:click="showReceivedMessage(message)" />
+                </div>
+                <div class="sent-messages" v-if="$store.state.showInbox === 'Sent'">
+                    <h2><span>Sent Messages</span></h2>
+                    <div>
+                        <sent-message-card v-for="message in this.$store.state.sentMessages" :key="message.id" :message="message" v-on:click="showSentMessage(message)" />
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="message-list">
+                <div class="received-messages" v-if="$store.state.showInbox === 'Inbox'">
+                    <h2><span>Received Messages</span> </h2>
                     <inbox-message-card v-for="message in receivedMessages" :class="messageRead" :key="message.id" :message="message" v-on:click="showMessage(message)" />
                 </div>
                 <div class="sent-messages" v-if="$store.state.showInbox === 'Sent'">
                     <h2><span>Sent Messages</span></h2>
                     <sent-message-card v-for="message in sentMessages" :key="message.id" :message="message" v-on:click="showMessage(message)" />
                 </div>
-        </div>
+            </div> -->
+
         </div>
     </div>
 </template>
@@ -28,14 +41,24 @@ import InboxMessageCard from '../components/InboxMessageCard.vue'
 
 export default {
     name: "message-list",
+    // props: {
+    //     receivedMessages: {
+    //         type: Array,
+    //         required: true
+    //     },
+    //     sentMessages: {
+    //         type: Array,
+    //         required: true
+    //     }
+    // },
     components: {
         SentMessageCard,
         InboxMessageCard
     },
     data() {
         return {
-            receivedMessages: [],
-            sentMessages: [],
+            // receivedMessages: [],
+            // sentMessages: [],
             currentUserId: '',
             messageRead: false
         }
@@ -49,23 +72,27 @@ export default {
         getCurrentUser() {
             this.currentUser = this.$store.getters.getUser;
         },
-        showMessage(message) {
-            this.$emit('message-clicked', message);
+        showSentMessage(message) {
+            console.log(message);
+            this.$emit('sent-message-clicked', message);
         },
-        getReceivedMessages() {
-            const user = this.$store.getters.getUser;
-            const userId = user.id;
-            messageService.getReceivedMessagesByUser(userId).then( (response) => {
-                this.receivedMessages = response.data;
-            });
+        showReceivedMessage(message) {
+            this.$emit('received-message-clicked', message);
         },
-        getSentMessages() {
-           const user = this.$store.getters.getUser;
-           const userId = user.id;
-           messageService.getSentMessagesByUser(userId).then( (response) => {
-               this.sentMessages = response.data;
-           });
-        },
+        // getReceivedMessages() {
+        //     const user = this.$store.getters.getUser;
+        //     const userId = user.id;
+        //     messageService.getReceivedMessagesByUser(userId).then( (response) => {
+        //         this.receivedMessages = response.data;
+        //     });
+        // },
+        // getSentMessages() {
+        //    const user = this.$store.getters.getUser;
+        //    const userId = user.id;
+        //    messageService.getSentMessagesByUser(userId).then( (response) => {
+        //        this.sentMessages = response.data;
+        //    });
+        // },
         showInbox() {
             this.$store.commit('SET_SHOW_INBOX_STATUS', "Inbox");
         },
@@ -90,6 +117,23 @@ export default {
 
 }
 
+.unread {
+  background-color:  #6AD6B2;
+  border-color: #059262;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 7px;
+}
+
+.read {
+  background-color:  white;
+  border-color: #059262;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 7px;
+}
 
 .message-list{
     width: 100%;
