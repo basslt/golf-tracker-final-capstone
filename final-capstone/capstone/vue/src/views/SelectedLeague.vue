@@ -28,8 +28,7 @@
           </div>
           <div class="column">
             <div class="leaderboard">
-
-              <league-leaderboard v-bind:league-id="leagueId" />
+              <league-leaderboard v-bind:league-id="leagueId"  />
             </div>
           </div>
           <div class="column">
@@ -89,6 +88,9 @@ import UpcomingTeeTimeList from '../components/UpcomingTeeTimeList.vue';
 import UpcomingTeeTimeDetails from '../components/UpcomingTeeTimeDetails.vue';
 import PastTeeTimeList from '../components/PastTeeTimeList.vue';
 import PastTeeTimeDetails from '../components/PastTeeTimeDetails.vue';
+// import userService from '../services/UserService';
+// import leaderboardService from '../services/Leaderboard';
+// import scoreService from '../services/ScoreService';
 
 
 export default {
@@ -112,7 +114,11 @@ export default {
             showTeeTimeCreateForm: false,
             showLeagueInviteForm: false,
             selectedUpcomingTeeTime: null,
-            selectedPastTeeTime: null
+            selectedPastTeeTime: null,
+            // leagueMembers: [],
+            // memberScores: [],
+            // memberNameScores: [],
+            // latestMemberScore: []
         }
     },
     methods: {
@@ -127,15 +133,75 @@ export default {
       },
       closePastDetails() {
         this.selectedPastTeeTime = null;
-      }
+        this.getLeagueMembers();
+        this.getOrderedLeaderboard(); 
+      },
+
+      // getLeagueMembers() {
+      //     userService.findUsersInLeague(this.leagueId).then( (response) => {
+      //       console.log(response.data)
+      //         this.leagueMembers = response.data;
+      //         this.getLatestScore(); 
+      //     })
+      //     .catch(error => {
+      //         console.log(error);
+      //     });
+      // },
+      // getOrderedLeaderboard() {
+      //     leaderboardService.getOrderedLeaderboard(this.leagueId).then( (response) => {
+      //       console.log(response.data);
+      //       this.memberScores = response.data;
+      //     }).catch(error => {
+      //        console.log(error);
+      //     });
+      // },
+
+      // combineUsersScores() {
+      //   if (this.leagueMembers.length > 0 && this.memberScores.length > 0) {
+      //   this.memberNameScores = this.memberScores.map( (score) => {
+      //     const member = this.leagueMembers.find(member => member.id === score.userId);
+      //     return {
+      //       username: member.username,
+      //       totalScore: score.totalScore,
+      //       latestScore: this.latestMemberScore.find( 
+      //         latestScore => latestScore.playerId === score.userId
+      //       ).score
+      //     };
+      //   });
+      //   console.log(this.memberNameScores);
+      //   }
+      // },
+      // getLatestScore() {
+      //   const requests = this.leagueMembers.map(member => {
+      //     return scoreService.getLatestPlayerScore(this.leagueId, member.id)
+      //     .then(response => response.data)
+      //     .catch(error => {
+      //       console.log(error);
+      //       return null;
+      //     });
+      //   });
+
+      //   Promise.all(requests).then(scores => {
+      //     this.latestMemberScore = scores.filter(score => score !== null);
+      //     this.combineUsersScores();
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   })
+      // }
+
+
     },
     created() {
         this.leagueId = parseInt(this.$route.params.id);
+        // this.getLeagueMembers();
+        // this.getOrderedLeaderboard();    
     }
 }
 </script>
 
 <style scoped>
+
 .content {
   display: flex;
   flex-direction: column;

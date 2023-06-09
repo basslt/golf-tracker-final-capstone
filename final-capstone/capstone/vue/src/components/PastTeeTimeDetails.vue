@@ -11,15 +11,11 @@
             <h4>Enter Scores</h4>
             <div v-for="player in roundPlayers" :key="player.id">
                 <label for="score">{{player.username}}: </label>
-                <input type="number" id="score" v-model="player.score" :placeholder="player.username" />
+                <input type="number" id="score" v-model="player.score" />
             </div>
-            <!-- <li v-for="score in scores" :key="score.id">{{ score }}
-                <p>{{ score.playerName }}: {{ score.score }}</p>
-            </li> -->
             <button @click="submitScores">Submit</button>
       </div>
       <span class="close-button" @click="closeDetails"> <i class="fa-solid fa-xmark" style="color: #000000;"></i></span> 
-        <!-- <button @click="closeDetails">Close</button> -->
       </div>
   </div>
 </template>
@@ -46,8 +42,8 @@ export default {
             courseName: null,
             scores: [],
             playerScores: [],
-            isEditable: false
-
+            isEditable: false,
+            players: []
         }
     },
     methods: {
@@ -87,7 +83,24 @@ export default {
                 playerId: player.id,
                 score: player.score
             }));
-            this.$emit('submit-scores', scoresData);
+            const scoresToSend = scoresData.map( score => ({
+                    ...score,
+                    matchId: this.teeTime.teeTimeId
+            }));
+            const promises = scoresToSend.map( object => 
+                scoreService.createScore(object)
+            );
+            return Promise.all(promises).then(responses => {
+                responses.forEach(response => {
+                    if (response.status === 201) {
+                            console.log("successfully added score");
+                        }
+                });
+                })
+                .catch( error=> {
+                        console.log(error);
+                });
+            
         },
         closeDetails() {
             this.$emit('close');
@@ -99,7 +112,6 @@ export default {
             const time = date.toLocaleString('default', { hour: 'numeric', minute: 'numeric' });
             return `${month}/${day} ${time}`;
         },
-
     },
     created() {
         this.getAllRoundPlayers();

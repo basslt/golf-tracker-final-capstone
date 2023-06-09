@@ -38,7 +38,11 @@ export default {
     leagueId: {
       type: Number,
       required: true
-    }
+    },
+    // memberNameScores: {
+    //   type: Array,
+    //   required: true
+    // }
   },
   data() {
     return {
@@ -123,7 +127,7 @@ export default {
 .table-container {
    display: flex;
     width: 100%;
-    height: 600px;
+    height: 400px;
     justify-content: flex-start;
     align-items: flex-start;
 

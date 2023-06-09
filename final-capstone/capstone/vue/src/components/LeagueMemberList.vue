@@ -17,7 +17,7 @@
                 <tbody class="list">
                     <tr v-for="member in leagueMembers" v-bind:key="member.id">
                         <td>{{member.username}}</td>
-                        <!-- <td><i class="fa-solid fa-message" style="color: #00000;" @click="openMessageForm(member.id)"></i></td> -->
+                        <!-- <td class="message"><i class="fa-solid fa-message" style="color: #00000;" @click="openMessageForm(member.id)"></i></td> -->
                     </tr>
                 </tbody>
             </table>

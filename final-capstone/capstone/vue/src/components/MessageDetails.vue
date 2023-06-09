@@ -4,7 +4,7 @@
       <span class="close-button" @click="closeMessage"> <i class="fa-solid fa-xmark" style="color: #000000;"></i></span> 
       <h4>From: {{senderUser.username}}</h4>
       <h4>To: {{toUser.username}}</h4>
-      <h4>{{message.timestamp}}</h4>
+      <h4>{{formatDateTime(message.timestamp)}}</h4>
       <h3>Message </h3>
       <p>{{message.content}}</p>
       <div class="buttons">
@@ -87,7 +87,14 @@ export default {
             });
         }
 
-    }
+    },
+           formatDateTime(timestamp) {
+            const date = new Date(timestamp);
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const time = date.toLocaleString('default', { hour: 'numeric', minute: 'numeric' });
+            return `${month}/${day} ${time}`;
+        },
   },
   created() {
       userService.getUserById(this.message.senderId).then( (response) => {
