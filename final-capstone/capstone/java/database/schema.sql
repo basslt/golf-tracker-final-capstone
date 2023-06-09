@@ -164,3 +164,146 @@ COMMIT TRANSACTION;
 --FROM users
 --JOIN LeagueMembership USING (user_id)
 --WHERE LeagueMembership.league_id = 1;
+--
+--
+--
+--
+--SELECT * FROM users;
+--
+--SELECT * FROM LeagueMembership WHERE league_id = 1;
+--
+--SELECT * FROM LeagueMembership WHERE user_id = 1;
+--
+--
+--INSERT INTO Course (name, address, city, state, zipcode, latitude, longitude) VALUES ('Club', 'gh', 'a', 'a', 'b', 2.5, 3.5);
+--INSERT INTO Course (name, address, city, state, zipcode, latitude, longitude) VALUES ('Yeah', 'gh', 'a', 'a', 'b', 2.5, 3.5);
+--
+--INSERT INTO Course (name, address, city, state, zipcode, latitude, longitude) VALUES ('Fun Course', '1160 Street', 'Raleigh', 'NC', '27614', 2.5, 3.5);
+--INSERT INTO Course (name, address, city, state, zipcode, latitude, longitude) VALUES ('Hey Course', '222 blvd', 'Raleigh', 'NC', '27614', 2.5, 3.5);
+--INSERT INTO Course (name, address, city, state, zipcode, latitude, longitude) VALUES ('Ahhhhh', '999 Ave', 'Raleigh', 'NC', '27614', 2.5, 3.5);
+--
+--INSERT INTO TeeTime (match_name, course_id, time, organizer_id, league_id) VALUES ('Fun', 1, NOW(), 1, 1);
+--
+--INSERT INTO TeeTime (match_name, course_id, time, organizer_id, league_id) VALUES ('Yeah', 1, NOW(), 1, 1);
+--INSERT INTO TeeTime (match_name, course_id, time, organizer_id, league_id) VALUES ('Whoops', 1, NOW(), 1, 1);
+--INSERT INTO TeeTime (match_name, course_id, time, organizer_id, league_id) VALUES ('aa', 1, NOW(), 1, 1);
+--INSERT INTO TeeTime (match_name, course_id, time, organizer_id, league_id) VALUES ('bb', 1, NOW(), 1, 1);
+--INSERT INTO TeeTime (match_name, course_id, time, organizer_id, league_id) VALUES ('cc', 1, NOW(), 1, 1);
+--
+--INSERT INTO TeeTime (match_name, course_id, time, organizer_id, league_id) VALUES ('xx', 1, NOW(), 1, 2);
+--
+--
+--SELECT * FROM TeeTime;
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (7, 1, 100);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (1, 1, 78);
+--INSERT INTO Score (match_id, player_id, score) VALUES (1, 2, 75);
+--INSERT INTO Score (match_id, player_id, score) VALUES (1, 3, 82);
+--INSERT INTO Score (match_id, player_id, score) VALUES (1, 4, 85);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (2, 5, 83);
+--INSERT INTO Score (match_id, player_id, score) VALUES (2, 6, 90);
+--INSERT INTO Score (match_id, player_id, score) VALUES (2, 3, 79);
+--INSERT INTO Score (match_id, player_id, score) VALUES (2, 4, 81);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (3, 1, 67);
+--INSERT INTO Score (match_id, player_id, score) VALUES (3, 2, 89);
+--INSERT INTO Score (match_id, player_id, score) VALUES (3, 5, 75);
+--INSERT INTO Score (match_id, player_id, score) VALUES (3, 6, 85);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (4, 1, 86);
+--INSERT INTO Score (match_id, player_id, score) VALUES (4, 2, 95);
+--INSERT INTO Score (match_id, player_id, score) VALUES (4, 3, 80);
+--INSERT INTO Score (match_id, player_id, score) VALUES (4, 4, 82);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (5, 5, 87);
+--INSERT INTO Score (match_id, player_id, score) VALUES (5, 6, 77);
+--INSERT INTO Score (match_id, player_id, score) VALUES (5, 3, 88);
+--INSERT INTO Score (match_id, player_id, score) VALUES (5, 4, 90);
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (6, 5, 79);
+--INSERT INTO Score (match_id, player_id, score) VALUES (6, 1, 82);
+--INSERT INTO Score (match_id, player_id, score) VALUES (6, 3, 86);
+--INSERT INTO Score (match_id, player_id, score) VALUES (6, 4, 76);
+--
+--SELECT * FROM Score WHERE player_id = 1;
+--
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 1, 78);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 2, 75);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 3, 82);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 4, 85);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 5, 83);
+--INSERT INTO Leaderboard (league_id, user_id, total_score) VALUES (1, 6, 90);
+--
+--UPDATE Leaderboard SET total_score = total_score + 79 WHERE user_id = 3;
+--UPDATE Leaderboard SET total_score = total_score + 81 WHERE user_id = 4;
+--UPDATE Leaderboard SET total_score = total_score + 67 WHERE user_id = 1;
+--UPDATE Leaderboard SET total_score = total_score + 89 WHERE user_id = 2;
+--UPDATE Leaderboard SET total_score = total_score + 75 WHERE user_id = 5;
+--UPDATE Leaderboard SET total_score = total_score + 85 WHERE user_id = 6;
+--UPDATE Leaderboard SET total_score = total_score + 86 WHERE user_id = 1;
+--UPDATE Leaderboard SET total_score = total_score + 95 WHERE user_id = 2;
+--UPDATE Leaderboard SET total_score = total_score + 80 WHERE user_id = 3;
+--UPDATE Leaderboard SET total_score = total_score + 82 WHERE user_id = 4;
+--UPDATE Leaderboard SET total_score = total_score + 87 WHERE user_id = 5;
+--UPDATE Leaderboard SET total_score = total_score + 77 WHERE user_id = 6;
+--UPDATE Leaderboard SET total_score = total_score + 88 WHERE user_id = 3;
+--UPDATE Leaderboard SET total_score = total_score + 90 WHERE user_id = 4;
+--UPDATE Leaderboard SET total_score = total_score + 79 WHERE user_id = 5;
+--UPDATE Leaderboard SET total_score = total_score + 82 WHERE user_id = 1;
+--UPDATE Leaderboard SET total_score = total_score + 86 WHERE user_id = 3;
+--UPDATE Leaderboard SET total_score = total_score + 76 WHERE user_id = 4;
+--
+--SELECT * FROM Leaderboard ORDER BY total_score;
+--
+--SELECT user_id, username, password_hash, role
+--FROM users
+--JOIN LeagueMembership USING (user_id)
+--WHERE LeagueMembership.league_id = 1;
+--
+--
+--SELECT score_id, match_id, player_id, score FROM Score
+--JOIN TeeTime ON Score.match_id = TeeTime.tee_time_id
+--WHERE score.player_id = 1 AND TeeTime.league_id = 1
+--ORDER BY TeeTime.time DESC
+--LIMIT 1;
+--
+--SELECT * FROM Score
+--JOIN TeeTime ON Score.match_id = TeeTime.tee_time_id
+--WHERE score.player_id = 1 AND TeeTime.league_id = 1
+--ORDER BY TeeTime.time DESC;
+--
+--SELECT * FROM Score WHERE match_id = 1;
+--
+--SELECT * FROM Message;
+--
+--SELECT * FROM Message WHERE sender_id = 1 ORDER BY timestamp DESC;
+--
+--DELETE FROM Message WHERE message_id = 1;
+--
+--SELECT * FROM TeeTime WHERE league_id = 1 AND time > NOW();
+--SELECT * FROM Course;
+--
+--SELECT * FROM TeeTime WHERE tee_time_id = 1;
+--
+--SELECT * FROM Score;
+--
+--SELECT * FROM MatchPlayer;
+--
+--SELECT * FROM TeeTime;
+--
+--INSERT INTO Score (match_id, player_id, score) VALUES (18, 2, 85);
+--INSERT INTO Score (match_id, player_id, score) VALUES (18, 3, 74);
+--INSERT INTO Score (match_id, player_id, score) VALUES (18, 4, 90);
+--INSERT INTO Score (match_id, player_id, score) VALUES (18, 5, 100);
+--INSERT INTO Score (match_id, player_id, score) VALUES (18, 6, 40);
+--
+--SELECT * FROM MatchPlayer
+--JOIN TeeTime ON MatchPlayer.match_id
+--
+--SELECT * FROM users
+--JOIN MatchPlayer ON MatchPlayer.player_id = users.user_id
+--WHERE MatchPlayer.match_id = 17;
+--
+--SELECT * FROM users;

@@ -34,6 +34,7 @@ export default {
         getUpcomingTeeTimes() {
             teeTimeService.getUpcomingTeeTimesByLeague(this.leagueId).then( (response) => {
                 if (response.status === 200) {
+                    console.log(response.status);
                     this.upcomingTeeTimes = response.data;
                 }
             });
@@ -45,7 +46,15 @@ export default {
     },
     created() {
         this.getUpcomingTeeTimes();
+    },
+    watch: {
+    leagueId: {
+      immediate: true,
+      handler() {
+        this.getUpcomingTeeTimes();
+      }
     }
+  }
 }
 </script>
 
