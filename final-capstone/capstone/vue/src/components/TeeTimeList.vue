@@ -95,15 +95,13 @@ export default {
     };
   },
   methods: {
-        formatDateTime(timestamp) {
-      const date = new Date(timestamp);
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const day = date.getDate().toString().padStart(2, '0');
-      const time = date.toLocaleString('default', { hour: 'numeric', minute: 'numeric' });
-    
-
-      return `${month}/${day} ${time}`;
-    },
+      formatDateTime(timestamp) {
+        const date = new Date(timestamp);
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const time = date.toLocaleString('default', { hour: 'numeric', minute: 'numeric' });
+        return `${month}/${day} ${time}`;
+      },
     formatTeeTime(teeTime) {
       teeTime.time = this.formatDateTime(teeTime.time);
     },
@@ -395,10 +393,9 @@ box-shadow: 10px 5px 10px lightgray;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
- margin: 20px;
- 
-  
+  margin: 20px;
 }
+
 .tee-time-card{
   
    display: flex;

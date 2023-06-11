@@ -4,7 +4,7 @@
     
     <div class="course-carousel">
         <div class="inner" >
-            <h2 class="header">Top Courses</h2>
+            <h2 class="header">Highlighted Courses</h2>
                 <div class="course" v-for="course in courses" :key="course.id">
                         
                         <course-card  :course="course" />

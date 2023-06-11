@@ -54,6 +54,11 @@ public class UserController {
         return userDao.findUsersInLeague(leagueId);
     }
 
+    @GetMapping("/matches/{matchId}")
+    public List<User> findUsersInMatch(@PathVariable("matchId") int matchId) {
+        return userDao.findUsersInMatch(matchId);
+    }
+
     @GetMapping("/username")
     public List<String> getAllUsernames() {
         return userDao.getAllUsernames();

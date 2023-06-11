@@ -11,6 +11,10 @@ import java.util.List;
 public interface TeeTimeDao {
     TeeTime findById(int teeTimeId);
 
+    List<TeeTime> getUpcomingTeeTimesByLeague(int leagueId);
+
+    List<TeeTime> getPastTeeTimeByLeague(int leagueId);
+
     List<TeeTime> findAll();
 
     TeeTime save(TeeTime teeTime);

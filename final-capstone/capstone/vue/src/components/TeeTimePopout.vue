@@ -18,8 +18,8 @@
         <button @click="submitScores">Submit</button>
       </div>
       <div v-else>
-        <button @click="close">Close</button>
       </div>
+        <button @click="close">Close</button>
     </div>
   </div>
 </template>

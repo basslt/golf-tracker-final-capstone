@@ -50,10 +50,10 @@ export default {
 
 
 .background{
- background-image: url('../assets/backgroundgolfer.png');
+  background-image: url('../assets/backgroundgolfer.png');
+ 
 }
 .main {
-  
   
   height: 830px;
   display: flex;

@@ -4,27 +4,32 @@
       <hamburger-menu />
     </header>
     <div class="main">
-     
-
       <main class="content">
         <div class="grid-container">
           <div class="column">
             <div class="left-content">
               <create-league v-if="this.$store.state.showCreateForm" />
-              <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
-               <TeeTimeCard :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" />
-              <tee-time-card />
+
+                <tee-time-list :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" v-show="this.leagueId===1" />
+                <TeeTimeCard :teeTime="teeTime" :teeTimePlayers="teeTimePlayers" :matchName="matchName" v-show="this.leagueId===1"/>
+                <tee-time-card />
+
+              <div v-if="this.leagueId!==1">
+                <past-tee-time-list v-bind:league-id="leagueId" @past-tee-time-click="showPastDetails"/>
+                <past-tee-time-details v-if="selectedPastTeeTime" :teeTime="selectedPastTeeTime" @close="closePastDetails" />
+                <upcoming-tee-time-list v-bind:league-id="leagueId" @upcoming-tee-time-click="showUpcomingDetails"/>
+                <upcoming-tee-time-details v-if="selectedUpcomingTeeTime" :teeTime="selectedUpcomingTeeTime" @close="closeUpcomingDetails"/>
+              </div>
               <div class="buttons">
                 <button class="new-tee-time-button" @click="showTeeTimeCreateForm=true">Schedule Tee Time <i class="fa-solid fa-calendar-plus" style="color: #059262;"></i></button>
                 <tee-time-form v-if="showTeeTimeCreateForm" v-bind:league-id="leagueId" @close="showTeeTimeCreateForm=false" />
-                
               </div>
+
             </div>
           </div>
           <div class="column">
             <div class="leaderboard">
-
-              <league-leaderboard v-bind:league-id="leagueId" />
+              <league-leaderboard v-bind:league-id="leagueId"  />
             </div>
           </div>
           <div class="column">
@@ -80,6 +85,15 @@ import TeeTimeForm from '../components/TeeTimeForm.vue'
 import TeeTimeList from '../components/TeeTimeList.vue'
 import TeeTimeCard from '../components/TeeTimeCard.vue'
 import LeagueMemberList from '../components/LeagueMemberList.vue'
+import leagueService from '../services/LeagueService'
+import UpcomingTeeTimeList from '../components/UpcomingTeeTimeList.vue';
+import UpcomingTeeTimeDetails from '../components/UpcomingTeeTimeDetails.vue';
+import PastTeeTimeList from '../components/PastTeeTimeList.vue';
+import PastTeeTimeDetails from '../components/PastTeeTimeDetails.vue';
+// import userService from '../services/UserService';
+// import leaderboardService from '../services/Leaderboard';
+// import scoreService from '../services/ScoreService';
+
 
 export default {
     components: {
@@ -90,27 +104,119 @@ export default {
         TeeTimeForm,
         TeeTimeList,
         TeeTimeCard,
-        LeagueMemberList
+        LeagueMemberList,
+        UpcomingTeeTimeList,
+        UpcomingTeeTimeDetails,
+        PastTeeTimeList,
+        PastTeeTimeDetails
     },
     data() {
         return {
             leagueId: null,
             showTeeTimeCreateForm: false,
             showLeagueInviteForm: false,
+            selectedUpcomingTeeTime: null,
+            selectedPastTeeTime: null,
+            // leagueMembers: [],
+            // memberScores: [],
+            // memberNameScores: [],
+            // latestMemberScore: []
+            league: null
         }
+    },
+    methods: {
+      showUpcomingDetails(teeTime) {
+        this.selectedUpcomingTeeTime = teeTime;
+      },
+      closeUpcomingDetails() {
+        this.selectedUpcomingTeeTime = null;
+      },
+      showPastDetails(teeTime) {
+        this.selectedPastTeeTime = teeTime;
+      },
+      getLeagueInfo() {
+        leagueService.getLeagueById(this.leagueId).then(response => {
+          this.league = response.data;
+        })
+      },
+      closePastDetails() {
+        this.selectedPastTeeTime = null;
+        this.getLeagueMembers();
+        this.getOrderedLeaderboard(); 
+      },
+
+      // getLeagueMembers() {
+      //     userService.findUsersInLeague(this.leagueId).then( (response) => {
+      //       console.log(response.data)
+      //         this.leagueMembers = response.data;
+      //         this.getLatestScore(); 
+      //     })
+      //     .catch(error => {
+      //         console.log(error);
+      //     });
+      // },
+      // getOrderedLeaderboard() {
+      //     leaderboardService.getOrderedLeaderboard(this.leagueId).then( (response) => {
+      //       console.log(response.data);
+      //       this.memberScores = response.data;
+      //     }).catch(error => {
+      //        console.log(error);
+      //     });
+      // },
+
+      // combineUsersScores() {
+      //   if (this.leagueMembers.length > 0 && this.memberScores.length > 0) {
+      //   this.memberNameScores = this.memberScores.map( (score) => {
+      //     const member = this.leagueMembers.find(member => member.id === score.userId);
+      //     return {
+      //       username: member.username,
+      //       totalScore: score.totalScore,
+      //       latestScore: this.latestMemberScore.find( 
+      //         latestScore => latestScore.playerId === score.userId
+      //       ).score
+      //     };
+      //   });
+      //   console.log(this.memberNameScores);
+      //   }
+      // },
+      // getLatestScore() {
+      //   const requests = this.leagueMembers.map(member => {
+      //     return scoreService.getLatestPlayerScore(this.leagueId, member.id)
+      //     .then(response => response.data)
+      //     .catch(error => {
+      //       console.log(error);
+      //       return null;
+      //     });
+      //   });
+
+      //   Promise.all(requests).then(scores => {
+      //     this.latestMemberScore = scores.filter(score => score !== null);
+      //     this.combineUsersScores();
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   })
+      // }
+
+
     },
     created() {
         this.leagueId = parseInt(this.$route.params.id);
-    }
+        this.getLeagueInfo();
+        // this.getLeagueMembers();
+        // this.getOrderedLeaderboard();    
+    },
 }
 </script>
 
 <style scoped>
+
+
 .content {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: lightgray;
+  background-color: lightgray;
   
 }
 
@@ -125,7 +231,9 @@ export default {
   background-color: lightgray;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .leaderboard {
